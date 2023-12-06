@@ -129,7 +129,10 @@ define('ewards_URL', plugins_url('/', __FILE__));
         wp_localize_script( 'ewards_scripts', 'appLocalizer', [
         'apiUrl' => home_url( '/wp-json' ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
-    ] );
+        ] );
+        wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
+            "PRDOUCTION_URL" => "https://011b-106-51-179-113.ngrok-free.app"
+        ));
     }
  }
  
