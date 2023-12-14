@@ -35,6 +35,33 @@ const registerForm = (props) => {
    
     }, [formData]);
 
+    const [errors, setErrors] = useState({
+      storeUrl:"",
+      merchantId:"",
+    });
+
+    const validateForm = () => {
+      let isValid = true;
+      const newErrors = { ...errors };
+  
+      if (!formData.storeUrl.trim()) {
+        isValid = false;
+        newErrors.storeUrl = 'Store URL Required';
+      } else {
+        newErrors.storeUrl = '';
+      }
+  
+      if (!formData.merchantId.trim()) {
+        isValid = false;
+        newErrors.merchantId = 'Merchant Id Required';
+      } 
+  
+      setErrors(newErrors);
+      return isValid;
+    };
+  
+
+    
   const handleSubmit = async (event) => {
     const data = {
       merchant_id :formData.merchantId,
@@ -52,36 +79,40 @@ const registerForm = (props) => {
     
     const res = axios.post(`${baseUrl}/api/ewards_merchants/verify`, data)
     .then(function (response) {
-     console.log("response")
      localStorage.setItem('formData', JSON.stringify(formData));
      props.loadMainPage(true);
     })
     .catch(function (error) {
-      console.log("not verified")
-      debugger;
-      event.preventDefault();
-      const endpoint = "/wc-auth/v1/authorize";
-      const params  = {
-        app_name: 'eWards',
-        scope: 'read_write',
-        user_id: formData.storeUrl,
-        return_url: `${baseUrl}/api/woo_commerce/auth_return?store_url=${formData.storeUrl}`,
-        callback_url: `${baseUrl}/api/woo_commerce/auth_callback`,
-      };
-      localStorage.setItem('formData', JSON.stringify(formData));
-      const srt  = new URLSearchParams(params).toString();
-      window.location.href =  formData.storeUrl + endpoint + '?' + srt;
+      
+      if (validateForm()) {
+        // Perform the form submission or API call
+        event.preventDefault();
+        const endpoint = "/wc-auth/v1/authorize";
+        const params  = {
+          app_name: 'eWards',
+          scope: 'read_write',
+          user_id: formData.storeUrl,
+          return_url: `${baseUrl}/api/woo_commerce/auth_return?store_url=${formData.storeUrl}`,
+          callback_url: `${baseUrl}/api/woo_commerce/auth_callback`,
+        };
+        localStorage.setItem('formData', JSON.stringify(formData));
+        const srt  = new URLSearchParams(params).toString();
+        window.location.href =  formData.storeUrl + endpoint + '?' + srt;
+      } else {
+        console.log('Form is invalid. Please correct errors.');
+      }
+      
     });
     
     
   }
 
   useEffect(() =>{
-    setErrorMerchantId("")
+    setErrors("")
    },[formData.merchantId]);
 
    useEffect(() =>{
-    setErrorStoreUrl("")
+    setErrors("")
    },[formData.storeUrl]);
 
   return (
@@ -95,23 +126,23 @@ const registerForm = (props) => {
             <div className="shadow p-4 bg-body rounded">
             <div className="pb-2">
                 <label className="form-label">Merchant Id</label>
-                <input type="text" className="form-control"  value={formData.merchantId} placeholder="Please enter Merchant Id"  onChange={handleMerchantId} required/>
-                <div className= {errorMerchantId ? 'invalid-feedback d-block': 'invalid-feedback'} >{errorMerchantId}</div>
+                <input type="text" className="form-control"  value={formData.merchantId} placeholder="Please Enter Merchant Id"  onChange={handleMerchantId} required/>
+                <div className= {errors.merchantId ? 'invalid-feedback d-block': 'invalid-feedback'} >{errors.merchantId}</div>
               </div>
             
-              <div className="pb-2">
-                <label className="form-label font-weight-bold">Store url</label>
+              <div className="pb-2 mb-4">
+                <label className="form-label font-weight-bold">Store URL</label>
                 <input type="text"
                 name="storeUrl"
                 className="form-control" 
                 value= {formData.storeUrl} 
-                placeholder="Please enter store url" 
+                placeholder="Please Enter Store URL" 
                 onChange={handleStoreUrl} 
                 required
                 />
-                <div className= {errorStoreUrl ? 'invalid-feedback d-block': 'invalid-feedback'} >{errorStoreUrl}</div>
+                <div className= {errors.storeUrl ? 'invalid-feedback d-block': 'invalid-feedback'} >{errors.storeUrl}</div>
               </div>
-              <div className="text-center">
+              <div className="text-center ">
                 <button type="submit" onClick={e => handleSubmit(e)} className="btn btn-primary">Submit</button>
               </div>
             </div>

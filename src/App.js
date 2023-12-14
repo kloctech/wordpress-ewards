@@ -15,7 +15,6 @@ function App() {
         setFormData(localStorage.getItem('formData'));
         setLoadMainPage(formData);
     });
-   console.log("loadMainPage =>",loadMainPage);
     
     return(
         <React.Fragment>        
