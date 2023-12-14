@@ -2,7 +2,8 @@ import React, { useEffect, useState,useCallback } from "react";
 import { useHistory  } from "react-router-dom";
 import axios from 'axios';
 
-const registerForm = () => {
+const registerForm = (props) => {
+  console.log(props);
   const centerContainer = {
     position: "fixed",
     top: "50%",
@@ -49,32 +50,29 @@ const registerForm = () => {
         }
       };
     
-    const res = axios.post(`${baseUrl}/api/ewards_merchants`, data)
+    const res = axios.post(`${baseUrl}/api/ewards_merchants/verify`, data)
     .then(function (response) {
-      event.preventDefault();
-          const endpoint = "/wc-auth/v1/authorize";
-          const params  = {
-            app_name: 'eWards',
-            scope: 'read_write',
-            user_id: formData.storeUrl,
-            return_url: `${baseUrl}/api/woo_commerce/auth_return?store_url=${formData.storeUrl}`,
-            callback_url: `${baseUrl}/api/woo_commerce/auth_callback`,
-          };
-          localStorage.setItem('formData', formData);
-          const srt  = new URLSearchParams(params).toString();
-        window.location.href =  formData.storeUrl + endpoint + '?' + srt;
+     console.log("response")
+     localStorage.setItem('formData', JSON.stringify(formData));
+     props.loadMainPage(true);
     })
     .catch(function (error) {
-      
-      if(error.response.data.errors.merchant_id) {
-        setErrorMerchantId("Merchant Id is alraedy Present");
-      }
-      if(error.response.data.errors.store_url) {
-        setErrorStoreUrl("Store Url already present")
-      }
-    
-        return error.response;
+      console.log("not verified")
+      debugger;
+      event.preventDefault();
+      const endpoint = "/wc-auth/v1/authorize";
+      const params  = {
+        app_name: 'eWards',
+        scope: 'read_write',
+        user_id: formData.storeUrl,
+        return_url: `${baseUrl}/api/woo_commerce/auth_return?store_url=${formData.storeUrl}`,
+        callback_url: `${baseUrl}/api/woo_commerce/auth_callback`,
+      };
+      localStorage.setItem('formData', JSON.stringify(formData));
+      const srt  = new URLSearchParams(params).toString();
+      window.location.href =  formData.storeUrl + endpoint + '?' + srt;
     });
+    
     
   }
 
@@ -97,7 +95,7 @@ const registerForm = () => {
             <div className="shadow p-4 bg-body rounded">
             <div className="pb-2">
                 <label className="form-label">Merchant Id</label>
-                <input type="text" className="form-control"  value={formData.merchantId} placeholder="Please enter Merchant Id"  onChange={handleMerchantId} />
+                <input type="text" className="form-control"  value={formData.merchantId} placeholder="Please enter Merchant Id"  onChange={handleMerchantId} required/>
                 <div className= {errorMerchantId ? 'invalid-feedback d-block': 'invalid-feedback'} >{errorMerchantId}</div>
               </div>
             

@@ -9,15 +9,17 @@ function App() {
         merchantId:"",
       });
       const [formData, setFormData] = useState(initialFormData);
+      const[loadMainPage, setLoadMainPage] = useState(false);
     
     useEffect(() => {
         setFormData(localStorage.getItem('formData'));
+        setLoadMainPage(formData);
     });
-   
+   console.log("loadMainPage =>",loadMainPage);
     
     return(
         <React.Fragment>        
-            {formData ? <MainPage></MainPage>:<RegisterForm />}                               
+            {loadMainPage ? <MainPage></MainPage>:<RegisterForm loadMainPage={setLoadMainPage}/>}                               
         </React.Fragment>
     )
 }
