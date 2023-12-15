@@ -3,10 +3,13 @@ import axios from 'axios';
 
 
 const Help = () => {
+    const headingColor = {
+        color: "#41225d",
+    }
     return(
         <React.Fragment>
-           <div className='container'>
-                <h4 className='text-center p-4'>Help</h4>
+           <div className='container px-5'>
+                <h4 className='text-center p-4' style={headingColor}>Help</h4>
                 <div className="accordion" id="accordionFlushExample">
                     <div className="accordion-item">
                         <h2 className="accordion-header" id="flush-headingOne">

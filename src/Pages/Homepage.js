@@ -3,10 +3,13 @@ import axios from 'axios';
 
 
 const Homepage = () => {
+    const headingColor = {
+        color: "#41225d",
+    }
     return(
         <React.Fragment>
-            <h4 className='text-center p-4'>eWards</h4>
-            <div className='container'>
+            <h4 className='text-center p-4' style={headingColor}>eWards</h4>
+            <div className='container px-5'>
                 <p className="text-start">eWards is an Integrated platform for customer retention and marketing automation.
                                 We engage the audience through our immersive multi-channel strategies.
                                 From customer insights to marketing orchestration, we provide our customers with everything

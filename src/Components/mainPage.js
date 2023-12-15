@@ -6,6 +6,24 @@ import EwardsConfigForm from './ewardsConfigForm';
 import { Link } from 'react-router-dom';
 
 const mainPage = () => {
+    const [clickedButton, setClickedButton] = useState("button1");
+
+  const handleButtonClick = (buttonColor) => {
+    setClickedButton(buttonColor);
+  };
+
+  const textFont = {
+    fontWeight: "600",
+  };
+
+  const getButtonStyles = (buttonColor) => {
+    return {
+      backgroundColor: clickedButton === buttonColor ? "transparent" : "transparent",
+      color: clickedButton === buttonColor ? "#dd9933" : "black",
+      margin: "0",
+    };
+  };
+  
     return(
         <React.Fragment>
             <div>
@@ -29,10 +47,16 @@ const mainPage = () => {
                     </div>
                 </nav>
                 <div className="d-flex align-items-start">
-                    <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <button className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-                        <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">eWardsConfiguration</button>
-                        <button className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Help</button>
+                    <div style={textFont} className="nav flex-column nav-pills me-3 align-items-start" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button  style={getButtonStyles("button1")}
+                            onClick={() => handleButtonClick("button1")} 
+                            className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+                        <button style={getButtonStyles("button2")}
+                            onClick={() => handleButtonClick("button2")}
+                            className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">eWardsConfiguration</button>
+                        <button style={getButtonStyles("button3")}
+                            onClick={() => handleButtonClick("button3")}
+                            className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Help</button>
                     </div>
                     <div className="tab-content w-100 border-start" id="v-pills-tabContent">
                         <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
