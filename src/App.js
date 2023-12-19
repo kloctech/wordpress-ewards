@@ -9,16 +9,21 @@ function App() {
         merchantId:"",
       });
       const [formData, setFormData] = useState(initialFormData);
+      const [isInstalled, setIsInstalled] = useState(false);
       const[loadMainPage, setLoadMainPage] = useState(false);
+
     
     useEffect(() => {
-        setFormData(localStorage.getItem('formData'));
-        setLoadMainPage(formData);
+        if (localStorage.isInstalled === 'true') {
+            setIsInstalled(true)
+        } else {
+            setIsInstalled(false)
+        }
     });
     
     return(
         <React.Fragment>        
-            {loadMainPage ? <MainPage></MainPage>:<RegisterForm loadMainPage={setLoadMainPage}/>}                               
+            {isInstalled ? <MainPage></MainPage>:<RegisterForm setIsInstalled={setIsInstalled}/>}                               
         </React.Fragment>
     )
 }

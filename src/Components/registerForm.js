@@ -3,7 +3,6 @@ import {useHistory} from "react-router-dom";
 import axios from 'axios';
 
 const registerForm = (props) => {
-    console.log(props);
     const centerContainer = {
         position: "fixed",
         top: "50%",
@@ -75,9 +74,9 @@ const registerForm = (props) => {
         return isValid;
     };
 
-    const verifyEwardsMerchant = async(data) => {
+    const verify = async(data) => {
         const result  = await axios
-            .post(`${baseUrl}/api/ewards_merchants/verify`, data)
+            .post(`${baseUrl}/api/woo-commerce/verify`, data)
             .then(function (response) {
                 return response
             })
@@ -91,10 +90,12 @@ const registerForm = (props) => {
           return result
     }
 
-    const saveToLocalStorage = (formData) => {
-        localStorage.setItem('formData', JSON.stringify(formData));
-        sessionStorage.setItem('formData', JSON.stringify(formData));
-        props.loadMainPage(true);
+    const saveToLocalStorage = (formData,isInstalled) => {
+        localStorage.setItem('storeUrl', formData.woo_commerce.store_url);
+        localStorage.setItem('merchantId', formData.merchant_id);
+        localStorage.setItem('isInstalled', isInstalled);
+
+        props.setIsInstalled(isInstalled);
     }
 
     const redirectURL = (storeUrl) => {
@@ -103,16 +104,20 @@ const registerForm = (props) => {
                         app_name: 'eWards',
                         scope: 'read_write',
                         user_id: storeUrl,
-                        return_url: `${baseUrl}/api/woo_commerce/auth_return?store_url=${storeUrl}`,
-                        callback_url: `${baseUrl}/api/woo_commerce/auth_callback`
+                        return_url: baseUrl+'/api/woo-commerce/auth-return',
+                        callback_url: baseUrl+'/api/woo-commerce/auth-callback'
                     };
 		const srt = new URLSearchParams(params).toString();
 		window.location.href = formData.storeUrl + endpoint + '?' + srt;
     }
 
+    const returnURL = (storeUrl) => {
+		window.location.href = baseUrl+'/api/woo-commerce/auth-return?success=1&user_id='+storeUrl
+    }
+
     const createWooCommerceStore = async (data) => {
         let store = await axios
-            .post(`${baseUrl}/api/ewards_merchants`, data)
+            .post(`${baseUrl}/api/ewards`, data)
             .then(function (response) {
                 return response
             })
@@ -125,29 +130,63 @@ const registerForm = (props) => {
     const submit = async(e) => {
         const data = {
             merchant_id: formData.merchantId,
-            woo_commerce_store: {
+            woo_commerce: {
                 store_url: formData.storeUrl
             }
         };
-
-        const merchant = await verifyEwardsMerchant(data)
-		if (merchant.status === 200 ) {
-			saveToLocalStorage(data)
-		} else if(merchant.status === 404) {
-			let store = await createWooCommerceStore(data)
-			if (store.status == 200) {
-				redirectURL(data.woo_commerce_store.store_url)
-				saveToLocalStorage(data)
-			} else if (store.status == 422){
-				let msg = 'Merchant Id Dose Not Match With Store'
-				validateForm(msg)
-			}
+        const woo_commerce = await verify(data["woo_commerce"])
+		if(woo_commerce.status === 200) {
+            if (woo_commerce.data.woo_commerce.is_installed) {
+                props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed)
+                saveToLocalStorage(data,true)
+            } else {
+                if ( woo_commerce.data.woo_commerce.consumer_key === undefined) {
+                    redirectURL(data.woo_commerce.store_url)
+                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed)
+                    saveToLocalStorage(data,false) // Test case
+                } else if(woo_commerce.data.woo_commerce.consumer_key.includes("ck")) {
+                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed)
+                    saveToLocalStorage(data,true)
+                    returnURL(woo_commerce.data.woo_commerce.store_url)
+                }
+            }
+        } else {
+            let store = await createWooCommerceStore(data)
+            if (store.status === 200) {
+                redirectURL(data.woo_commerce.store_url)
+                saveToLocalStorage(data,false)
+            } else {
+                // TODO
+            }
       }
     }
 
+    const setStoreInstall = async(store_url) =>{
+        const woo_commerce = await verify({"store_url": store_url});
+        let is_installed = woo_commerce.data.woo_commerce.is_installed
+        if(is_installed) {
+            localStorage.setItem('isInstalled', is_installed);
+            props.setIsInstalled(is_installed);
+        } else {
+            localStorage.setItem('isInstalled', is_installed);
+            props.setIsInstalled(is_installed);
+        }
+    }
+    const checkInstall = async() => {
+        if (localStorage.isInstalled === 'true') {
+            let store_url = localStorage.storeUrl
+            setStoreInstall(store_url)
+        } else {
+            let store_url = localStorage.storeUrl
+            setStoreInstall(store_url)
+        }
+    }
+
     useEffect(() => {
-        setErrors("")
-    }, [formData.merchantId]);
+        checkInstall()
+        setErrors("");
+
+    }, []);
 
     useEffect(() => {
         setErrors("")
