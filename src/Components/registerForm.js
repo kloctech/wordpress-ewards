@@ -16,7 +16,7 @@ const registerForm = (props) => {
 
     const baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
 
-    const initialFormData = Object({storeUrl: "", merchantId: ""});
+    const initialFormData = Object({storeUrl: window.location.origin, merchantId: ""});
     const [formData,
         setFormData] = useState(initialFormData);
 
@@ -111,10 +111,6 @@ const registerForm = (props) => {
 		window.location.href = formData.storeUrl + endpoint + '?' + srt;
     }
 
-    const returnURL = (storeUrl) => {
-		window.location.href = baseUrl+'/api/woo-commerce/auth-return?success=1&user_id='+storeUrl
-    }
-
     const createWooCommerceStore = async (data) => {
         let store = await axios
             .post(`${baseUrl}/api/ewards`, data)
@@ -134,7 +130,7 @@ const registerForm = (props) => {
                 store_url: formData.storeUrl
             }
         };
-        const woo_commerce = await verify(data["woo_commerce"])
+        const woo_commerce = await verify(data)
 		if(woo_commerce.status === 200) {
             if (woo_commerce.data.woo_commerce.is_installed) {
                 props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed)
@@ -147,7 +143,6 @@ const registerForm = (props) => {
                 } else if(woo_commerce.data.woo_commerce.consumer_key.includes("ck")) {
                     props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed)
                     saveToLocalStorage(data,true)
-                    returnURL(woo_commerce.data.woo_commerce.store_url)
                 }
             }
         } else {
@@ -156,13 +151,13 @@ const registerForm = (props) => {
                 redirectURL(data.woo_commerce.store_url)
                 saveToLocalStorage(data,false)
             } else {
-                // TODO
+                validateForm(woo_commerce.data.resultMessage.en)
             }
       }
     }
 
-    const setStoreInstall = async(store_url) =>{
-        const woo_commerce = await verify({"store_url": store_url});
+    const setStoreInstall = async(store_url,merchantId) =>{
+        const woo_commerce = await verify({merchant_id: merchantId,"woo_commerce":{ "store_url": store_url}});
         let is_installed = woo_commerce.data.woo_commerce.is_installed
         if(is_installed) {
             localStorage.setItem('isInstalled', is_installed);
@@ -175,22 +170,26 @@ const registerForm = (props) => {
     const checkInstall = async() => {
         if (localStorage.isInstalled === 'true') {
             let store_url = localStorage.storeUrl
-            setStoreInstall(store_url)
+            let merchantId = localStorage.merchantId
+            setStoreInstall(store_url,merchantId)
         } else {
             let store_url = localStorage.storeUrl
-            setStoreInstall(store_url)
+            let merchantId = localStorage.merchantId
+            setStoreInstall(store_url,merchantId)
         }
     }
 
     useEffect(() => {
         checkInstall()
+        // if (localStorage.length !== 0) {
+        //     debugger
+        // }
         setErrors("");
-
     }, []);
 
-    useEffect(() => {
-        setErrors("")
-    }, [formData.storeUrl]);
+    // useEffect(() => {
+    //     setErrors("")
+    // }, [formData.storeUrl]);
 
     return (
         <React.Fragment>
@@ -220,10 +219,12 @@ const registerForm = (props) => {
                                     type="text"
                                     name="storeUrl"
                                     className="form-control"
-                                    value={formData.storeUrl}
+                                    value={window.location.origin}
                                     placeholder="Please Enter Store URL"
                                     onChange={handleStoreUrl}
-                                    required/>
+                                    required
+                                    readOnly
+                                    />
                                 <div
                                     className={errors.storeUrl
                                     ? 'invalid-feedback d-block'

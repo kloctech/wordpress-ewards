@@ -43830,7 +43830,7 @@ var registerForm = function registerForm(props) {
 
     var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
 
-    var initialFormData = Object({ storeUrl: "", merchantId: "" });
+    var initialFormData = Object({ storeUrl: window.location.origin, merchantId: "" });
 
     var _useState = (0, _react.useState)(initialFormData),
         _useState2 = _slicedToArray(_useState, 2),
@@ -43950,10 +43950,6 @@ var registerForm = function registerForm(props) {
         window.location.href = formData.storeUrl + endpoint + '?' + srt;
     };
 
-    var returnURL = function returnURL(storeUrl) {
-        window.location.href = baseUrl + '/api/woo-commerce/auth-return?success=1&user_id=' + storeUrl;
-    };
-
     var createWooCommerceStore = function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data) {
             var store;
@@ -43999,7 +43995,7 @@ var registerForm = function registerForm(props) {
                                 }
                             };
                             _context3.next = 3;
-                            return verify(data["woo_commerce"]);
+                            return verify(data);
 
                         case 3:
                             woo_commerce = _context3.sent;
@@ -44020,7 +44016,6 @@ var registerForm = function registerForm(props) {
                                 } else if (woo_commerce.data.woo_commerce.consumer_key.includes("ck")) {
                                     props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
                                     saveToLocalStorage(data, true);
-                                    returnURL(woo_commerce.data.woo_commerce.store_url);
                                 }
                             }
                             _context3.next = 12;
@@ -44037,7 +44032,7 @@ var registerForm = function registerForm(props) {
                                 redirectURL(data.woo_commerce.store_url);
                                 saveToLocalStorage(data, false);
                             } else {
-                                // TODO
+                                validateForm(woo_commerce.data.resultMessage.en);
                             }
 
                         case 12:
@@ -44054,14 +44049,14 @@ var registerForm = function registerForm(props) {
     }();
 
     var setStoreInstall = function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(store_url) {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(store_url, merchantId) {
             var woo_commerce, is_installed;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                     switch (_context4.prev = _context4.next) {
                         case 0:
                             _context4.next = 2;
-                            return verify({ "store_url": store_url });
+                            return verify({ merchant_id: merchantId, "woo_commerce": { "store_url": store_url } });
 
                         case 2:
                             woo_commerce = _context4.sent;
@@ -44083,13 +44078,13 @@ var registerForm = function registerForm(props) {
             }, _callee4, undefined);
         }));
 
-        return function setStoreInstall(_x4) {
+        return function setStoreInstall(_x4, _x5) {
             return _ref4.apply(this, arguments);
         };
     }();
     var checkInstall = function () {
         var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            var store_url, _store_url;
+            var store_url, merchantId, _store_url, _merchantId;
 
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
@@ -44097,12 +44092,14 @@ var registerForm = function registerForm(props) {
                         case 0:
                             if (localStorage.isInstalled === 'true') {
                                 store_url = localStorage.storeUrl;
+                                merchantId = localStorage.merchantId;
 
-                                setStoreInstall(store_url);
+                                setStoreInstall(store_url, merchantId);
                             } else {
                                 _store_url = localStorage.storeUrl;
+                                _merchantId = localStorage.merchantId;
 
-                                setStoreInstall(_store_url);
+                                setStoreInstall(_store_url, _merchantId);
                             }
 
                         case 1:
@@ -44120,12 +44117,15 @@ var registerForm = function registerForm(props) {
 
     (0, _react.useEffect)(function () {
         checkInstall();
+        // if (localStorage.length !== 0) {
+        //     debugger
+        // }
         setErrors("");
     }, []);
 
-    (0, _react.useEffect)(function () {
-        setErrors("");
-    }, [formData.storeUrl]);
+    // useEffect(() => {
+    //     setErrors("")
+    // }, [formData.storeUrl]);
 
     return wp.element.createElement(
         _react2.default.Fragment,
@@ -44177,10 +44177,12 @@ var registerForm = function registerForm(props) {
                                 type: "text",
                                 name: "storeUrl",
                                 className: "form-control",
-                                value: formData.storeUrl,
+                                value: window.location.origin,
                                 placeholder: "Please Enter Store URL",
                                 onChange: handleStoreUrl,
-                                required: true }),
+                                required: true,
+                                readOnly: true
+                            }),
                             wp.element.createElement(
                                 "div",
                                 {
