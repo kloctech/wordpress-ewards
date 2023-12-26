@@ -131,7 +131,7 @@ define('ewards_URL', plugins_url('/', __FILE__));
         'nonce' => wp_create_nonce( 'wp_rest' ),
         ] );
         wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
-            "PRDOUCTION_URL" => "https://95cf-106-51-179-113.ngrok-free.app"
+            "PRDOUCTION_URL" => "https://d-ewards-woocommerce.klocapps.com"
         ));
     }
  }
