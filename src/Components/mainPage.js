@@ -80,7 +80,7 @@ const mainPage = () => {
                             onClick={() => handleButtonClick("button3")}
                             className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Help</button>
                     </div>
-                    <div className="tab-content w-100 border-start" id="v-pills-tabContent">
+                    <div className="tab-content pb-4 w-100 border-start" id="v-pills-tabContent">
                         <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <Homepage />
                         </div>

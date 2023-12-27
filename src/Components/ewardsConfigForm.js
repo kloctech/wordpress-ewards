@@ -56,7 +56,7 @@ const EwardsConfigForm = (props) => {
         console.log("Adding formData=>", data);
 
         axios.post(
-           `${baseUrl}/api/ewards_merchants/update`,data
+           `${baseUrl}/api/ewards-key`,data
          )  .then(function (response) {
          console.log("response",response)
                
