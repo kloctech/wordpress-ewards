@@ -3,10 +3,13 @@ import axios from 'axios';
 
 
 const Homepage = () => {
+    const headingColor = {
+        color: "#41225d",
+    }
     return(
         <React.Fragment>
-            <h4 className='text-center p-4'>eWards</h4>
-            <div className='container'>
+            <h4 className='text-center p-4' style={headingColor}>eWards</h4>
+            <div className='container px-5'>
                 <p className="text-start">eWards is an Integrated platform for customer retention and marketing automation.
                                 We engage the audience through our immersive multi-channel strategies.
                                 From customer insights to marketing orchestration, we provide our customers with everything
@@ -39,6 +42,65 @@ const Homepage = () => {
                                     them achieve long-term success.</p>
             
                 <h6>Types of Loyalty:</h6>
+
+                <ol class="list-group list-group-numbered m-0">
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                            <span class="fw-bold">Flat Loyalty:</span>
+                               <span>It is a fixed % given to customers on their every bill.</span>
+                            </div>
+                        
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Tier Based/Lifetime Bill:</span>
+                        <span>Loyalty % of customer tiers according to different slabs they are
+                                                falling under in terms of lifetime bill with the brand.</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                            <span class="fw-bold">Instant Billing:</span>
+                            <span>Loyalty % depends on customers' instant bill value. Different bill values are given loyalty % accordingly.
+                                     </span>       
+                        </div>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Day-wise: </span>
+                        <span>Setting loyalty % according to different days of the week.</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Time-wise:</span>
+                        <span>Setting loyalty % according to different times of day.</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Segment-wise:</span>
+                        <span>Customers while filling out the feedback have to select a few options. The
+                                                options can be treated as a parameter to bucket all the customers selecting the particular option.
+                                        </span>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Tier Based/Lifetime Bill:</span>
+                        <span>Loyalty % of customer tiers according to different slabs they are
+                                                falling under in terms of lifetime bill with the brand.</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start mb-0">
+                        <div class="ms-2 me-auto">
+                        <span class="fw-bold">Feedback Loyalty: </span>
+                        <span>Customers while filling out the feedback have to select a few options. The
+                                                options can be treated as a parameter to bucket all the customers selecting the particular option.</span>
+                        </div>
+                    </li>
+                    </ol>
             </div>
         </React.Fragment>
     )
