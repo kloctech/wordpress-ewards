@@ -31,38 +31,8 @@ define('ewards_URL', plugins_url('/', __FILE__));
         
     }
 
-    function onInit(){
-        wp_register_script('eWardsblocksScript', plugin_dir_url(__FILE__) . 'eWards-blocks/build/index.js', array('wp-blocks', 'wp-element', 'wp-editor'));
-        wp_register_style('eWardsblocksStyle', plugin_dir_url(__FILE__) . 'eWards-blocks/build/index.css');
-
-        register_block_type('ewards-space/ewards-block', array(
-            'render_callback' => array($this, 'renderCallback'),
-            'editor_script' => 'eWardsblocksScript',
-            'editor_style' => 'eWardsblocksStyle'
-        ));
-    }
-
-    function renderCallback($attributes) {
-        if (!is_admin()) {
-          wp_enqueue_script('frontendScript', plugin_dir_url(__FILE__) . 'eWards-blocks/build/frontend.js', array('wp-element'));
-          wp_enqueue_style('frontendStyles', plugin_dir_url(__FILE__) . 'eWards-blocks/build/frontend.css');
-
-          return '<div class="ewards"> Hello, the sky is ' . $attributes['skyColor'] . ' and the grass is ' . $attributes['grassColor'] . '.</div>';
-            
-        }
-    
-        ob_start(); ?>
-        <div class="ewards-update"><pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre></div>
-        <?php return ob_get_clean();
-        
-    }
-    // function renderCallbackBasic($attributes) {
-    //     return '<div class="boilerplate-frontend"> Hello, the sky is ' . $attributes['skyColor'] . ' and the grass is ' . $attributes['grassColor'] . '.</div>';
-    //   }
-
     function register() {
         add_action('admin_enqueue_scripts',array($this,'enqueue'));
-        add_action('init', array($this, 'onInit'));
     }
 
     public function create_admin_menu() {
