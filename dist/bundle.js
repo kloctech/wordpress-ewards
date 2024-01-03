@@ -44928,23 +44928,22 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
             x_api_key: formData.xApiKey
             //    notes: formData.notes
         };
-        console.log("Adding formData=>", data);
-
         _axios2.default.post(baseUrl + '/api/ewards-key', data).then(function (response) {
-            console.log("response", response);
-
             setFormData(function (prevData) {
                 return _extends({}, prevData, { merchant_id: localStorage.merchantId,
-                    customerKey: response.data.ewards.customer_key,
-                    xApiKey: response.data.ewards.x_api_key
-                    // notes :response.data.ewards.notes,
+                    customerKey: response.data.ewards_key.customer_key,
+                    xApiKey: response.data.ewards_key.x_api_key
+                    // notes :response.data.ewards_key.notes,
                 });
             });
-            setConfigId(response.data.ewards._id);
+            setConfigId(response.data.ewards_key._id);
+            setIsEdit(false);
+            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
         }).catch(function (error) {
             console.log("error", error);
         });
     };
+
     var updateFormData = function updateFormData() {
         var data = {
             merchant_id: localStorage.merchantId || "",
@@ -44965,6 +44964,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
                     // notes: response.data.ewards_key.notes,
                 });
             });
+            debugger;
             setConfigId(response.data.ewards_key._id);
             setIsEdit(false);
             setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
