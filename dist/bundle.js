@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(10);
+var bind = __webpack_require__(12);
 
 // utils is a library of generic helper functions non-specific to axios
 
@@ -632,148 +632,6 @@ module.exports = __webpack_require__(31);
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(36);
-var enhanceError = __webpack_require__(12);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(13);
-  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(13);
-  }
-  return adapter;
-}
-
-function stringifySafely(rawValue, parser, encoder) {
-  if (utils.isString(rawValue)) {
-    try {
-      (parser || JSON.parse)(rawValue);
-      return utils.trim(rawValue);
-    } catch (e) {
-      if (e.name !== 'SyntaxError') {
-        throw e;
-      }
-    }
-  }
-
-  return (encoder || JSON.stringify)(rawValue);
-}
-
-var defaults = {
-
-  transitional: {
-    silentJSONParsing: true,
-    forcedJSONParsing: true,
-    clarifyTimeoutError: false
-  },
-
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Accept');
-    normalizeHeaderName(headers, 'Content-Type');
-
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
-      setContentTypeIfUnset(headers, 'application/json');
-      return stringifySafely(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    var transitional = this.transitional;
-    var silentJSONParsing = transitional && transitional.silentJSONParsing;
-    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
-    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
-
-    if (strictJSONParsing || (forcedJSONParsing && utils.isString(data) && data.length)) {
-      try {
-        return JSON.parse(data);
-      } catch (e) {
-        if (strictJSONParsing) {
-          if (e.name === 'SyntaxError') {
-            throw enhanceError(e, this, 'E_JSON_PARSE');
-          }
-          throw e;
-        }
-      }
-    }
-
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-  maxBodyLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5123,6 +4981,148 @@ function persistAppliedTransitions(_window, transitions) {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(36);
+var enhanceError = __webpack_require__(14);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(15);
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(15);
+  }
+  return adapter;
+}
+
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils.trim(rawValue);
+    } catch (e) {
+      if (e.name !== 'SyntaxError') {
+        throw e;
+      }
+    }
+  }
+
+  return (encoder || JSON.stringify)(rawValue);
+}
+
+var defaults = {
+
+  transitional: {
+    silentJSONParsing: true,
+    forcedJSONParsing: true,
+    clarifyTimeoutError: false
+  },
+
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data) || (headers && headers['Content-Type'] === 'application/json')) {
+      setContentTypeIfUnset(headers, 'application/json');
+      return stringifySafely(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    var transitional = this.transitional;
+    var silentJSONParsing = transitional && transitional.silentJSONParsing;
+    var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+    var strictJSONParsing = !silentJSONParsing && this.responseType === 'json';
+
+    if (strictJSONParsing || (forcedJSONParsing && utils.isString(data) && data.length)) {
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === 'SyntaxError') {
+            throw enhanceError(e, this, 'E_JSON_PARSE');
+          }
+          throw e;
+        }
+      }
+    }
+
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+  maxBodyLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5282,503 +5282,6 @@ module.exports = g;
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(0);
-
-function encode(val) {
-  return encodeURIComponent(val).
-    replace(/%3A/gi, ':').
-    replace(/%24/g, '$').
-    replace(/%2C/gi, ',').
-    replace(/%20/g, '+').
-    replace(/%5B/gi, '[').
-    replace(/%5D/gi, ']');
-}
-
-/**
- * Build a URL by appending params to the end
- *
- * @param {string} url The base of the url (e.g., http://www.google.com)
- * @param {object} [params] The params to be appended
- * @returns {string} The formatted url
- */
-module.exports = function buildURL(url, params, paramsSerializer) {
-  /*eslint no-param-reassign:0*/
-  if (!params) {
-    return url;
-  }
-
-  var serializedParams;
-  if (paramsSerializer) {
-    serializedParams = paramsSerializer(params);
-  } else if (utils.isURLSearchParams(params)) {
-    serializedParams = params.toString();
-  } else {
-    var parts = [];
-
-    utils.forEach(params, function serialize(val, key) {
-      if (val === null || typeof val === 'undefined') {
-        return;
-      }
-
-      if (utils.isArray(val)) {
-        key = key + '[]';
-      } else {
-        val = [val];
-      }
-
-      utils.forEach(val, function parseValue(v) {
-        if (utils.isDate(v)) {
-          v = v.toISOString();
-        } else if (utils.isObject(v)) {
-          v = JSON.stringify(v);
-        }
-        parts.push(encode(key) + '=' + encode(v));
-      });
-    });
-
-    serializedParams = parts.join('&');
-  }
-
-  if (serializedParams) {
-    var hashmarkIndex = url.indexOf('#');
-    if (hashmarkIndex !== -1) {
-      url = url.slice(0, hashmarkIndex);
-    }
-
-    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
-  }
-
-  return url;
-};
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Update an Error with the specified config, error code, and response.
- *
- * @param {Error} error The error to update.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The error.
- */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-
-  error.request = request;
-  error.response = response;
-  error.isAxiosError = true;
-
-  error.toJSON = function toJSON() {
-    return {
-      // Standard
-      message: this.message,
-      name: this.name,
-      // Microsoft
-      description: this.description,
-      number: this.number,
-      // Mozilla
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      // Axios
-      config: this.config,
-      code: this.code
-    };
-  };
-  return error;
-};
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(0);
-var settle = __webpack_require__(37);
-var cookies = __webpack_require__(38);
-var buildURL = __webpack_require__(11);
-var buildFullPath = __webpack_require__(39);
-var parseHeaders = __webpack_require__(42);
-var isURLSameOrigin = __webpack_require__(43);
-var createError = __webpack_require__(14);
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-    var responseType = config.responseType;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    var fullPath = buildFullPath(config.baseURL, config.url);
-    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    function onloadend() {
-      if (!request) {
-        return;
-      }
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
-        request.responseText : request.response;
-      var response = {
-        data: responseData,
-        status: request.status,
-        statusText: request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    }
-
-    if ('onloadend' in request) {
-      // Use onloadend if available
-      request.onloadend = onloadend;
-    } else {
-      // Listen for ready state to emulate onloadend
-      request.onreadystatechange = function handleLoad() {
-        if (!request || request.readyState !== 4) {
-          return;
-        }
-
-        // The request errored out and we didn't get a response, this will be
-        // handled by onerror instead
-        // With one exception: request that using file: protocol, most browsers
-        // will return status as 0 even though it's a successful request
-        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-          return;
-        }
-        // readystate handler is calling before onerror or ontimeout handlers,
-        // so we should call onloadend on the next 'tick'
-        setTimeout(onloadend);
-      };
-    }
-
-    // Handle browser request cancellation (as opposed to a manual cancellation)
-    request.onabort = function handleAbort() {
-      if (!request) {
-        return;
-      }
-
-      reject(createError('Request aborted', config, 'ECONNABORTED', request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
-      if (config.timeoutErrorMessage) {
-        timeoutErrorMessage = config.timeoutErrorMessage;
-      }
-      reject(createError(
-        timeoutErrorMessage,
-        config,
-        config.transitional && config.transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
-        request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
-        cookies.read(config.xsrfCookieName) :
-        undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (!utils.isUndefined(config.withCredentials)) {
-      request.withCredentials = !!config.withCredentials;
-    }
-
-    // Add responseType to request if needed
-    if (responseType && responseType !== 'json') {
-      request.responseType = config.responseType;
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
-          return;
-        }
-
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (!requestData) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__(12);
-
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(0);
-
-/**
- * Config-specific merge-function which creates a new config-object
- * by merging two configuration objects together.
- *
- * @param {Object} config1
- * @param {Object} config2
- * @returns {Object} New object resulting from merging config2 to config1
- */
-module.exports = function mergeConfig(config1, config2) {
-  // eslint-disable-next-line no-param-reassign
-  config2 = config2 || {};
-  var config = {};
-
-  var valueFromConfig2Keys = ['url', 'method', 'data'];
-  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
-  var defaultToConfig2Keys = [
-    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
-    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
-    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
-    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
-    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
-  ];
-  var directMergeKeys = ['validateStatus'];
-
-  function getMergedValue(target, source) {
-    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
-      return utils.merge(target, source);
-    } else if (utils.isPlainObject(source)) {
-      return utils.merge({}, source);
-    } else if (utils.isArray(source)) {
-      return source.slice();
-    }
-    return source;
-  }
-
-  function mergeDeepProperties(prop) {
-    if (!utils.isUndefined(config2[prop])) {
-      config[prop] = getMergedValue(config1[prop], config2[prop]);
-    } else if (!utils.isUndefined(config1[prop])) {
-      config[prop] = getMergedValue(undefined, config1[prop]);
-    }
-  }
-
-  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
-    if (!utils.isUndefined(config2[prop])) {
-      config[prop] = getMergedValue(undefined, config2[prop]);
-    }
-  });
-
-  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
-
-  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
-    if (!utils.isUndefined(config2[prop])) {
-      config[prop] = getMergedValue(undefined, config2[prop]);
-    } else if (!utils.isUndefined(config1[prop])) {
-      config[prop] = getMergedValue(undefined, config1[prop]);
-    }
-  });
-
-  utils.forEach(directMergeKeys, function merge(prop) {
-    if (prop in config2) {
-      config[prop] = getMergedValue(config1[prop], config2[prop]);
-    } else if (prop in config1) {
-      config[prop] = getMergedValue(undefined, config1[prop]);
-    }
-  });
-
-  var axiosKeys = valueFromConfig2Keys
-    .concat(mergeDeepPropertiesKeys)
-    .concat(defaultToConfig2Keys)
-    .concat(directMergeKeys);
-
-  var otherKeys = Object
-    .keys(config1)
-    .concat(Object.keys(config2))
-    .filter(function filterAxiosKeys(key) {
-      return axiosKeys.indexOf(key) === -1;
-    });
-
-  utils.forEach(otherKeys, mergeDeepProperties);
-
-  return config;
-};
-
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-module.exports = Cancel;
-
-
-/***/ }),
-/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5810,7 +5313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(11);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "AbortedDeferredError", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Await", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["c"]; });
@@ -5862,7 +5365,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "useRouteError", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["Y"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "useRouteLoaderData", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["Z"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "useRoutes", function() { return __WEBPACK_IMPORTED_MODULE_2_react_router__["_0"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__remix_run_router__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__remix_run_router__ = __webpack_require__(4);
 /**
  * React Router DOM v6.21.0
  *
@@ -7284,7 +6787,7 @@ function useViewTransitionState(to, opts) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 19 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7331,7 +6834,7 @@ function useViewTransitionState(to, opts) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_0", function() { return useRoutes; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__remix_run_router__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__remix_run_router__ = __webpack_require__(4);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return __WEBPACK_IMPORTED_MODULE_1__remix_run_router__["m"]; });
@@ -8777,6 +8280,503 @@ function createMemoryRouter(routes, opts) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+  return error;
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(37);
+var cookies = __webpack_require__(38);
+var buildURL = __webpack_require__(13);
+var buildFullPath = __webpack_require__(39);
+var parseHeaders = __webpack_require__(42);
+var isURLSameOrigin = __webpack_require__(43);
+var createError = __webpack_require__(16);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+    var responseType = config.responseType;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    var fullPath = buildFullPath(config.baseURL, config.url);
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    function onloadend() {
+      if (!request) {
+        return;
+      }
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+        request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    }
+
+    if ('onloadend' in request) {
+      // Use onloadend if available
+      request.onloadend = onloadend;
+    } else {
+      // Listen for ready state to emulate onloadend
+      request.onreadystatechange = function handleLoad() {
+        if (!request || request.readyState !== 4) {
+          return;
+        }
+
+        // The request errored out and we didn't get a response, this will be
+        // handled by onerror instead
+        // With one exception: request that using file: protocol, most browsers
+        // will return status as 0 even though it's a successful request
+        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+          return;
+        }
+        // readystate handler is calling before onerror or ontimeout handlers,
+        // so we should call onloadend on the next 'tick'
+        setTimeout(onloadend);
+      };
+    }
+
+    // Handle browser request cancellation (as opposed to a manual cancellation)
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(createError(
+        timeoutErrorMessage,
+        config,
+        config.transitional && config.transitional.clarifyTimeoutError ? 'ETIMEDOUT' : 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
+        cookies.read(config.xsrfCookieName) :
+        undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
+    }
+
+    // Add responseType to request if needed
+    if (responseType && responseType !== 'json') {
+      request.responseType = config.responseType;
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (!requestData) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(14);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
+  var defaultToConfig2Keys = [
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
+  ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
+
+  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    }
+  });
+
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
+
+  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  var axiosKeys = valueFromConfig2Keys
+    .concat(mergeDeepPropertiesKeys)
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
+
+  var otherKeys = Object
+    .keys(config1)
+    .concat(Object.keys(config2))
+    .filter(function filterAxiosKeys(key) {
+      return axiosKeys.indexOf(key) === -1;
+    });
+
+  utils.forEach(otherKeys, mergeDeepProperties);
+
+  return config;
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8799,7 +8799,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.addEventListener('DOMContentLoaded', function () {
     var element = document.getElementById('wprk-admin-app');
-    // debugger
     if (element.id === 'wprk-admin-app') {
         _reactDom2.default.render(wp.element.createElement(_App2.default, null), document.getElementById('wprk-admin-app'));
     } else if (element.id === 'cart-cupons-section') {
@@ -42700,15 +42699,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _main = __webpack_require__(30);
-
-var _main2 = _interopRequireDefault(_main);
-
-var _registerForm = __webpack_require__(49);
+var _registerForm = __webpack_require__(30);
 
 var _registerForm2 = _interopRequireDefault(_registerForm);
 
-var _mainPage = __webpack_require__(50);
+var _mainPage = __webpack_require__(49);
 
 var _mainPage2 = _interopRequireDefault(_mainPage);
 
@@ -42760,12 +42755,18 @@ exports.default = App;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(10);
 
 var _axios = __webpack_require__(3);
 
@@ -42773,73 +42774,405 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var main = function main() {
-  return wp.element.createElement(
-    _react2.default.Fragment,
-    null,
-    wp.element.createElement(
-      'h2',
-      null,
-      'Helloo From react'
-    ),
-    wp.element.createElement(
-      'button',
-      { type: 'button', 'class': 'btn btn-primary' },
-      'Primary'
-    ),
-    wp.element.createElement(
-      'p',
-      null,
-      wp.element.createElement(
-        'a',
-        { 'class': 'btn btn-primary', 'data-bs-toggle': 'collapse', href: '#multiCollapseExample1', role: 'button', 'aria-expanded': 'false', 'aria-controls': 'multiCollapseExample1' },
-        'Toggle first element'
-      ),
-      wp.element.createElement(
-        'button',
-        { 'class': 'btn btn-primary', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#multiCollapseExample2', 'aria-expanded': 'false', 'aria-controls': 'multiCollapseExample2' },
-        'Toggle second element'
-      ),
-      wp.element.createElement(
-        'button',
-        { 'class': 'btn btn-primary', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '.multi-collapse', 'aria-expanded': 'false', 'aria-controls': 'multiCollapseExample1 multiCollapseExample2' },
-        'Toggle both elements'
-      )
-    ),
-    wp.element.createElement(
-      'div',
-      { 'class': 'row' },
-      wp.element.createElement(
-        'div',
-        { 'class': 'col' },
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var registerForm = function registerForm(props) {
+    var centerContainer = {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-44%, -50%)"
+        /*'-webkit-transform': "translate(-44%, -50%)",
+        '-moz-transform': "translate(-44%, -50%)",
+        '-o-transform': "translate(-44%, -50%)",
+        '-ms-transform': "translate(-44%, -50%)",*/
+    };
+
+    var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
+
+    var initialFormData = Object({ storeUrl: window.location.origin, merchantId: "" });
+
+    var _useState = (0, _react.useState)(initialFormData),
+        _useState2 = _slicedToArray(_useState, 2),
+        formData = _useState2[0],
+        setFormData = _useState2[1];
+
+    var _useState3 = (0, _react.useState)(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        errorStoreUrl = _useState4[0],
+        setErrorStoreUrl = _useState4[1];
+
+    var _useState5 = (0, _react.useState)(),
+        _useState6 = _slicedToArray(_useState5, 2),
+        errorMerchantId = _useState6[0],
+        setErrorMerchantId = _useState6[1];
+
+    var handleStoreUrl = (0, _react.useCallback)(function (e) {
+        setFormData(function (prevFormData) {
+            return _extends({}, prevFormData, {
+                storeUrl: e.target.value.replace(/\/$/, "")
+            });
+        });
+    }, [formData]);
+
+    var handleMerchantId = (0, _react.useCallback)(function (e) {
+        setFormData(function (prevFormData) {
+            return _extends({}, prevFormData, {
+                merchantId: e.target.value
+            });
+        });
+    }, [formData]);
+
+    var _useState7 = (0, _react.useState)({ storeUrl: "", merchantId: "" }),
+        _useState8 = _slicedToArray(_useState7, 2),
+        errors = _useState8[0],
+        setErrors = _useState8[1];
+
+    var validateForm = function validateForm(errorMsg) {
+        var isValid = true;
+        var newErrors = _extends({}, errors);
+
+        if (!formData.storeUrl.trim()) {
+            isValid = false;
+            newErrors.storeUrl = 'Store URL Required';
+        } else {
+            newErrors.storeUrl = '';
+        }
+
+        if (!formData.merchantId.trim()) {
+            isValid = false;
+            newErrors.merchantId = 'Merchant Id Required';
+        }
+        if (!errorMsg) {
+            newErrors.merchantId = '';
+        } else if (errorMsg.length > 0) {
+            isValid = false;
+            newErrors.merchantId = errorMsg;
+        }
+
+        setErrors(newErrors);
+        return isValid;
+    };
+
+    var verify = function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(data) {
+            var result;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return _axios2.default.post(baseUrl + "/api/woo-commerce/verify", data).then(function (response) {
+                                return response;
+                            }).catch(function (error) {
+                                if (error.response.status === 404 && validateForm()) {
+                                    return error.response;
+                                } else {
+                                    return error.response;
+                                }
+                            });
+
+                        case 2:
+                            result = _context.sent;
+                            return _context.abrupt("return", result);
+
+                        case 4:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, _callee, undefined);
+        }));
+
+        return function verify(_x) {
+            return _ref.apply(this, arguments);
+        };
+    }();
+
+    var saveToLocalStorage = function saveToLocalStorage(formData, isInstalled) {
+        localStorage.setItem('storeUrl', formData.woo_commerce.store_url);
+        localStorage.setItem('merchantId', formData.merchant_id);
+        localStorage.setItem('isInstalled', isInstalled);
+
+        props.setIsInstalled(isInstalled);
+    };
+
+    var redirectURL = function redirectURL(storeUrl) {
+        var endpoint = "/wc-auth/v1/authorize";
+        var params = {
+            app_name: 'eWards',
+            scope: 'read_write',
+            user_id: storeUrl,
+            return_url: baseUrl + '/api/woo-commerce/auth-return',
+            callback_url: baseUrl + '/api/woo-commerce/auth-callback'
+        };
+        var srt = new URLSearchParams(params).toString();
+        window.location.href = formData.storeUrl + endpoint + '?' + srt;
+    };
+
+    var createWooCommerceStore = function () {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data) {
+            var store;
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            _context2.next = 2;
+                            return _axios2.default.post(baseUrl + "/api/ewards", data).then(function (response) {
+                                return response;
+                            }).catch(function (error) {
+                                return error.response;
+                            });
+
+                        case 2:
+                            store = _context2.sent;
+                            return _context2.abrupt("return", store);
+
+                        case 4:
+                        case "end":
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, undefined);
+        }));
+
+        return function createWooCommerceStore(_x2) {
+            return _ref2.apply(this, arguments);
+        };
+    }();
+
+    var submit = function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
+            var data, woo_commerce, store;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                    switch (_context3.prev = _context3.next) {
+                        case 0:
+                            data = {
+                                merchant_id: formData.merchantId,
+                                woo_commerce: {
+                                    store_url: formData.storeUrl
+                                }
+                            };
+                            _context3.next = 3;
+                            return verify(data);
+
+                        case 3:
+                            woo_commerce = _context3.sent;
+
+                            if (!(woo_commerce.status === 200)) {
+                                _context3.next = 8;
+                                break;
+                            }
+
+                            if (woo_commerce.data.woo_commerce.is_installed) {
+                                props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
+                                saveToLocalStorage(data, true);
+                            } else {
+                                if (woo_commerce.data.woo_commerce.consumer_key === undefined) {
+                                    redirectURL(data.woo_commerce.store_url);
+                                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
+                                    saveToLocalStorage(data, false); // Test case
+                                } else if (woo_commerce.data.woo_commerce.consumer_key.includes("ck")) {
+                                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
+                                    saveToLocalStorage(data, true);
+                                }
+                            }
+                            _context3.next = 12;
+                            break;
+
+                        case 8:
+                            _context3.next = 10;
+                            return createWooCommerceStore(data);
+
+                        case 10:
+                            store = _context3.sent;
+
+                            if (store.status === 200) {
+                                redirectURL(data.woo_commerce.store_url);
+                                saveToLocalStorage(data, false);
+                            } else {
+                                validateForm(woo_commerce.data.resultMessage.en);
+                            }
+
+                        case 12:
+                        case "end":
+                            return _context3.stop();
+                    }
+                }
+            }, _callee3, undefined);
+        }));
+
+        return function submit(_x3) {
+            return _ref3.apply(this, arguments);
+        };
+    }();
+
+    var setStoreInstall = function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(store_url, merchantId) {
+            var woo_commerce, is_installed;
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            _context4.next = 2;
+                            return verify({ merchant_id: merchantId, "woo_commerce": { "store_url": store_url } });
+
+                        case 2:
+                            woo_commerce = _context4.sent;
+                            is_installed = woo_commerce.data.woo_commerce.is_installed;
+
+                            if (is_installed) {
+                                localStorage.setItem('isInstalled', is_installed);
+                                props.setIsInstalled(is_installed);
+                            } else {
+                                localStorage.setItem('isInstalled', is_installed);
+                                props.setIsInstalled(is_installed);
+                            }
+
+                        case 5:
+                        case "end":
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, undefined);
+        }));
+
+        return function setStoreInstall(_x4, _x5) {
+            return _ref4.apply(this, arguments);
+        };
+    }();
+    var checkInstall = function () {
+        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            var store_url, merchantId, _store_url, _merchantId;
+
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                    switch (_context5.prev = _context5.next) {
+                        case 0:
+                            if (localStorage.isInstalled === 'true') {
+                                store_url = localStorage.storeUrl;
+                                merchantId = localStorage.merchantId;
+
+                                setStoreInstall(store_url, merchantId);
+                            } else {
+                                _store_url = localStorage.storeUrl;
+                                _merchantId = localStorage.merchantId;
+
+                                setStoreInstall(_store_url, _merchantId);
+                            }
+
+                        case 1:
+                        case "end":
+                            return _context5.stop();
+                    }
+                }
+            }, _callee5, undefined);
+        }));
+
+        return function checkInstall() {
+            return _ref5.apply(this, arguments);
+        };
+    }();
+
+    (0, _react.useEffect)(function () {
+        checkInstall();
+        // if (localStorage.length !== 0) {
+        //     debugger
+        // }
+        setErrors("");
+    }, []);
+
+    // useEffect(() => {
+    //     setErrors("")
+    // }, [formData.storeUrl]);
+
+    return wp.element.createElement(
+        _react2.default.Fragment,
+        null,
         wp.element.createElement(
-          'div',
-          { 'class': 'collapse multi-collapse', id: 'multiCollapseExample1' },
-          wp.element.createElement(
-            'div',
-            { 'class': 'card card-body' },
-            'Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.'
-          )
+            "div",
+            { className: "container", style: centerContainer },
+            wp.element.createElement(
+                "div",
+                { className: "row align-items-center" },
+                wp.element.createElement("div", { className: "col" }),
+                wp.element.createElement(
+                    "div",
+                    { className: "col" },
+                    wp.element.createElement(
+                        "div",
+                        { className: "shadow p-4 bg-body rounded" },
+                        wp.element.createElement(
+                            "div",
+                            { className: "pb-2" },
+                            wp.element.createElement(
+                                "label",
+                                { className: "form-label" },
+                                "Merchant Id"
+                            ),
+                            wp.element.createElement("input", {
+                                type: "text",
+                                className: "form-control",
+                                value: formData.merchantId,
+                                placeholder: "Please Enter Merchant Id",
+                                onChange: handleMerchantId,
+                                required: true }),
+                            wp.element.createElement(
+                                "div",
+                                {
+                                    className: errors.merchantId ? 'invalid-feedback d-block' : 'invalid-feedback' },
+                                errors.merchantId
+                            )
+                        ),
+                        wp.element.createElement(
+                            "div",
+                            { className: "pb-2 mb-4" },
+                            wp.element.createElement(
+                                "label",
+                                { className: "form-label font-weight-bold" },
+                                "Store URL"
+                            ),
+                            wp.element.createElement("input", {
+                                type: "text",
+                                name: "storeUrl",
+                                className: "form-control",
+                                value: window.location.origin,
+                                placeholder: "Please Enter Store URL",
+                                onChange: handleStoreUrl,
+                                required: true,
+                                readOnly: true
+                            }),
+                            wp.element.createElement(
+                                "div",
+                                {
+                                    className: errors.storeUrl ? 'invalid-feedback d-block' : 'invalid-feedback' },
+                                errors.storeUrl
+                            )
+                        ),
+                        wp.element.createElement(
+                            "div",
+                            { className: "text-center " },
+                            wp.element.createElement(
+                                "button",
+                                {
+                                    type: "submit",
+                                    onClick: function onClick(e) {
+                                        return submit(e);
+                                    },
+                                    className: "btn btn-primary" },
+                                "Submit"
+                            )
+                        )
+                    )
+                ),
+                wp.element.createElement("div", { className: "col" })
+            )
         )
-      ),
-      wp.element.createElement(
-        'div',
-        { 'class': 'col' },
-        wp.element.createElement(
-          'div',
-          { 'class': 'collapse multi-collapse', id: 'multiCollapseExample2' },
-          wp.element.createElement(
-            'div',
-            { 'class': 'card card-body' },
-            'Some placeholder content for the second collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.'
-          )
-        )
-      )
-    )
-  );
+    );
 };
 
-exports.default = main;
+exports.default = registerForm;
 
 /***/ }),
 /* 31 */
@@ -42849,10 +43182,10 @@ exports.default = main;
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(10);
+var bind = __webpack_require__(12);
 var Axios = __webpack_require__(32);
-var mergeConfig = __webpack_require__(16);
-var defaults = __webpack_require__(4);
+var mergeConfig = __webpack_require__(18);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -42885,9 +43218,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(17);
+axios.Cancel = __webpack_require__(19);
 axios.CancelToken = __webpack_require__(46);
-axios.isCancel = __webpack_require__(15);
+axios.isCancel = __webpack_require__(17);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -42912,10 +43245,10 @@ module.exports.default = axios;
 
 
 var utils = __webpack_require__(0);
-var buildURL = __webpack_require__(11);
+var buildURL = __webpack_require__(13);
 var InterceptorManager = __webpack_require__(33);
 var dispatchRequest = __webpack_require__(34);
-var mergeConfig = __webpack_require__(16);
+var mergeConfig = __webpack_require__(18);
 var validator = __webpack_require__(44);
 
 var validators = validator.validators;
@@ -43129,8 +43462,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(35);
-var isCancel = __webpack_require__(15);
-var defaults = __webpack_require__(4);
+var isCancel = __webpack_require__(17);
+var defaults = __webpack_require__(5);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -43217,7 +43550,7 @@ module.exports = function dispatchRequest(config) {
 
 
 var utils = __webpack_require__(0);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 
 /**
  * Transform the data for a request or a response
@@ -43264,7 +43597,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(14);
+var createError = __webpack_require__(16);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -43678,7 +44011,7 @@ module.exports = {"name":"axios","version":"0.21.4","description":"Promise based
 "use strict";
 
 
-var Cancel = __webpack_require__(17);
+var Cancel = __webpack_require__(19);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -43798,458 +44131,72 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(18);
-
 var _axios = __webpack_require__(3);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var registerForm = function registerForm(props) {
-    var centerContainer = {
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-44%, -50%)"
-        /*'-webkit-transform': "translate(-44%, -50%)",
-        '-moz-transform': "translate(-44%, -50%)",
-        '-o-transform': "translate(-44%, -50%)",
-        '-ms-transform': "translate(-44%, -50%)",*/
-    };
-
-    var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
-
-    var initialFormData = Object({ storeUrl: window.location.origin, merchantId: "" });
-
-    var _useState = (0, _react.useState)(initialFormData),
-        _useState2 = _slicedToArray(_useState, 2),
-        formData = _useState2[0],
-        setFormData = _useState2[1];
-
-    var _useState3 = (0, _react.useState)(),
-        _useState4 = _slicedToArray(_useState3, 2),
-        errorStoreUrl = _useState4[0],
-        setErrorStoreUrl = _useState4[1];
-
-    var _useState5 = (0, _react.useState)(),
-        _useState6 = _slicedToArray(_useState5, 2),
-        errorMerchantId = _useState6[0],
-        setErrorMerchantId = _useState6[1];
-
-    var handleStoreUrl = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, {
-                storeUrl: e.target.value.replace(/\/$/, "")
-            });
-        });
-    }, [formData]);
-
-    var handleMerchantId = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, {
-                merchantId: e.target.value
-            });
-        });
-    }, [formData]);
-
-    var _useState7 = (0, _react.useState)({ storeUrl: "", merchantId: "" }),
-        _useState8 = _slicedToArray(_useState7, 2),
-        errors = _useState8[0],
-        setErrors = _useState8[1];
-
-    var validateForm = function validateForm(errorMsg) {
-        var isValid = true;
-        var newErrors = _extends({}, errors);
-
-        if (!formData.storeUrl.trim()) {
-            isValid = false;
-            newErrors.storeUrl = 'Store URL Required';
-        } else {
-            newErrors.storeUrl = '';
-        }
-
-        if (!formData.merchantId.trim()) {
-            isValid = false;
-            newErrors.merchantId = 'Merchant Id Required';
-        }
-        if (!errorMsg) {
-            newErrors.merchantId = '';
-        } else if (errorMsg.length > 0) {
-            isValid = false;
-            newErrors.merchantId = errorMsg;
-        }
-
-        setErrors(newErrors);
-        return isValid;
-    };
-
-    var verify = function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(data) {
-            var result;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            _context.next = 2;
-                            return _axios2.default.post(baseUrl + "/api/woo-commerce/verify", data).then(function (response) {
-                                return response;
-                            }).catch(function (error) {
-                                if (error.response.status === 404 && validateForm()) {
-                                    return error.response;
-                                } else {
-                                    return error.response;
-                                }
-                            });
-
-                        case 2:
-                            result = _context.sent;
-                            return _context.abrupt("return", result);
-
-                        case 4:
-                        case "end":
-                            return _context.stop();
-                    }
-                }
-            }, _callee, undefined);
-        }));
-
-        return function verify(_x) {
-            return _ref.apply(this, arguments);
-        };
-    }();
-
-    var saveToLocalStorage = function saveToLocalStorage(formData, isInstalled) {
-        localStorage.setItem('storeUrl', formData.woo_commerce.store_url);
-        localStorage.setItem('merchantId', formData.merchant_id);
-        localStorage.setItem('isInstalled', isInstalled);
-
-        props.setIsInstalled(isInstalled);
-    };
-
-    var redirectURL = function redirectURL(storeUrl) {
-        var endpoint = "/wc-auth/v1/authorize";
-        var params = {
-            app_name: 'eWards',
-            scope: 'read_write',
-            user_id: storeUrl,
-            return_url: baseUrl + '/api/woo-commerce/auth-return',
-            callback_url: baseUrl + '/api/woo-commerce/auth-callback'
-        };
-        var srt = new URLSearchParams(params).toString();
-        window.location.href = formData.storeUrl + endpoint + '?' + srt;
-    };
-
-    var createWooCommerceStore = function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data) {
-            var store;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            _context2.next = 2;
-                            return _axios2.default.post(baseUrl + "/api/ewards", data).then(function (response) {
-                                return response;
-                            }).catch(function (error) {
-                                return error.response;
-                            });
-
-                        case 2:
-                            store = _context2.sent;
-                            return _context2.abrupt("return", store);
-
-                        case 4:
-                        case "end":
-                            return _context2.stop();
-                    }
-                }
-            }, _callee2, undefined);
-        }));
-
-        return function createWooCommerceStore(_x2) {
-            return _ref2.apply(this, arguments);
-        };
-    }();
-
-    var submit = function () {
-        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(e) {
-            var data, woo_commerce, store;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                    switch (_context3.prev = _context3.next) {
-                        case 0:
-                            data = {
-                                merchant_id: formData.merchantId,
-                                woo_commerce: {
-                                    store_url: formData.storeUrl
-                                }
-                            };
-                            _context3.next = 3;
-                            return verify(data);
-
-                        case 3:
-                            woo_commerce = _context3.sent;
-
-                            if (!(woo_commerce.status === 200)) {
-                                _context3.next = 8;
-                                break;
-                            }
-
-                            if (woo_commerce.data.woo_commerce.is_installed) {
-                                props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
-                                saveToLocalStorage(data, true);
-                            } else {
-                                if (woo_commerce.data.woo_commerce.consumer_key === undefined) {
-                                    redirectURL(data.woo_commerce.store_url);
-                                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
-                                    saveToLocalStorage(data, false); // Test case
-                                } else if (woo_commerce.data.woo_commerce.consumer_key.includes("ck")) {
-                                    props.setIsInstalled(woo_commerce.data.woo_commerce.is_installed);
-                                    saveToLocalStorage(data, true);
-                                }
-                            }
-                            _context3.next = 12;
-                            break;
-
-                        case 8:
-                            _context3.next = 10;
-                            return createWooCommerceStore(data);
-
-                        case 10:
-                            store = _context3.sent;
-
-                            if (store.status === 200) {
-                                redirectURL(data.woo_commerce.store_url);
-                                saveToLocalStorage(data, false);
-                            } else {
-                                validateForm(woo_commerce.data.resultMessage.en);
-                            }
-
-                        case 12:
-                        case "end":
-                            return _context3.stop();
-                    }
-                }
-            }, _callee3, undefined);
-        }));
-
-        return function submit(_x3) {
-            return _ref3.apply(this, arguments);
-        };
-    }();
-
-    var setStoreInstall = function () {
-        var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(store_url, merchantId) {
-            var woo_commerce, is_installed;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
-                while (1) {
-                    switch (_context4.prev = _context4.next) {
-                        case 0:
-                            _context4.next = 2;
-                            return verify({ merchant_id: merchantId, "woo_commerce": { "store_url": store_url } });
-
-                        case 2:
-                            woo_commerce = _context4.sent;
-                            is_installed = woo_commerce.data.woo_commerce.is_installed;
-
-                            if (is_installed) {
-                                localStorage.setItem('isInstalled', is_installed);
-                                props.setIsInstalled(is_installed);
-                            } else {
-                                localStorage.setItem('isInstalled', is_installed);
-                                props.setIsInstalled(is_installed);
-                            }
-
-                        case 5:
-                        case "end":
-                            return _context4.stop();
-                    }
-                }
-            }, _callee4, undefined);
-        }));
-
-        return function setStoreInstall(_x4, _x5) {
-            return _ref4.apply(this, arguments);
-        };
-    }();
-    var checkInstall = function () {
-        var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            var store_url, merchantId, _store_url, _merchantId;
-
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
-                while (1) {
-                    switch (_context5.prev = _context5.next) {
-                        case 0:
-                            if (localStorage.isInstalled === 'true') {
-                                store_url = localStorage.storeUrl;
-                                merchantId = localStorage.merchantId;
-
-                                setStoreInstall(store_url, merchantId);
-                            } else {
-                                _store_url = localStorage.storeUrl;
-                                _merchantId = localStorage.merchantId;
-
-                                setStoreInstall(_store_url, _merchantId);
-                            }
-
-                        case 1:
-                        case "end":
-                            return _context5.stop();
-                    }
-                }
-            }, _callee5, undefined);
-        }));
-
-        return function checkInstall() {
-            return _ref5.apply(this, arguments);
-        };
-    }();
-
-    (0, _react.useEffect)(function () {
-        checkInstall();
-        // if (localStorage.length !== 0) {
-        //     debugger
-        // }
-        setErrors("");
-    }, []);
-
-    // useEffect(() => {
-    //     setErrors("")
-    // }, [formData.storeUrl]);
-
-    return wp.element.createElement(
-        _react2.default.Fragment,
-        null,
-        wp.element.createElement(
-            "div",
-            { className: "container", style: centerContainer },
-            wp.element.createElement(
-                "div",
-                { className: "row align-items-center" },
-                wp.element.createElement("div", { className: "col" }),
-                wp.element.createElement(
-                    "div",
-                    { className: "col" },
-                    wp.element.createElement(
-                        "div",
-                        { className: "shadow p-4 bg-body rounded" },
-                        wp.element.createElement(
-                            "div",
-                            { className: "pb-2" },
-                            wp.element.createElement(
-                                "label",
-                                { className: "form-label" },
-                                "Merchant Id"
-                            ),
-                            wp.element.createElement("input", {
-                                type: "text",
-                                className: "form-control",
-                                value: formData.merchantId,
-                                placeholder: "Please Enter Merchant Id",
-                                onChange: handleMerchantId,
-                                required: true }),
-                            wp.element.createElement(
-                                "div",
-                                {
-                                    className: errors.merchantId ? 'invalid-feedback d-block' : 'invalid-feedback' },
-                                errors.merchantId
-                            )
-                        ),
-                        wp.element.createElement(
-                            "div",
-                            { className: "pb-2 mb-4" },
-                            wp.element.createElement(
-                                "label",
-                                { className: "form-label font-weight-bold" },
-                                "Store URL"
-                            ),
-                            wp.element.createElement("input", {
-                                type: "text",
-                                name: "storeUrl",
-                                className: "form-control",
-                                value: window.location.origin,
-                                placeholder: "Please Enter Store URL",
-                                onChange: handleStoreUrl,
-                                required: true,
-                                readOnly: true
-                            }),
-                            wp.element.createElement(
-                                "div",
-                                {
-                                    className: errors.storeUrl ? 'invalid-feedback d-block' : 'invalid-feedback' },
-                                errors.storeUrl
-                            )
-                        ),
-                        wp.element.createElement(
-                            "div",
-                            { className: "text-center " },
-                            wp.element.createElement(
-                                "button",
-                                {
-                                    type: "submit",
-                                    onClick: function onClick(e) {
-                                        return submit(e);
-                                    },
-                                    className: "btn btn-primary" },
-                                "Submit"
-                            )
-                        )
-                    )
-                ),
-                wp.element.createElement("div", { className: "col" })
-            )
-        )
-    );
-};
-
-exports.default = registerForm;
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _axios = __webpack_require__(3);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _Homepage = __webpack_require__(51);
+var _Homepage = __webpack_require__(50);
 
 var _Homepage2 = _interopRequireDefault(_Homepage);
 
-var _Help = __webpack_require__(52);
+var _Help = __webpack_require__(51);
 
 var _Help2 = _interopRequireDefault(_Help);
 
-var _ewardsConfigForm = __webpack_require__(53);
+var _ewardsConfigForm = __webpack_require__(52);
 
 var _ewardsConfigForm2 = _interopRequireDefault(_ewardsConfigForm);
 
-var _reactRouterDom = __webpack_require__(18);
+var _reactRouterDom = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mainPage = function mainPage() {
+    var _useState = (0, _react.useState)("button1"),
+        _useState2 = _slicedToArray(_useState, 2),
+        clickedButton = _useState2[0],
+        setClickedButton = _useState2[1];
+
+    var handleButtonClick = function handleButtonClick(buttonColor) {
+        setClickedButton(buttonColor);
+    };
+
+    var textFont = {
+        fontWeight: "600"
+    };
+
+    var getButtonStyles = function getButtonStyles(buttonColor) {
+        return {
+            backgroundColor: clickedButton === buttonColor ? "transparent" : "transparent",
+            color: clickedButton === buttonColor ? "#dd9933" : "black",
+            margin: "0"
+        };
+    };
+
+    var _useState3 = (0, _react.useState)(false),
+        _useState4 = _slicedToArray(_useState3, 2),
+        isHover = _useState4[0],
+        setIsHover = _useState4[1];
+
+    var handleMsgMouseEnter = function handleMsgMouseEnter() {
+        setIsHover(true);
+    };
+
+    var handleMsgMouseLeave = function handleMsgMouseLeave() {
+        setIsHover(false);
+    };
+
+    var msgStyle = {
+        color: "inherit",
+        textDecoration: isHover ? 'underline' : 'none'
+    };
+
     return wp.element.createElement(
         _react2.default.Fragment,
         null,
@@ -44264,49 +44211,63 @@ var mainPage = function mainPage() {
                     { className: 'container-fluid' },
                     wp.element.createElement(
                         'div',
-                        { className: 'row w-100' },
+                        { className: 'd-flex w-100' },
                         wp.element.createElement(
                             'div',
-                            { className: 'col' },
+                            { className: 'd-flex', style: { flex: '0 0 15rem' } },
                             wp.element.createElement(
                                 'h5',
                                 null,
-                                'logo'
+                                'eWards'
                             )
                         ),
                         wp.element.createElement(
                             'div',
-                            { className: 'col d-flex justify-content-center' },
-                            wp.element.createElement(
-                                'a',
-                                { href: 'mailto:info@myewards.com?Subject=ewards' },
-                                'info@myewards.com'
-                            )
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'col' },
+                            { className: 'd-flex', style: { flex: '1 1 auto' } },
                             wp.element.createElement(
                                 'div',
-                                { className: 'd-flex flex-row-reverse' },
+                                { className: 'w-100 d-flex justify-content-center' },
                                 wp.element.createElement(
-                                    'a',
-                                    { href: 'http://www.facebook.com/MyeWards/' },
-                                    wp.element.createElement(
-                                        'svg',
-                                        { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
-                                        '    ',
-                                        wp.element.createElement('path', { d: 'M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z' })
-                                    )
+                                    'svg',
+                                    { viewBox: '0 0 24 24', width: '24px', focusable: 'false', 'aria-hidden': 'true' },
+                                    wp.element.createElement('path', { d: 'M0 5.324v10.176a1.5 1.5 0 0 0 1.5 1.5h17a1.5 1.5 0 0 0 1.5-1.5v-10.176l-9.496 5.54a1 1 0 0 1-1.008 0l-9.496-5.54z' }),
+                                    wp.element.createElement('path', { d: 'M19.443 3.334a1.494 1.494 0 0 0-.943-.334h-17a1.49 1.49 0 0 0-.943.334l9.443 5.508 9.443-5.508z' })
                                 ),
                                 wp.element.createElement(
                                     'a',
-                                    { href: 'https://www.instagram.com/myewards/' },
+                                    {
+                                        style: msgStyle,
+                                        onMouseEnter: handleMsgMouseEnter,
+                                        onMouseLeave: handleMsgMouseLeave,
+                                        href: 'mailto:info@myewards.com?Subject=ewards' },
+                                    'info@myewards.com'
+                                )
+                            ),
+                            wp.element.createElement(
+                                'div',
+                                { className: '' },
+                                wp.element.createElement(
+                                    'div',
+                                    { className: 'd-flex flex-row-reverse' },
                                     wp.element.createElement(
-                                        'svg',
-                                        { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
-                                        '    ',
-                                        wp.element.createElement('path', { d: 'M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z' })
+                                        'a',
+                                        { className: 'ps-4', href: 'http://www.facebook.com/MyeWards/', target: 'blank' },
+                                        wp.element.createElement(
+                                            'svg',
+                                            { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
+                                            '    ',
+                                            wp.element.createElement('path', { d: 'M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z' })
+                                        )
+                                    ),
+                                    wp.element.createElement(
+                                        'a',
+                                        { href: 'https://www.instagram.com/myewards/', target: 'blank' },
+                                        wp.element.createElement(
+                                            'svg',
+                                            { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
+                                            '    ',
+                                            wp.element.createElement('path', { d: 'M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z' })
+                                        )
                                     )
                                 )
                             )
@@ -44316,29 +44277,41 @@ var mainPage = function mainPage() {
             ),
             wp.element.createElement(
                 'div',
-                { className: 'd-flex align-items-start' },
+                { className: 'border-bottom d-flex align-items-start' },
                 wp.element.createElement(
                     'div',
-                    { className: 'nav flex-column nav-pills me-3', id: 'v-pills-tab', role: 'tablist', 'aria-orientation': 'vertical' },
+                    { style: textFont, className: 'nav flex-column nav-pills me-3 align-items-start', id: 'v-pills-tab', role: 'tablist', 'aria-orientation': 'vertical' },
                     wp.element.createElement(
                         'button',
-                        { className: 'nav-link active', id: 'v-pills-home-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-home', type: 'button', role: 'tab', 'aria-controls': 'v-pills-home', 'aria-selected': 'true' },
+                        { style: getButtonStyles("button1"),
+                            onClick: function onClick() {
+                                return handleButtonClick("button1");
+                            },
+                            className: 'nav-link active', id: 'v-pills-home-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-home', type: 'button', role: 'tab', 'aria-controls': 'v-pills-home', 'aria-selected': 'true' },
                         'Home'
                     ),
                     wp.element.createElement(
                         'button',
-                        { className: 'nav-link', id: 'v-pills-profile-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-profile', type: 'button', role: 'tab', 'aria-controls': 'v-pills-profile', 'aria-selected': 'false' },
+                        { style: getButtonStyles("button2"),
+                            onClick: function onClick() {
+                                return handleButtonClick("button2");
+                            },
+                            className: 'nav-link', id: 'v-pills-profile-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-profile', type: 'button', role: 'tab', 'aria-controls': 'v-pills-profile', 'aria-selected': 'false' },
                         'eWardsConfiguration'
                     ),
                     wp.element.createElement(
                         'button',
-                        { className: 'nav-link', id: 'v-pills-messages-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-messages', type: 'button', role: 'tab', 'aria-controls': 'v-pills-messages', 'aria-selected': 'false' },
+                        { style: getButtonStyles("button3"),
+                            onClick: function onClick() {
+                                return handleButtonClick("button3");
+                            },
+                            className: 'nav-link', id: 'v-pills-messages-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-messages', type: 'button', role: 'tab', 'aria-controls': 'v-pills-messages', 'aria-selected': 'false' },
                         'Help'
                     )
                 ),
                 wp.element.createElement(
                     'div',
-                    { className: 'tab-content w-100 border-start', id: 'v-pills-tabContent' },
+                    { className: 'tab-content pb-4 w-100 border-start', id: 'v-pills-tabContent' },
                     wp.element.createElement(
                         'div',
                         { className: 'tab-pane fade show active', id: 'v-pills-home', role: 'tabpanel', 'aria-labelledby': 'v-pills-home-tab' },
@@ -44363,7 +44336,7 @@ var mainPage = function mainPage() {
 exports.default = mainPage;
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44384,17 +44357,20 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Homepage = function Homepage() {
+    var headingColor = {
+        color: "#41225d"
+    };
     return wp.element.createElement(
         _react2.default.Fragment,
         null,
         wp.element.createElement(
             'h4',
-            { className: 'text-center p-4' },
+            { className: 'text-center p-4', style: headingColor },
             'eWards'
         ),
         wp.element.createElement(
             'div',
-            { className: 'container' },
+            { className: 'container px-5' },
             wp.element.createElement(
                 'p',
                 { className: 'text-start' },
@@ -44439,6 +44415,154 @@ var Homepage = function Homepage() {
                 'h6',
                 null,
                 'Types of Loyalty:'
+            ),
+            wp.element.createElement(
+                'ol',
+                { className: 'list-group list-group-numbered m-0' },
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Flat Loyalty:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'It is a fixed % given to customers on their every bill.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Tier Based/Lifetime Bill:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Loyalty % of customer tiers according to different slabs they are falling under in terms of lifetime bill with the brand.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Instant Billing:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Loyalty % depends on customers\' instant bill value. Different bill values are given loyalty % accordingly.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Day-wise: '
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Setting loyalty % according to different days of the week.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Time-wise:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Setting loyalty % according to different times of day.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Segment-wise:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Customers while filling out the feedback have to select a few options. The options can be treated as a parameter to bucket all the customers selecting the particular option.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Tier Based/Lifetime Bill:'
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Loyalty % of customer tiers according to different slabs they are falling under in terms of lifetime bill with the brand.'
+                        )
+                    )
+                ),
+                wp.element.createElement(
+                    'li',
+                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'ms-2 me-auto' },
+                        wp.element.createElement(
+                            'span',
+                            { className: 'fw-bold' },
+                            'Feedback Loyalty: '
+                        ),
+                        wp.element.createElement(
+                            'span',
+                            null,
+                            'Customers while filling out the feedback have to select a few options. The options can be treated as a parameter to bucket all the customers selecting the particular option.'
+                        )
+                    )
+                )
             )
         )
     );
@@ -44447,7 +44571,7 @@ var Homepage = function Homepage() {
 exports.default = Homepage;
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44460,10 +44584,6 @@ Object.defineProperty(exports, "__esModule", {
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _axios = __webpack_require__(3);
-
-var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44710,7 +44830,7 @@ var Help = function Help() {
 exports.default = Help;
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44734,12 +44854,16 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var EwardsConfigForm = function EwardsConfigForm() {
+//import EwardsConfiguration from './ewardsConfig';
+
+var EwardsConfigForm = function EwardsConfigForm(props) {
+    var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
+    // 
     var initialFormData = Object({
-        merchantId: "",
+        merchant_id: "",
         customerKey: "",
         xApiKey: "",
-        note: ""
+        notes: ""
     });
 
     var _useState = (0, _react.useState)(initialFormData),
@@ -44757,9 +44881,24 @@ var EwardsConfigForm = function EwardsConfigForm() {
         submitForm = _useState6[0],
         setSubmitForm = _useState6[1];
 
+    var _useState7 = (0, _react.useState)(false),
+        _useState8 = _slicedToArray(_useState7, 2),
+        isInstalled = _useState8[0],
+        setIsInstalled = _useState8[1];
+
+    var _useState9 = (0, _react.useState)(false),
+        _useState10 = _slicedToArray(_useState9, 2),
+        isEdit = _useState10[0],
+        setIsEdit = _useState10[1];
+
+    var _useState11 = (0, _react.useState)(),
+        _useState12 = _slicedToArray(_useState11, 2),
+        configId = _useState12[0],
+        setConfigId = _useState12[1];
+
     var handleNote = (0, _react.useCallback)(function (e) {
         setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, { note: e.target.value });
+            return _extends({}, prevFormData, { notes: e.target.value });
         });
     }, [formData]);
 
@@ -44781,72 +44920,362 @@ var EwardsConfigForm = function EwardsConfigForm() {
         });
     }, [formData]);
 
+    var addFormData = function addFormData() {
+        var data = {
+            merchant_id: localStorage.merchantId || "",
+            store_url: localStorage.storeUrl || "",
+            customer_key: formData.customerKey,
+            x_api_key: formData.xApiKey
+            //    notes: formData.notes
+        };
+        console.log("Adding formData=>", data);
+
+        _axios2.default.post(baseUrl + '/api/ewards-key', data).then(function (response) {
+            console.log("response", response);
+
+            setFormData(function (prevData) {
+                return _extends({}, prevData, { merchant_id: localStorage.merchantId,
+                    customerKey: response.data.ewards.customer_key,
+                    xApiKey: response.data.ewards.x_api_key
+                    // notes :response.data.ewards.notes,
+                });
+            });
+            setConfigId(response.data.ewards._id);
+        }).catch(function (error) {
+            console.log("error", error);
+        });
+    };
+    var updateFormData = function updateFormData() {
+        var data = {
+            merchant_id: localStorage.merchantId || "",
+            store_url: window.location.origin || "",
+            customer_key: formData.customerKey,
+            x_api_key: formData.xApiKey
+            // notes: formData.notes
+        };
+        console.log("Updating formData=>", data);
+
+        _axios2.default.put(baseUrl + '/api/ewards-key/' + configId, data).then(function (response) {
+            console.log("response", response);
+
+            setFormData(function (prevData) {
+                return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id,
+                    customerKey: response.data.ewards_key.customer_key,
+                    xApiKey: response.data.ewards_key.x_api_key
+                    // notes: response.data.ewards_key.notes,
+                });
+            });
+            setConfigId(response.data.ewards_key._id);
+            setIsEdit(false);
+            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+        }).catch(function (error) {
+            console.log("error", error);
+        });
+    };
+
+    var handleDelete = function handleDelete() {
+
+        _axios2.default.delete(baseUrl + '/api/ewards-key/' + configId).then(function (response) {
+            setFormData(function (prevData) {
+                return _extends({}, prevData, { merchant_id: localStorage.merchantId,
+                    customerKey: "",
+                    xApiKey: ""
+                    // notes: response.data.ewards_key.notes,
+                });
+            });
+            setIsEdit(false);
+            setIsInstalled(false);
+        }).catch(function (error) {
+            setIsEdit(false);
+            setIsInstalled(false);
+
+            console.log("error", error);
+        });
+    };
+
+    (0, _react.useEffect)(function () {
+
+        _axios2.default.get(baseUrl + '/api/ewards-key/?store_url=' + window.location.origin).then(function (response) {
+
+            setFormData(function (prevData) {
+                return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id,
+                    customerKey: response.data.ewards_key.customer_key,
+                    xApiKey: response.data.ewards_key.x_api_key,
+                    notes: response.data.ewards_key.notes
+                });
+            });
+            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+
+            setConfigId(response.data.ewards_key._id);
+        }).catch(function (error) {
+            console.log("error", error);
+        });
+    }, []);
+
+    var cardWidth = {
+        maxWidth: "900px",
+        margin: "0 auto"
+
+    };
+    var handleEdit = function handleEdit() {
+
+        setIsEdit(true);
+    };
+
+    var _useState13 = (0, _react.useState)(false),
+        _useState14 = _slicedToArray(_useState13, 2),
+        isHover = _useState14[0],
+        setIsHover = _useState14[1];
+
+    var handleMouseEnter = function handleMouseEnter() {
+        setIsHover(true);
+    };
+
+    var handleMouseLeave = function handleMouseLeave() {
+        setIsHover(false);
+    };
+
+    var boxStyle = {
+        height: '200px',
+        width: '200px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: '30px',
+        cursor: 'pointer',
+        backgroundColor: isHover ? 'lightblue' : 'rgb(0, 191, 255)',
+        color: isHover ? 'red' : 'green'
+    };
+
+    var buttonStyle = {
+        backgroundColor: isHover ? '#dd9933' : '#41225d', // Set your desired background color
+        color: "#ffffff", // Set the text color
+        padding: "10px 20px", // Set padding
+        border: "none", // Remove border
+        borderRadius: "5px", // Add border radius for rounded corners
+        cursor: "pointer", // Change cursor on hover
+        transition: "background-color 0.3s" // Add a smooth transition for the hover effect
+    };
+
+    var headingColor = {
+        color: "#41225d"
+    };
     return wp.element.createElement(
         _react2.default.Fragment,
         null,
         wp.element.createElement(
             'div',
-            { className: 'container' },
+            { className: 'container px-5' },
             wp.element.createElement(
-                'form',
-                { className: 'row g-3' },
+                'div',
+                { className: 'row g-3 ps-5 pe-5 ' },
                 wp.element.createElement(
                     'h4',
-                    { className: 'text-center p-4' },
+                    { className: 'text-center p-4', style: headingColor },
                     'eWards Configuration'
-                ),
+                )
+            ),
+            (!isInstalled || isEdit) && wp.element.createElement(
+                'div',
+                { className: 'card border-secondary mb-3 ps-0 pe-0', style: cardWidth },
                 wp.element.createElement(
-                    'h5',
-                    null,
-                    'Create eWards Configuration Settings'
+                    'div',
+                    { className: 'card-header bg-transparent border-secondary' },
+                    wp.element.createElement(
+                        'h5',
+                        null,
+                        'Create eWards Configuration Settings'
+                    )
                 ),
                 wp.element.createElement(
                     'div',
-                    { className: 'col-6' },
+                    { className: 'card-body text-secondary' },
                     wp.element.createElement(
-                        'label',
-                        { className: 'form-label' },
-                        'Merchant Id'
-                    ),
-                    wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.merchantId, placeholder: 'Please enter Merchant Id', onChange: handleMerchantId, required: true })
+                        'div',
+                        { className: 'row g-3 p-4' },
+                        wp.element.createElement(
+                            'div',
+                            { className: 'col-6' },
+                            wp.element.createElement(
+                                'label',
+                                { className: 'form-label' },
+                                'Merchant Id'
+                            ),
+                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: localStorage.merchantId || "", placeholder: 'Please enter Merchant Id', required: true, disabled: true })
+                        ),
+                        wp.element.createElement(
+                            'div',
+                            { className: 'col-6' },
+                            wp.element.createElement(
+                                'label',
+                                { className: 'form-label' },
+                                'xApi Key'
+                            ),
+                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.xApiKey, placeholder: 'Please enter xApi Key', onChange: handleXApiKey, required: true })
+                        ),
+                        wp.element.createElement(
+                            'div',
+                            { className: 'col-6' },
+                            wp.element.createElement(
+                                'label',
+                                { className: 'form-label' },
+                                'Customer Key'
+                            ),
+                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.customerKey, placeholder: 'Please enter Customer Key', onChange: handleCustomerKey, required: true })
+                        ),
+                        wp.element.createElement('div', { className: 'col-12' })
+                    )
                 ),
                 wp.element.createElement(
                     'div',
-                    { className: 'col-6' },
-                    wp.element.createElement(
-                        'label',
-                        { className: 'form-label' },
-                        'xApi Key'
-                    ),
-                    wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.xApiKey, placeholder: 'Please enter xApi Key', onChange: handleXApiKey, required: true })
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'col-6' },
-                    wp.element.createElement(
-                        'label',
-                        { className: 'form-label' },
-                        'Customer Key'
-                    ),
-                    wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.customerKey, placeholder: 'Please enter Customer Key', onChange: handleCustomerKey, required: true })
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'col-6' },
-                    wp.element.createElement(
-                        'label',
-                        { className: 'form-label' },
-                        'Note'
-                    ),
-                    wp.element.createElement('textarea', { className: 'form-control', value: formData.note, onChange: handleNote, rows: '3' })
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'col-12' },
-                    wp.element.createElement(
+                    { className: 'card-footer bg-transparent border-secondary text-end' },
+                    !isEdit && wp.element.createElement(
                         'button',
-                        { type: 'submit', className: 'btn btn-primary' },
+                        { type: 'submit', className: 'btn btn-primary', onClick: addFormData,
+                            style: buttonStyle,
+                            onMouseEnter: handleMouseEnter,
+                            onMouseLeave: handleMouseLeave
+                        },
                         'Add New'
+                    ),
+                    isEdit && wp.element.createElement(
+                        'button',
+                        { type: 'submit', className: 'btn btn-primary', onClick: updateFormData,
+                            style: buttonStyle,
+                            onMouseEnter: handleMouseEnter,
+                            onMouseLeave: handleMouseLeave
+                        },
+                        'Update'
+                    )
+                )
+            ),
+            isInstalled && localStorage.isInstalled === "true" && !isEdit && wp.element.createElement(
+                'div',
+                { className: 'container' },
+                wp.element.createElement(
+                    'table',
+                    { className: 'table table-bordered' },
+                    wp.element.createElement(
+                        'thead',
+                        null,
+                        wp.element.createElement(
+                            'tr',
+                            null,
+                            wp.element.createElement(
+                                'th',
+                                { scope: 'col' },
+                                'MerchantId'
+                            ),
+                            wp.element.createElement(
+                                'th',
+                                { scope: 'col' },
+                                'CustomerKey'
+                            ),
+                            wp.element.createElement(
+                                'th',
+                                { scope: 'col' },
+                                'xApiKey'
+                            ),
+                            wp.element.createElement(
+                                'th',
+                                { scope: 'col' },
+                                'Action'
+                            )
+                        )
+                    ),
+                    wp.element.createElement(
+                        'tbody',
+                        null,
+                        wp.element.createElement(
+                            'tr',
+                            null,
+                            wp.element.createElement(
+                                'td',
+                                null,
+                                localStorage.merchantId || ""
+                            ),
+                            wp.element.createElement(
+                                'td',
+                                null,
+                                formData.customerKey
+                            ),
+                            wp.element.createElement(
+                                'td',
+                                null,
+                                formData.xApiKey
+                            ),
+                            wp.element.createElement(
+                                'td',
+                                null,
+                                wp.element.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn' },
+                                    wp.element.createElement(
+                                        'span',
+                                        { onClick: handleEdit },
+                                        wp.element.createElement(
+                                            'svg',
+                                            { viewBox: '0 0 20 20', width: '16px', className: 'Polaris-Icon__Svg', focusable: 'false', 'aria-hidden': 'true' },
+                                            wp.element.createElement('path', { d: 'm14.846 1.403 3.752 3.753.625-.626a2.653 2.653 0 0 0-3.752-3.752l-.625.625zm2.029 5.472-3.752-3.753-11.905 11.906-1.218 4.97 4.97-1.217 11.905-11.906z' })
+                                        )
+                                    )
+                                ),
+                                wp.element.createElement(
+                                    'button',
+                                    { type: 'button', className: 'btn btn-danger ms-4' },
+                                    wp.element.createElement(
+                                        'span',
+                                        { 'data-bs-toggle': 'modal', 'data-bs-target': '#staticBackdrop' },
+                                        wp.element.createElement(
+                                            'svg',
+                                            { viewBox: '0 0 20 20', width: '16px', fill: '#fff', className: 'Polaris-Icon__Svg', focusable: 'false', 'aria-hidden': 'true' },
+                                            wp.element.createElement('path', { d: 'M8 3.994c0-1.101.895-1.994 2-1.994s2 .893 2 1.994h4c.552 0 1 .446 1 .997a1 1 0 0 1-1 .997h-12c-.552 0-1-.447-1-.997s.448-.997 1-.997h4zm-3 10.514v-6.508h2v6.508a.5.5 0 0 0 .5.498h1.5v-7.006h2v7.006h1.5a.5.5 0 0 0 .5-.498v-6.508h2v6.508a2.496 2.496 0 0 1-2.5 2.492h-5c-1.38 0-2.5-1.116-2.5-2.492z' })
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ),
+            wp.element.createElement(
+                'div',
+                { className: 'modal fade', id: 'staticBackdrop', 'data-bs-backdrop': 'true', 'data-bs-keyboard': 'true', tabIndex: '-1', 'aria-labelledby': 'staticBackdropLabel', 'aria-hidden': 'true' },
+                wp.element.createElement(
+                    'div',
+                    { className: 'modal-dialog' },
+                    wp.element.createElement(
+                        'div',
+                        { className: 'modal-content' },
+                        wp.element.createElement(
+                            'div',
+                            { className: 'modal-header' },
+                            wp.element.createElement(
+                                'h5',
+                                { className: 'modal-title', id: 'staticBackdropLabel' },
+                                'Delete Confoguration'
+                            ),
+                            wp.element.createElement('button', { type: 'button', className: 'btn-close', 'data-bs-dismiss': 'modal', 'aria-label': 'Close' })
+                        ),
+                        wp.element.createElement(
+                            'div',
+                            { className: 'modal-body' },
+                            'Do you really want to delete configuration?'
+                        ),
+                        wp.element.createElement(
+                            'div',
+                            { className: 'modal-footer' },
+                            wp.element.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-secondary', 'data-bs-dismiss': 'modal' },
+                                'Cancle'
+                            ),
+                            wp.element.createElement(
+                                'button',
+                                { type: 'button', className: 'btn btn-primary', 'data-bs-dismiss': 'modal', onClick: handleDelete },
+                                'Yes'
+                            )
+                        )
                     )
                 )
             )

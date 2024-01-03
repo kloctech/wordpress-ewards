@@ -46,7 +46,7 @@ const mainPage = () => {
                     <div className="container-fluid">
                         <div className="d-flex w-100">
                             <div className='d-flex' style={{flex: '0 0 15rem'}}>
-                                <h5>logo</h5>
+                                <h5>eWards</h5>
                             </div>
                             <div className='d-flex' style={{flex: '1 1 auto'}}>
                                 <div className='w-100 d-flex justify-content-center'>

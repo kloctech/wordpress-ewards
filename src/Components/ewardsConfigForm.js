@@ -9,7 +9,7 @@ const EwardsConfigForm = (props) => {
         merchant_id:"",
         customerKey:"",
         xApiKey:"",
-        note:"",
+        notes:"",
     });
    
 
@@ -25,7 +25,7 @@ const EwardsConfigForm = (props) => {
     
     
         const  handleNote = useCallback((e) => { 
-        setFormData((prevFormData) => ({ ...prevFormData, note: e.target.value }));
+        setFormData((prevFormData) => ({ ...prevFormData, notes: e.target.value }));
       }, [formData]);
     
       const  handleMerchantId = useCallback((e) => {
@@ -48,7 +48,7 @@ const EwardsConfigForm = (props) => {
             store_url: localStorage.storeUrl ||"",
             customer_key: formData.customerKey,
             x_api_key: formData.xApiKey,
-          //  notes:formData.note
+        //    notes: formData.notes
           };
         console.log("Adding formData=>", data);
 
@@ -60,7 +60,7 @@ const EwardsConfigForm = (props) => {
          setFormData((prevData) => ({...prevData,merchant_id:localStorage.merchantId,
                 customerKey:response.data.ewards.customer_key,
                 xApiKey:response.data.ewards.x_api_key,
-                note:response.data.ewards.notes,
+                // notes :response.data.ewards.notes,
             }));
             setConfigId(response.data.ewards._id);
           })
@@ -76,7 +76,7 @@ const EwardsConfigForm = (props) => {
             store_url: window.location.origin ||"",
             customer_key: formData.customerKey,
             x_api_key: formData.xApiKey,
-        
+            // notes: formData.notes
           };
         console.log("Updating formData=>", data);
 
@@ -86,9 +86,9 @@ const EwardsConfigForm = (props) => {
         console.log("response",response)
                
          setFormData((prevData) => ({...prevData,merchant_id:response.data.ewards_key.ewards_merchant_id,
-                customerKey:response.data.ewards_key.customer_key,
-                xApiKey:response.data.ewards_key.x_api_key,
-                note:response.data.ewards_key.notes,
+                customerKey: response.data.ewards_key.customer_key,
+                xApiKey: response.data.ewards_key.x_api_key,
+                // notes: response.data.ewards_key.notes,
             }));
             setConfigId(response.data.ewards_key._id);
             setIsEdit(false);
@@ -100,6 +100,7 @@ const EwardsConfigForm = (props) => {
           });
         
      };
+
      const handleDelete =  ()  =>  {
     
         axios.delete(
@@ -108,7 +109,7 @@ const EwardsConfigForm = (props) => {
             setFormData((prevData) => ({...prevData,merchant_id:localStorage.merchantId,
                 customerKey:"",
                 xApiKey:"",
-                //note:response.data.ewards_key.notes,
+                // notes: response.data.ewards_key.notes,
             }));
             setIsEdit(false);
             setIsInstalled(false);
@@ -122,6 +123,7 @@ const EwardsConfigForm = (props) => {
           });
         
      };
+
     useEffect(()=>{
     
         axios.get(
@@ -131,7 +133,7 @@ const EwardsConfigForm = (props) => {
         setFormData((prevData) => ({...prevData,merchant_id:response.data.ewards_key.ewards_merchant_id,
                 customerKey:response.data.ewards_key.customer_key,
                 xApiKey:response.data.ewards_key.x_api_key,
-                note:response.data.ewards_key.notes,
+                notes:response.data.ewards_key.notes,
             }));
             setIsInstalled(response.data.ewards_key.x_api_key ? true :false);
             
@@ -217,10 +219,10 @@ const handleEdit = () => {
                                     <input type="text" className="form-control"  value={formData.customerKey} placeholder="Please enter Customer Key"  onChange={handleCustomerKey} required/>
                                     
                                 </div>
-                                <div className='col-6'>
+                                {/* <div className='col-6'>
                                     <label className="form-label">Note</label>
-                                    <textarea className="form-control" value={formData.note} onChange={handleNote} rows="3"></textarea>
-                                </div>
+                                    <textarea className="form-control" value={formData.notes} onChange={handleNote} rows="3"></textarea>
+                                </div> */}
 
                                 <div className="col-12">
                                     
@@ -237,7 +239,7 @@ const handleEdit = () => {
                                 style={buttonStyle}
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
-                            >Updtae</button>)}
+                            >Update</button>)}
                             
                         </div>
                     </div>
@@ -250,7 +252,7 @@ const handleEdit = () => {
                                 <th scope="col">MerchantId</th>
                                 <th scope="col">CustomerKey</th>
                                 <th scope="col">xApiKey</th>
-                                <th scope="col">Note</th>
+                                {/* <th scope="col">Note</th> */}
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -259,16 +261,16 @@ const handleEdit = () => {
                                 <td>{localStorage.merchantId ||""}</td>
                                 <td>{formData.customerKey}</td>
                                 <td>{formData.xApiKey}</td>
-                                <td>{formData.note}</td>
+                                {/* <td>{formData.notes}</td> */}
                                 <td > 
-                                    <button type="button" class="btn">
+                                    <button type="button" className="btn">
                                         <span onClick={handleEdit}>
-                                            <svg viewBox="0 0 20 20" width="16px" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="m14.846 1.403 3.752 3.753.625-.626a2.653 2.653 0 0 0-3.752-3.752l-.625.625zm2.029 5.472-3.752-3.753-11.905 11.906-1.218 4.97 4.97-1.217 11.905-11.906z"></path></svg>
+                                            <svg viewBox="0 0 20 20" width="16px" className="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="m14.846 1.403 3.752 3.753.625-.626a2.653 2.653 0 0 0-3.752-3.752l-.625.625zm2.029 5.472-3.752-3.753-11.905 11.906-1.218 4.97 4.97-1.217 11.905-11.906z"></path></svg>
                                         </span>
                                     </button>
                                     <button type="button" className="btn btn-danger ms-4">
                                         <span data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <svg viewBox="0 0 20 20" width="16px" fill="#fff" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="M8 3.994c0-1.101.895-1.994 2-1.994s2 .893 2 1.994h4c.552 0 1 .446 1 .997a1 1 0 0 1-1 .997h-12c-.552 0-1-.447-1-.997s.448-.997 1-.997h4zm-3 10.514v-6.508h2v6.508a.5.5 0 0 0 .5.498h1.5v-7.006h2v7.006h1.5a.5.5 0 0 0 .5-.498v-6.508h2v6.508a2.496 2.496 0 0 1-2.5 2.492h-5c-1.38 0-2.5-1.116-2.5-2.492z"></path></svg>
+                                            <svg viewBox="0 0 20 20" width="16px" fill="#fff" className="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="M8 3.994c0-1.101.895-1.994 2-1.994s2 .893 2 1.994h4c.552 0 1 .446 1 .997a1 1 0 0 1-1 .997h-12c-.552 0-1-.447-1-.997s.448-.997 1-.997h4zm-3 10.514v-6.508h2v6.508a.5.5 0 0 0 .5.498h1.5v-7.006h2v7.006h1.5a.5.5 0 0 0 .5-.498v-6.508h2v6.508a2.496 2.496 0 0 1-2.5 2.492h-5c-1.38 0-2.5-1.116-2.5-2.492z"></path></svg>
                                         </span>
                                         </button>
                                 </td>

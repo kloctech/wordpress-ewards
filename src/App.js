@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState,useCallback } from "react";
-import Settings from './Components/main';
 import RegisterForm from './Components/registerForm';
 import MainPage from './Components/mainPage';
 function App() {
