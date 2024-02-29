@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Homepage from '../Pages/Homepage';
 import Help from '../Pages/Help';
+import Customizedconfig  from '../Pages/Customizedconfig';
 import EwardsConfigForm from './ewardsConfigForm';
 import { Link } from 'react-router-dom';
 
@@ -79,6 +80,9 @@ const mainPage = () => {
                         <button style={getButtonStyles("button3")}
                             onClick={() => handleButtonClick("button3")}
                             className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Help</button>
+                    <button style={getButtonStyles("button4")}
+                            onClick={() => handleButtonClick("button4")}
+                            className="nav-link" id="v-pills-customized-tab" data-bs-toggle="pill" data-bs-target="#v-pills-customized" type="button" role="tab" aria-controls="v-pills-customized" aria-selected="false">CustomizedConfigrations</button>
                     </div>
                     <div className="tab-content pb-4 w-100 border-start" id="v-pills-tabContent">
                         <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -89,6 +93,9 @@ const mainPage = () => {
                         </div>
                         <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                             <Help />
+                        </div>
+                        <div className="tab-pane fade" id="v-pills-customized" role="tabpanel" aria-labelledby="v-pills-customized-tab">
+                            <Customizedconfig  />
                         </div>
                     </div>
                 </div>

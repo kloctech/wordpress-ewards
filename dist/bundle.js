@@ -44149,7 +44149,11 @@ var _Help = __webpack_require__(51);
 
 var _Help2 = _interopRequireDefault(_Help);
 
-var _ewardsConfigForm = __webpack_require__(52);
+var _Customizedconfig = __webpack_require__(52);
+
+var _Customizedconfig2 = _interopRequireDefault(_Customizedconfig);
+
+var _ewardsConfigForm = __webpack_require__(53);
 
 var _ewardsConfigForm2 = _interopRequireDefault(_ewardsConfigForm);
 
@@ -44307,6 +44311,15 @@ var mainPage = function mainPage() {
                             },
                             className: 'nav-link', id: 'v-pills-messages-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-messages', type: 'button', role: 'tab', 'aria-controls': 'v-pills-messages', 'aria-selected': 'false' },
                         'Help'
+                    ),
+                    wp.element.createElement(
+                        'button',
+                        { style: getButtonStyles("button4"),
+                            onClick: function onClick() {
+                                return handleButtonClick("button4");
+                            },
+                            className: 'nav-link', id: 'v-pills-customized-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-customized', type: 'button', role: 'tab', 'aria-controls': 'v-pills-customized', 'aria-selected': 'false' },
+                        'CustomizedConfigrations'
                     )
                 ),
                 wp.element.createElement(
@@ -44326,6 +44339,11 @@ var mainPage = function mainPage() {
                         'div',
                         { className: 'tab-pane fade', id: 'v-pills-messages', role: 'tabpanel', 'aria-labelledby': 'v-pills-messages-tab' },
                         wp.element.createElement(_Help2.default, null)
+                    ),
+                    wp.element.createElement(
+                        'div',
+                        { className: 'tab-pane fade', id: 'v-pills-customized', role: 'tabpanel', 'aria-labelledby': 'v-pills-customized-tab' },
+                        wp.element.createElement(_Customizedconfig2.default, null)
                     )
                 )
             )
@@ -44831,6 +44849,196 @@ exports.default = Help;
 
 /***/ }),
 /* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Customizedconfig = function Customizedconfig() {
+   var _useState = (0, _react.useState)(false),
+       _useState2 = _slicedToArray(_useState, 2),
+       isHover = _useState2[0],
+       setIsHover = _useState2[1];
+
+   var _useState3 = (0, _react.useState)({
+      primaryColor: "",
+      secondaryColor: "",
+      fontStyle: ""
+   }),
+       _useState4 = _slicedToArray(_useState3, 2),
+       formData = _useState4[0],
+       setFromData = _useState4[1];
+
+   var centerContainer = {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-44%, -50%)"
+      /*'-webkit-transform': "translate(-44%, -50%)",
+      '-moz-transform': "translate(-44%, -50%)",
+      '-o-transform': "translate(-44%, -50%)",
+      '-ms-transform': "translate(-44%, -50%)",*/
+   };
+   var headingColor = {
+      color: "#41225d"
+   };
+   var cardWidth = {
+      maxWidth: "900px",
+      margin: "0 auto"
+
+   };
+   var handleMouseEnter = function handleMouseEnter() {
+      setIsHover(true);
+   };
+
+   var handleMouseLeave = function handleMouseLeave() {
+      setIsHover(false);
+   };
+   var buttonStyle = {
+      backgroundColor: isHover ? '#dd9933' : '#41225d', // Set your desired background color
+      color: "#ffffff", // Set the text color
+      padding: "10px 20px", // Set padding
+      border: "none", // Remove border
+      borderRadius: "5px", // Add border radius for rounded corners
+      cursor: "pointer", // Change cursor on hover
+      transition: "background-color 0.3s",
+      margin: "10px"
+      // Add a smooth transition for the hover effect
+   };
+
+   var handlePrimaryColor = (0, _react.useCallback)(function (e) {
+      setFromData(function (prevFormData) {
+         return _extends({}, prevFormData, { primaryColor: e.target.value });
+      });
+   }, [formData]);
+
+   var handleSecondaryColor = (0, _react.useCallback)(function (e) {
+      setFromData(function (prevFormData) {
+         return _extends({}, prevFormData, { secondaryColor: e.target.value });
+      });
+   });
+   var handleFontSytle = (0, _react.useCallback)(function (e) {
+      setFromData(function (prevFormData) {
+         return _extends({}, prevFormData, { fontStyle: e.target.value });
+      });
+   });
+   var addFormData = function addFormData() {
+      console.log(formData);
+   };
+   return wp.element.createElement(
+      _react2.default.Fragment,
+      null,
+      wp.element.createElement(
+         "div",
+         { className: "container px-5" },
+         wp.element.createElement(
+            "div",
+            { className: "row align-items-center" },
+            wp.element.createElement(
+               "h4",
+               { className: "text-center p-4" },
+               "Customized Configrations"
+            )
+         ),
+         wp.element.createElement(
+            "div",
+            { className: "card border-secondary mb-3 ps-0 pe-0", style: cardWidth },
+            wp.element.createElement(
+               "div",
+               { className: "card-header bg-transparent border-secondary" },
+               wp.element.createElement(
+                  "h5",
+                  null,
+                  "Customized Configration"
+               )
+            ),
+            wp.element.createElement(
+               "div",
+               { className: "card-body text-secondary" },
+               wp.element.createElement(
+                  "div",
+                  { className: "row g-3 p-4" },
+                  wp.element.createElement(
+                     "div",
+                     { className: "col-6" },
+                     wp.element.createElement(
+                        "label",
+                        { className: "form-label" },
+                        "Primary Colour"
+                     ),
+                     wp.element.createElement("input", { type: "text", className: "form-control", value: formData.primaryColor, placeholder: "Please enter primary color", onChange: handlePrimaryColor, required: true })
+                  ),
+                  wp.element.createElement(
+                     "div",
+                     { className: "col-6" },
+                     wp.element.createElement(
+                        "label",
+                        { className: "form-label" },
+                        "Secondary Colour"
+                     ),
+                     wp.element.createElement("input", { type: "text", className: "form-control", value: formData.secondaryColor, placeholder: "Please enter secondary colour", onChange: handleSecondaryColor, required: true })
+                  ),
+                  wp.element.createElement(
+                     "div",
+                     { className: "col-6" },
+                     wp.element.createElement(
+                        "label",
+                        { className: "form-label" },
+                        "Font Style"
+                     ),
+                     wp.element.createElement("input", { type: "text", className: "form-control", value: formData.fontStyle, placeholder: "Please enter font style", onChange: handleFontSytle, required: true })
+                  ),
+                  wp.element.createElement("div", { className: "col-12" })
+               )
+            ),
+            wp.element.createElement(
+               "div",
+               { className: "card-footer bg-transparent border-secondary text-end" },
+               wp.element.createElement(
+                  "button",
+                  { type: "submit", className: "btn btn-primary",
+                     style: buttonStyle,
+                     onClick: addFormData,
+                     onMouseEnter: handleMouseEnter,
+                     onMouseLeave: handleMouseLeave
+
+                  },
+                  "Add"
+               ),
+               wp.element.createElement(
+                  "button",
+                  { type: "submit", className: "btn btn-primary p-2",
+                     style: buttonStyle,
+                     onMouseEnter: handleMouseEnter,
+                     onMouseLeave: handleMouseLeave
+
+                  },
+                  "Update"
+               )
+            )
+         )
+      )
+   );
+};
+
+exports.default = Customizedconfig;
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
