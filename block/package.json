@@ -1,0 +1,27 @@
+{
+  "name": "test-block",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start ./src/index.js ./src/front.js",
+    "build": "wp-scripts build ./src/index.js ./src/front.js",
+    "format:js": "wp-scripts format-js",
+    "lint:js": "wp-scripts lint-js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "26.19.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^12.16.0",
+    "@wordpress/components": "^25.14.0",
+    "@wordpress/element": "^5.25.0",
+    "axios": "^1.6.3",
+    "bootstrap": "^5.3.2",
+    "dotenv": "^16.4.1",
+    "react-scripts": "^5.0.1"
+  }
+}

@@ -1,0 +1,698 @@
+.mobile-otp-container {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-otp-container-blur {
+  display: flex;
+  align-items: center;
+  filter: blur(0.8px);
+}
+
+.mobile-otp-container-res {
+  display: none;
+}
+
+.select--control-container {
+  margin-top: 32px;
+  text-align: right;
+}
+
+.selectcontrol {
+  width: 6%;
+  height: 3.5em;
+  text-align: center;
+}
+
+.otp-send-button {
+  margin-left: 8px;
+  height: 10%;
+}
+
+.available-balance-container {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 250px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid #4a463d;
+  color: #161718;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.availblepointsmarging {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+
+.otpbutton {
+  background-color: #4a463d;
+  height: 44px;
+  margin-left: 10px;
+  color: #ffffff;
+  margin-bottom: 10px;
+  width: 13%;
+  border: none;
+}
+
+.otpbutton:hover {
+  background-color: #4a463d;
+}
+
+@media only screen and (max-width: 912px) {
+  .otpbutton {
+    margin-left: 10px;
+    width: 20%;
+    height: 46px;
+    font-size: 16px;
+    background-color: #4a463d;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .selectcontrol {
+    width: 11%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .otp-send-button {
+    font-size: 12px;
+  }
+  .selectcontrol {
+    width: 16%;
+  }
+}
+@media screen and (max-width: 430px) {
+  .otpbutton {
+    margin-left: 10px;
+    width: 40%;
+    font-size: 12px;
+    background-color: #4a463d;
+  }
+  .otp-send-button {
+    font-size: 9px;
+    width: 130px;
+  }
+  .selectcontrol {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .selectcontrol {
+    width: 25%;
+    margin-bottom: 0px;
+  }
+  .otp-send-button {
+    font-size: 8px;
+    height: 10em;
+  }
+}
+@media only screen and (max-width: 280px) {
+  .otp-send-button {
+    font-size: 6px;
+  }
+  .selectcontrol {
+    width: 70%;
+  }
+}
+.inputboxes {
+  width: 100%;
+  height: 45px;
+  margin-bottom: 10px;
+}
+
+.tokes-rewards-coupons-container {
+  background-color: #ffffff;
+  padding: 10px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.containertokes-rewards-coupons-container::-webkit-scrollbar-track {
+  background: #161518;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar-thumb {
+  width: 3px;
+  background: #2c2938;
+  border-radius: 6px;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar-thumb:hover {
+  background: #070708;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar-track {
+  background: gray;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar-thumb {
+  background: #131216;
+}
+
+.tokes-rewards-coupons-container::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.tokes-rewards-coupons-container {
+  scrollbar-width: thin;
+  scrollbar-color: #f1f1f1 #888;
+}
+
+.tokes-rewards-coupons-container:hover {
+  scrollbar-color: #f1f1f1 #555;
+}
+
+.container1 {
+  position: relative;
+  width: 100px;
+  height: 80px;
+  border-radius: 10px;
+  background: linear-gradient(to top left, #eaf5fd 50%, #afc2f7 50%);
+}
+
+.triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+          clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+  z-index: 3;
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: black;
+  font-weight: bold;
+}
+
+.points-container {
+  display: flex;
+}
+
+.points-redem-container {
+  display: flex;
+  margin-left: 560px;
+  width: 40%;
+  justify-content: end;
+}
+
+.points-redem-container1 {
+  display: flex;
+  align-items: center;
+  margin-left: 80px;
+}
+
+.points-redem-containe-responsive {
+  display: none;
+}
+
+@media screen and (max-width: 912px) {
+  .points-redem-container {
+    width: 55%;
+    margin-left: 350px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .points-redem-container {
+    width: 60%;
+    margin-left: 300px;
+  }
+  .points-redem-containe-responsive {
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 540px) {
+  .points-redem-container {
+    width: 100%;
+    margin-left: 0px;
+  }
+  .points-redem-containe-responsive {
+    display: flex;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 768px) {
+  .points-redem-container1 {
+    margin-left: 50px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .points-redem-container1 {
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .text {
+    font-size: 10px;
+  }
+}
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.checkbox {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.image {
+  width: 150px;
+  height: 100px;
+  margin: 0 10px;
+}
+
+.title {
+  margin: 0px;
+}
+
+.resend-otp-text {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.inputfiled {
+  width: 100%;
+}
+
+.inputfield {
+  width: 278px;
+  height: 42px;
+  margin-bottom: 30px;
+}
+
+.optinputfield {
+  width: 355px;
+  height: 42px;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+}
+
+.textcolor {
+  color: #4a463d;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.resendotptext {
+  font-size: 18px;
+}
+
+@media screen and (max-width: 780px) {
+  .available-balance-container {
+    width: 265px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .textcolor {
+    font-size: 16px;
+  }
+  .available-balance-container {
+    width: 220px;
+  }
+  .resendotptext {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .available-balance-container {
+    width: 150px;
+    height: 50px;
+    font-size: 10px;
+  }
+}
+.title {
+  padding: 0px;
+  margin: 10px;
+}
+
+.coupon {
+  font-size: 16px;
+  margin-top: 0px !important;
+  padding: 0px !important;
+  color: #4a463d;
+  margin-bottom: 0px !important;
+  line-height: 1.3em;
+}
+
+.validcoupon {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  font-size: 14px;
+  padding: 0px !important;
+  line-height: 1.2em;
+}
+
+@media screen and (max-width: 600px) {
+  .coupon {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 600px) and (max-width: 280px) {
+  .coupon {
+    font-size: 8px;
+  }
+  .validcoupon {
+    font-size: 10px;
+  }
+}
+/* Chrome, Safari, Edge, Opera */
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  width: 71.5%;
+  border: 1px solid #333;
+  border-top: none;
+  border-bottom: none;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+  background-color: #ddd;
+  color: black;
+}
+
+@media screen and (max-width: 1280px) {
+  .topnav {
+    width: 72%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .topnav {
+    width: 72.35%;
+  }
+}
+@media screen and (max-width: 912px) {
+  .topnav {
+    width: 72.8%;
+  }
+}
+@media screen and (max-width: 540px) {
+  .topnav {
+    width: 99.5%;
+  }
+}
+@media screen and (max-width: 430px) {
+  .topnav {
+    width: 100.8%;
+  }
+  .points-redem-container1 {
+    margin-left: 0px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .topnav {
+    width: 104%;
+  }
+  .topnav a {
+    font-size: 10px;
+  }
+}
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media only screen and (max-width: 540px) {
+  .tokes-rewards-coupons-container {
+    width: 95%;
+  }
+  .container1 {
+    width: 80px;
+    height: 70px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .container1 {
+    width: 120px;
+    height: 60px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .container1 {
+    width: 120px;
+    height: 60px;
+  }
+  .text {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .container1 {
+    width: 120px;
+    height: 50px;
+  }
+  .text {
+    font-size: 8px;
+  }
+  .otpbutton {
+    width: 40%;
+    font-size: 8px;
+    height: 24px;
+  }
+}
+.lable {
+  position: absolute;
+  top: 50%;
+  left: 40px; /* Adjust the left position as needed */
+  transform: translateY(-100%);
+  pointer-events: none;
+  transition: top 0.3s ease, font-size 0.3s ease;
+}
+
+.mobile-label.focused {
+  top: -15px;
+  font-size: 16px; /* You can adjust the font size as needed */
+  left: 18px;
+  padding-bottom: 30px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: top 0.3s ease, transform 0.3s ease;
+}
+
+.otpcontainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.otpbtncontianer-responsive {
+  display: none;
+}
+
+.creditredemption-container {
+  display: flex;
+}
+
+.creditpointsbtn {
+  width: 10%;
+}
+
+.otpbtn {
+  width: 29%;
+  display: none;
+}
+
+/* Add any other styles or adjustments you need for the input or container */
+.verifyotpbtn {
+  width: 100%;
+}
+
+@media screen and (max-width: 540px) {
+  .otpbtncontianer-responsive {
+    display: flex;
+  }
+  .points-container {
+    flex-direction: column;
+  }
+  .otpcontainer {
+    display: none;
+  }
+  .otpbtn {
+    width: 100%;
+    display: flex;
+  }
+  .verifyotpbtn {
+    width: 100%;
+  }
+  .creditpointsbtn {
+    width: 100%;
+  }
+}
+.wp-element-button-able {
+  background-color: #111111;
+  border-radius: 0.33rem;
+  border-color: var(--wp--preset--color--contrast);
+  border-width: 0;
+  color: #f9f9f9;
+  font-family: inherit;
+  font-size: var(--wp--preset--font-size--small);
+  font-style: normal;
+  font-weight: 500;
+  line-height: inherit;
+  padding-top: 0.6rem;
+  padding-right: 1rem;
+  padding-bottom: 0.6rem;
+  padding-left: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.wp-element-button-disabled {
+  background-color: var(--wp--preset--color--contrast);
+  border-radius: 0.33rem;
+  border-color: var(--wp--preset--color--contrast);
+  border-width: 0;
+  color: var(--wp--preset--color--base);
+  font-family: inherit;
+  font-size: var(--wp--preset--font-size--small);
+  font-style: normal;
+  font-weight: 500;
+  line-height: inherit;
+  padding-top: 0.6rem;
+  padding-right: 1rem;
+  padding-bottom: 0.6rem;
+  padding-left: 1rem;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.error-msg-outlineing {
+  padding-left: 120px;
+  margin-top: 20px;
+}
+
+.coupon-points-error-msg-otulineing {
+  padding-left: 130px;
+  margin-top: -10px;
+}
+
+.coupon-code-error-msg-otulineing {
+  padding-left: 650px;
+}
+
+@media screen and (max-width: 912px) {
+  .coupon-code-error-msg-otulineing {
+    padding-left: 400px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .coupon-points-error-msg-otulineing {
+    padding-left: 50px;
+  }
+  .coupon-code-error-msg-otulineing {
+    padding-left: 350px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .error-msg-outlineing {
+    padding-left: 50px;
+  }
+  .coupon-code-error-msg-otulineing {
+    padding-left: 150px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .error-msg-outlineing {
+    padding-left: 50px;
+  }
+  .coupon-points-error-msg-otulineing {
+    padding-left: 100px;
+  }
+  .coupon-code-error-msg-otulineing {
+    padding-left: 100px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .error-msg-outlineing {
+    padding-left: 10px;
+  }
+  .coupon-points-error-msg-otulineing {
+    padding-left: 20px;
+  }
+}/*# sourceMappingURL=style.css.map */
