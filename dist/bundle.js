@@ -44128,7 +44128,7 @@ module.exports = function isAxiosError(payload) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -44158,179 +44158,170 @@ var _reactRouterDom = __webpack_require__(10);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mainPage = function mainPage() {
-    var _useState = (0, _react.useState)("button1"),
-        _useState2 = _slicedToArray(_useState, 2),
-        clickedButton = _useState2[0],
-        setClickedButton = _useState2[1];
+  var _useState = (0, _react.useState)("button1"),
+      _useState2 = _slicedToArray(_useState, 2),
+      clickedButton = _useState2[0],
+      setClickedButton = _useState2[1];
 
-    var handleButtonClick = function handleButtonClick(buttonColor) {
-        setClickedButton(buttonColor);
+  var handleButtonClick = function handleButtonClick(buttonColor) {
+    setClickedButton(buttonColor);
+  };
+
+  var textFont = {
+    fontWeight: "600",
+    width: "22%"
+  };
+
+  var getButtonStyles = function getButtonStyles(buttonColor) {
+    return {
+      backgroundColor: clickedButton === buttonColor ? "transparent" : "transparent",
+      color: clickedButton === buttonColor ? "#dd9933" : "black",
+      margin: "0"
     };
+  };
 
-    var textFont = {
-        fontWeight: "600"
-    };
+  var _useState3 = (0, _react.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isHover = _useState4[0],
+      setIsHover = _useState4[1];
 
-    var getButtonStyles = function getButtonStyles(buttonColor) {
-        return {
-            backgroundColor: clickedButton === buttonColor ? "transparent" : "transparent",
-            color: clickedButton === buttonColor ? "#dd9933" : "black",
-            margin: "0"
-        };
-    };
+  var handleMsgMouseEnter = function handleMsgMouseEnter() {
+    setIsHover(true);
+  };
 
-    var _useState3 = (0, _react.useState)(false),
-        _useState4 = _slicedToArray(_useState3, 2),
-        isHover = _useState4[0],
-        setIsHover = _useState4[1];
+  var handleMsgMouseLeave = function handleMsgMouseLeave() {
+    setIsHover(false);
+  };
 
-    var handleMsgMouseEnter = function handleMsgMouseEnter() {
-        setIsHover(true);
-    };
+  var msgStyle = {
+    color: "inherit",
+    textDecoration: isHover ? "underline" : "none"
+  };
 
-    var handleMsgMouseLeave = function handleMsgMouseLeave() {
-        setIsHover(false);
-    };
-
-    var msgStyle = {
-        color: "inherit",
-        textDecoration: isHover ? 'underline' : 'none'
-    };
-
-    return wp.element.createElement(
-        _react2.default.Fragment,
-        null,
+  return wp.element.createElement(
+    _react2.default.Fragment,
+    null,
+    wp.element.createElement(
+      "div",
+      null,
+      wp.element.createElement(
+        "nav",
+        { className: "border-bottom navbar navbar-expand-lg navbar-light bg-light" },
         wp.element.createElement(
-            'div',
-            null,
+          "div",
+          { className: "container-fluid" },
+          wp.element.createElement(
+            "div",
+            { className: "d-flex w-100" },
             wp.element.createElement(
-                'nav',
-                { className: 'border-bottom navbar navbar-expand-lg navbar-light bg-light' },
-                wp.element.createElement(
-                    'div',
-                    { className: 'container-fluid' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'd-flex w-100' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'd-flex', style: { flex: '0 0 15rem' } },
-                            wp.element.createElement(
-                                'h5',
-                                null,
-                                'eWards'
-                            )
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'd-flex', style: { flex: '1 1 auto' } },
-                            wp.element.createElement(
-                                'div',
-                                { className: 'w-100 d-flex justify-content-center' },
-                                wp.element.createElement(
-                                    'svg',
-                                    { viewBox: '0 0 24 24', width: '24px', focusable: 'false', 'aria-hidden': 'true' },
-                                    wp.element.createElement('path', { d: 'M0 5.324v10.176a1.5 1.5 0 0 0 1.5 1.5h17a1.5 1.5 0 0 0 1.5-1.5v-10.176l-9.496 5.54a1 1 0 0 1-1.008 0l-9.496-5.54z' }),
-                                    wp.element.createElement('path', { d: 'M19.443 3.334a1.494 1.494 0 0 0-.943-.334h-17a1.49 1.49 0 0 0-.943.334l9.443 5.508 9.443-5.508z' })
-                                ),
-                                wp.element.createElement(
-                                    'a',
-                                    {
-                                        style: msgStyle,
-                                        onMouseEnter: handleMsgMouseEnter,
-                                        onMouseLeave: handleMsgMouseLeave,
-                                        href: 'mailto:info@myewards.com?Subject=ewards' },
-                                    'info@myewards.com'
-                                )
-                            ),
-                            wp.element.createElement(
-                                'div',
-                                { className: '' },
-                                wp.element.createElement(
-                                    'div',
-                                    { className: 'd-flex flex-row-reverse' },
-                                    wp.element.createElement(
-                                        'a',
-                                        { className: 'ps-4', href: 'http://www.facebook.com/MyeWards/', target: 'blank' },
-                                        wp.element.createElement(
-                                            'svg',
-                                            { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
-                                            '    ',
-                                            wp.element.createElement('path', { d: 'M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z' })
-                                        )
-                                    ),
-                                    wp.element.createElement(
-                                        'a',
-                                        { href: 'https://www.instagram.com/myewards/', target: 'blank' },
-                                        wp.element.createElement(
-                                            'svg',
-                                            { fill: '#000000', xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', width: '24px', height: '24px' },
-                                            '    ',
-                                            wp.element.createElement('path', { d: 'M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z' })
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
+              "div",
+              { className: "d-flex", style: { flex: "0 0 15rem" } },
+              wp.element.createElement(
+                "h5",
+                null,
+                "eWards"
+              )
             ),
             wp.element.createElement(
-                'div',
-                { className: 'border-bottom d-flex align-items-start' },
+              "div",
+              { className: "d-flex", style: { flex: "1 1 auto" } },
+              wp.element.createElement(
+                "div",
+                { className: "w-100 d-flex justify-content-center" },
                 wp.element.createElement(
-                    'div',
-                    { style: textFont, className: 'nav flex-column nav-pills me-3 align-items-start', id: 'v-pills-tab', role: 'tablist', 'aria-orientation': 'vertical' },
-                    wp.element.createElement(
-                        'button',
-                        { style: getButtonStyles("button1"),
-                            onClick: function onClick() {
-                                return handleButtonClick("button1");
-                            },
-                            className: 'nav-link active', id: 'v-pills-home-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-home', type: 'button', role: 'tab', 'aria-controls': 'v-pills-home', 'aria-selected': 'true' },
-                        'Home'
-                    ),
-                    wp.element.createElement(
-                        'button',
-                        { style: getButtonStyles("button2"),
-                            onClick: function onClick() {
-                                return handleButtonClick("button2");
-                            },
-                            className: 'nav-link', id: 'v-pills-profile-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-profile', type: 'button', role: 'tab', 'aria-controls': 'v-pills-profile', 'aria-selected': 'false' },
-                        'eWardsConfiguration'
-                    ),
-                    wp.element.createElement(
-                        'button',
-                        { style: getButtonStyles("button3"),
-                            onClick: function onClick() {
-                                return handleButtonClick("button3");
-                            },
-                            className: 'nav-link', id: 'v-pills-messages-tab', 'data-bs-toggle': 'pill', 'data-bs-target': '#v-pills-messages', type: 'button', role: 'tab', 'aria-controls': 'v-pills-messages', 'aria-selected': 'false' },
-                        'Help'
-                    )
+                  "svg",
+                  { viewBox: "0 0 24 24", width: "24px", focusable: "false", "aria-hidden": "true" },
+                  wp.element.createElement("path", { d: "M0 5.324v10.176a1.5 1.5 0 0 0 1.5 1.5h17a1.5 1.5 0 0 0 1.5-1.5v-10.176l-9.496 5.54a1 1 0 0 1-1.008 0l-9.496-5.54z" }),
+                  wp.element.createElement("path", { d: "M19.443 3.334a1.494 1.494 0 0 0-.943-.334h-17a1.49 1.49 0 0 0-.943.334l9.443 5.508 9.443-5.508z" })
                 ),
                 wp.element.createElement(
-                    'div',
-                    { className: 'tab-content pb-4 w-100 border-start', id: 'v-pills-tabContent' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'tab-pane fade show active', id: 'v-pills-home', role: 'tabpanel', 'aria-labelledby': 'v-pills-home-tab' },
-                        wp.element.createElement(_Homepage2.default, null)
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { className: 'tab-pane fade', id: 'v-pills-profile', role: 'tabpanel', 'aria-labelledby': 'v-pills-profile-tab' },
-                        wp.element.createElement(_ewardsConfigForm2.default, null)
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { className: 'tab-pane fade', id: 'v-pills-messages', role: 'tabpanel', 'aria-labelledby': 'v-pills-messages-tab' },
-                        wp.element.createElement(_Help2.default, null)
-                    )
+                  "a",
+                  { style: msgStyle, onMouseEnter: handleMsgMouseEnter, onMouseLeave: handleMsgMouseLeave, href: "mailto:info@myewards.com?Subject=ewards" },
+                  "info@myewards.com"
                 )
+              ),
+              wp.element.createElement(
+                "div",
+                { className: "" },
+                wp.element.createElement(
+                  "div",
+                  { className: "d-flex flex-row-reverse" },
+                  wp.element.createElement(
+                    "a",
+                    { className: "ps-4", href: "http://www.facebook.com/MyeWards/", target: "blank" },
+                    wp.element.createElement(
+                      "svg",
+                      { fill: "#000000", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "24px", height: "24px" },
+                      " ",
+                      wp.element.createElement("path", { d: "M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z" })
+                    )
+                  ),
+                  wp.element.createElement(
+                    "a",
+                    { href: "https://www.instagram.com/myewards/", target: "blank" },
+                    wp.element.createElement(
+                      "svg",
+                      { fill: "#000000", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "24px", height: "24px" },
+                      " ",
+                      wp.element.createElement("path", { d: "M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z" })
+                    )
+                  )
+                )
+              )
             )
+          )
         )
-    );
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "border-bottom d-flex align-items-start" },
+        wp.element.createElement(
+          "div",
+          { style: textFont, className: "nav flex-column nav-pills  align-items-start", id: "v-pills-tab", role: "tablist", "aria-orientation": "vertical" },
+          wp.element.createElement(
+            "button",
+            { style: getButtonStyles("button1"), onClick: function onClick() {
+                return handleButtonClick("button1");
+              }, className: "nav-link active", id: "v-pills-home-tab", "data-bs-toggle": "pill", "data-bs-target": "#v-pills-home", type: "button", role: "tab", "aria-controls": "v-pills-home", "aria-selected": "true" },
+            "Home"
+          ),
+          wp.element.createElement(
+            "button",
+            { style: getButtonStyles("button2"), onClick: function onClick() {
+                return handleButtonClick("button2");
+              }, className: "nav-link", id: "v-pills-profile-tab", "data-bs-toggle": "pill", "data-bs-target": "#v-pills-profile", type: "button", role: "tab", "aria-controls": "v-pills-profile", "aria-selected": "false" },
+            "eWards Configuration"
+          ),
+          wp.element.createElement(
+            "button",
+            { style: getButtonStyles("button3"), onClick: function onClick() {
+                return handleButtonClick("button3");
+              }, className: "nav-link", id: "v-pills-messages-tab", "data-bs-toggle": "pill", "data-bs-target": "#v-pills-messages", type: "button", role: "tab", "aria-controls": "v-pills-messages", "aria-selected": "false" },
+            "Help"
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "tab-content pb-4 w-100 border-start", id: "v-pills-tabContent" },
+          wp.element.createElement(
+            "div",
+            { className: "tab-pane fade show active", id: "v-pills-home", role: "tabpanel", "aria-labelledby": "v-pills-home-tab" },
+            wp.element.createElement(_Homepage2.default, null)
+          ),
+          wp.element.createElement(
+            "div",
+            { className: "tab-pane fade", id: "v-pills-profile", role: "tabpanel", "aria-labelledby": "v-pills-profile-tab" },
+            wp.element.createElement(_ewardsConfigForm2.default, null)
+          ),
+          wp.element.createElement(
+            "div",
+            { className: "tab-pane fade", id: "v-pills-messages", role: "tabpanel", "aria-labelledby": "v-pills-messages-tab" },
+            wp.element.createElement(_Help2.default, null)
+          )
+        )
+      )
+    )
+  );
 };
 
 exports.default = mainPage;
@@ -44837,7 +44828,7 @@ exports.default = Help;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -44857,430 +44848,420 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //import EwardsConfiguration from './ewardsConfig';
 
 var EwardsConfigForm = function EwardsConfigForm(props) {
-    var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
-    // 
-    var initialFormData = Object({
-        merchant_id: "",
-        customerKey: "",
-        xApiKey: "",
-        notes: ""
+  var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
+  //
+  var initialFormData = Object({
+    merchant_id: "",
+    customerKey: "",
+    xApiKey: "",
+    notes: ""
+  });
+
+  var _useState = (0, _react.useState)(initialFormData),
+      _useState2 = _slicedToArray(_useState, 2),
+      formData = _useState2[0],
+      setFormData = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isValidForm = _useState4[0],
+      setIsValidForm = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      submitForm = _useState6[0],
+      setSubmitForm = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isInstalled = _useState8[0],
+      setIsInstalled = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isEdit = _useState10[0],
+      setIsEdit = _useState10[1];
+
+  var _useState11 = (0, _react.useState)(),
+      _useState12 = _slicedToArray(_useState11, 2),
+      configId = _useState12[0],
+      setConfigId = _useState12[1];
+
+  var handleNote = (0, _react.useCallback)(function (e) {
+    setFormData(function (prevFormData) {
+      return _extends({}, prevFormData, { notes: e.target.value });
     });
+  }, [formData]);
 
-    var _useState = (0, _react.useState)(initialFormData),
-        _useState2 = _slicedToArray(_useState, 2),
-        formData = _useState2[0],
-        setFormData = _useState2[1];
+  var handleMerchantId = (0, _react.useCallback)(function (e) {
+    setFormData(function (prevFormData) {
+      return _extends({}, prevFormData, { merchantId: e.target.value });
+    });
+  }, [formData]);
 
-    var _useState3 = (0, _react.useState)(true),
-        _useState4 = _slicedToArray(_useState3, 2),
-        isValidForm = _useState4[0],
-        setIsValidForm = _useState4[1];
+  var handleCustomerKey = (0, _react.useCallback)(function (e) {
+    setFormData(function (prevFormData) {
+      return _extends({}, prevFormData, { customerKey: e.target.value });
+    });
+  }, [formData]);
 
-    var _useState5 = (0, _react.useState)(false),
-        _useState6 = _slicedToArray(_useState5, 2),
-        submitForm = _useState6[0],
-        setSubmitForm = _useState6[1];
+  var handleXApiKey = (0, _react.useCallback)(function (e) {
+    setFormData(function (prevFormData) {
+      return _extends({}, prevFormData, { xApiKey: e.target.value });
+    });
+  }, [formData]);
 
-    var _useState7 = (0, _react.useState)(false),
-        _useState8 = _slicedToArray(_useState7, 2),
-        isInstalled = _useState8[0],
-        setIsInstalled = _useState8[1];
-
-    var _useState9 = (0, _react.useState)(false),
-        _useState10 = _slicedToArray(_useState9, 2),
-        isEdit = _useState10[0],
-        setIsEdit = _useState10[1];
-
-    var _useState11 = (0, _react.useState)(),
-        _useState12 = _slicedToArray(_useState11, 2),
-        configId = _useState12[0],
-        setConfigId = _useState12[1];
-
-    var handleNote = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, { notes: e.target.value });
+  var addFormData = function addFormData() {
+    var data = {
+      merchant_id: localStorage.merchantId || "",
+      store_url: localStorage.storeUrl || "",
+      customer_key: formData.customerKey,
+      x_api_key: formData.xApiKey
+      //    notes: formData.notes
+    };
+    _axios2.default.post(baseUrl + "/api/ewards-key", data).then(function (response) {
+      setFormData(function (prevData) {
+        return _extends({}, prevData, {
+          merchant_id: localStorage.merchantId,
+          customerKey: response.data.ewards_key.customer_key,
+          xApiKey: response.data.ewards_key.x_api_key
+          // notes :response.data.ewards_key.notes,
         });
-    }, [formData]);
+      });
+      setConfigId(response.data.ewards_key._id);
+      setIsEdit(false);
+      setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+    }).catch(function (error) {
+      console.log("error", error);
+    });
+  };
 
-    var handleMerchantId = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, { merchantId: e.target.value });
+  var updateFormData = function updateFormData() {
+    var data = {
+      merchant_id: localStorage.merchantId || "",
+      store_url: window.location.origin || "",
+      customer_key: formData.customerKey,
+      x_api_key: formData.xApiKey
+      // notes: formData.notes
+    };
+    console.log("Updating formData=>", data);
+
+    _axios2.default.put(baseUrl + "/api/ewards-key/" + configId, data).then(function (response) {
+      console.log("response", response);
+
+      setFormData(function (prevData) {
+        return _extends({}, prevData, {
+          merchant_id: response.data.ewards_key.ewards_merchant_id,
+          customerKey: response.data.ewards_key.customer_key,
+          xApiKey: response.data.ewards_key.x_api_key
+          // notes: response.data.ewards_key.notes,
         });
-    }, [formData]);
+      });
+      debugger;
+      setConfigId(response.data.ewards_key._id);
+      setIsEdit(false);
+      setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+    }).catch(function (error) {
+      console.log("error", error);
+    });
+  };
 
-    var handleCustomerKey = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, { customerKey: e.target.value });
+  var handleDelete = function handleDelete() {
+    _axios2.default.delete(baseUrl + "/api/ewards-key/" + configId).then(function (response) {
+      setFormData(function (prevData) {
+        return _extends({}, prevData, {
+          merchant_id: localStorage.merchantId,
+          customerKey: "",
+          xApiKey: ""
+          // notes: response.data.ewards_key.notes,
         });
-    }, [formData]);
+      });
+      setIsEdit(false);
+      setIsInstalled(false);
+    }).catch(function (error) {
+      setIsEdit(false);
+      setIsInstalled(false);
 
-    var handleXApiKey = (0, _react.useCallback)(function (e) {
-        setFormData(function (prevFormData) {
-            return _extends({}, prevFormData, { xApiKey: e.target.value });
-        });
-    }, [formData]);
+      console.log("error", error);
+    });
+  };
 
-    var addFormData = function addFormData() {
-        var data = {
-            merchant_id: localStorage.merchantId || "",
-            store_url: localStorage.storeUrl || "",
-            customer_key: formData.customerKey,
-            x_api_key: formData.xApiKey
-            //    notes: formData.notes
-        };
-        _axios2.default.post(baseUrl + '/api/ewards-key', data).then(function (response) {
-            setFormData(function (prevData) {
-                return _extends({}, prevData, { merchant_id: localStorage.merchantId,
-                    customerKey: response.data.ewards_key.customer_key,
-                    xApiKey: response.data.ewards_key.x_api_key
-                    // notes :response.data.ewards_key.notes,
-                });
-            });
-            setConfigId(response.data.ewards_key._id);
-            setIsEdit(false);
-            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-        }).catch(function (error) {
-            console.log("error", error);
-        });
-    };
+  (0, _react.useEffect)(function () {
+    _axios2.default.get(baseUrl + "/api/ewards-key/?store_url=" + window.location.origin).then(function (response) {
+      setFormData(function (prevData) {
+        return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes });
+      });
+      setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
 
-    var updateFormData = function updateFormData() {
-        var data = {
-            merchant_id: localStorage.merchantId || "",
-            store_url: window.location.origin || "",
-            customer_key: formData.customerKey,
-            x_api_key: formData.xApiKey
-            // notes: formData.notes
-        };
-        console.log("Updating formData=>", data);
+      setConfigId(response.data.ewards_key._id);
+    }).catch(function (error) {
+      console.log("error", error);
+    });
+  }, []);
 
-        _axios2.default.put(baseUrl + '/api/ewards-key/' + configId, data).then(function (response) {
-            console.log("response", response);
+  var cardWidth = {
+    maxWidth: "900px",
+    margin: "0 auto"
+  };
+  var handleEdit = function handleEdit() {
+    setIsEdit(true);
+  };
 
-            setFormData(function (prevData) {
-                return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id,
-                    customerKey: response.data.ewards_key.customer_key,
-                    xApiKey: response.data.ewards_key.x_api_key
-                    // notes: response.data.ewards_key.notes,
-                });
-            });
-            debugger;
-            setConfigId(response.data.ewards_key._id);
-            setIsEdit(false);
-            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-        }).catch(function (error) {
-            console.log("error", error);
-        });
-    };
+  var _useState13 = (0, _react.useState)(false),
+      _useState14 = _slicedToArray(_useState13, 2),
+      isHover = _useState14[0],
+      setIsHover = _useState14[1];
 
-    var handleDelete = function handleDelete() {
+  var handleMouseEnter = function handleMouseEnter() {
+    setIsHover(true);
+  };
 
-        _axios2.default.delete(baseUrl + '/api/ewards-key/' + configId).then(function (response) {
-            setFormData(function (prevData) {
-                return _extends({}, prevData, { merchant_id: localStorage.merchantId,
-                    customerKey: "",
-                    xApiKey: ""
-                    // notes: response.data.ewards_key.notes,
-                });
-            });
-            setIsEdit(false);
-            setIsInstalled(false);
-        }).catch(function (error) {
-            setIsEdit(false);
-            setIsInstalled(false);
+  var handleMouseLeave = function handleMouseLeave() {
+    setIsHover(false);
+  };
 
-            console.log("error", error);
-        });
-    };
+  var boxStyle = {
+    height: "200px",
+    width: "200px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "30px",
+    cursor: "pointer",
+    backgroundColor: isHover ? "lightblue" : "rgb(0, 191, 255)",
+    color: isHover ? "red" : "green"
+  };
 
-    (0, _react.useEffect)(function () {
+  var buttonStyle = {
+    backgroundColor: isHover ? "#dd9933" : "#41225d", // Set your desired background color
+    color: "#ffffff", // Set the text color
+    padding: "10px 20px", // Set padding
+    border: "none", // Remove border
+    borderRadius: "5px", // Add border radius for rounded corners
+    cursor: "pointer", // Change cursor on hover
+    transition: "background-color 0.3s" // Add a smooth transition for the hover effect
+  };
 
-        _axios2.default.get(baseUrl + '/api/ewards-key/?store_url=' + window.location.origin).then(function (response) {
-
-            setFormData(function (prevData) {
-                return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id,
-                    customerKey: response.data.ewards_key.customer_key,
-                    xApiKey: response.data.ewards_key.x_api_key,
-                    notes: response.data.ewards_key.notes
-                });
-            });
-            setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-
-            setConfigId(response.data.ewards_key._id);
-        }).catch(function (error) {
-            console.log("error", error);
-        });
-    }, []);
-
-    var cardWidth = {
-        maxWidth: "900px",
-        margin: "0 auto"
-
-    };
-    var handleEdit = function handleEdit() {
-
-        setIsEdit(true);
-    };
-
-    var _useState13 = (0, _react.useState)(false),
-        _useState14 = _slicedToArray(_useState13, 2),
-        isHover = _useState14[0],
-        setIsHover = _useState14[1];
-
-    var handleMouseEnter = function handleMouseEnter() {
-        setIsHover(true);
-    };
-
-    var handleMouseLeave = function handleMouseLeave() {
-        setIsHover(false);
-    };
-
-    var boxStyle = {
-        height: '200px',
-        width: '200px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: '30px',
-        cursor: 'pointer',
-        backgroundColor: isHover ? 'lightblue' : 'rgb(0, 191, 255)',
-        color: isHover ? 'red' : 'green'
-    };
-
-    var buttonStyle = {
-        backgroundColor: isHover ? '#dd9933' : '#41225d', // Set your desired background color
-        color: "#ffffff", // Set the text color
-        padding: "10px 20px", // Set padding
-        border: "none", // Remove border
-        borderRadius: "5px", // Add border radius for rounded corners
-        cursor: "pointer", // Change cursor on hover
-        transition: "background-color 0.3s" // Add a smooth transition for the hover effect
-    };
-
-    var headingColor = {
-        color: "#41225d"
-    };
-    return wp.element.createElement(
-        _react2.default.Fragment,
-        null,
+  var headingColor = {
+    color: "#41225d"
+  };
+  return wp.element.createElement(
+    _react2.default.Fragment,
+    null,
+    wp.element.createElement(
+      "div",
+      { className: "container px-5" },
+      wp.element.createElement(
+        "div",
+        { className: "row g-3 ps-5 pe-5 " },
         wp.element.createElement(
-            'div',
-            { className: 'container px-5' },
-            wp.element.createElement(
-                'div',
-                { className: 'row g-3 ps-5 pe-5 ' },
-                wp.element.createElement(
-                    'h4',
-                    { className: 'text-center p-4', style: headingColor },
-                    'eWards Configuration'
-                )
-            ),
-            (!isInstalled || isEdit) && wp.element.createElement(
-                'div',
-                { className: 'card border-secondary mb-3 ps-0 pe-0', style: cardWidth },
-                wp.element.createElement(
-                    'div',
-                    { className: 'card-header bg-transparent border-secondary' },
-                    wp.element.createElement(
-                        'h5',
-                        null,
-                        'Create eWards Configuration Settings'
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'card-body text-secondary' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'row g-3 p-4' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'col-6' },
-                            wp.element.createElement(
-                                'label',
-                                { className: 'form-label' },
-                                'Merchant Id'
-                            ),
-                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: localStorage.merchantId || "", placeholder: 'Please enter Merchant Id', required: true, disabled: true })
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'col-6' },
-                            wp.element.createElement(
-                                'label',
-                                { className: 'form-label' },
-                                'xApi Key'
-                            ),
-                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.xApiKey, placeholder: 'Please enter xApi Key', onChange: handleXApiKey, required: true })
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'col-6' },
-                            wp.element.createElement(
-                                'label',
-                                { className: 'form-label' },
-                                'Customer Key'
-                            ),
-                            wp.element.createElement('input', { type: 'text', className: 'form-control', value: formData.customerKey, placeholder: 'Please enter Customer Key', onChange: handleCustomerKey, required: true })
-                        ),
-                        wp.element.createElement('div', { className: 'col-12' })
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'card-footer bg-transparent border-secondary text-end' },
-                    !isEdit && wp.element.createElement(
-                        'button',
-                        { type: 'submit', className: 'btn btn-primary', onClick: addFormData,
-                            style: buttonStyle,
-                            onMouseEnter: handleMouseEnter,
-                            onMouseLeave: handleMouseLeave
-                        },
-                        'Add New'
-                    ),
-                    isEdit && wp.element.createElement(
-                        'button',
-                        { type: 'submit', className: 'btn btn-primary', onClick: updateFormData,
-                            style: buttonStyle,
-                            onMouseEnter: handleMouseEnter,
-                            onMouseLeave: handleMouseLeave
-                        },
-                        'Update'
-                    )
-                )
-            ),
-            isInstalled && localStorage.isInstalled === "true" && !isEdit && wp.element.createElement(
-                'div',
-                { className: 'container' },
-                wp.element.createElement(
-                    'table',
-                    { className: 'table table-bordered' },
-                    wp.element.createElement(
-                        'thead',
-                        null,
-                        wp.element.createElement(
-                            'tr',
-                            null,
-                            wp.element.createElement(
-                                'th',
-                                { scope: 'col' },
-                                'MerchantId'
-                            ),
-                            wp.element.createElement(
-                                'th',
-                                { scope: 'col' },
-                                'CustomerKey'
-                            ),
-                            wp.element.createElement(
-                                'th',
-                                { scope: 'col' },
-                                'xApiKey'
-                            ),
-                            wp.element.createElement(
-                                'th',
-                                { scope: 'col' },
-                                'Action'
-                            )
-                        )
-                    ),
-                    wp.element.createElement(
-                        'tbody',
-                        null,
-                        wp.element.createElement(
-                            'tr',
-                            null,
-                            wp.element.createElement(
-                                'td',
-                                null,
-                                localStorage.merchantId || ""
-                            ),
-                            wp.element.createElement(
-                                'td',
-                                null,
-                                formData.customerKey
-                            ),
-                            wp.element.createElement(
-                                'td',
-                                null,
-                                formData.xApiKey
-                            ),
-                            wp.element.createElement(
-                                'td',
-                                null,
-                                wp.element.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn' },
-                                    wp.element.createElement(
-                                        'span',
-                                        { onClick: handleEdit },
-                                        wp.element.createElement(
-                                            'svg',
-                                            { viewBox: '0 0 20 20', width: '16px', className: 'Polaris-Icon__Svg', focusable: 'false', 'aria-hidden': 'true' },
-                                            wp.element.createElement('path', { d: 'm14.846 1.403 3.752 3.753.625-.626a2.653 2.653 0 0 0-3.752-3.752l-.625.625zm2.029 5.472-3.752-3.753-11.905 11.906-1.218 4.97 4.97-1.217 11.905-11.906z' })
-                                        )
-                                    )
-                                ),
-                                wp.element.createElement(
-                                    'button',
-                                    { type: 'button', className: 'btn btn-danger ms-4' },
-                                    wp.element.createElement(
-                                        'span',
-                                        { 'data-bs-toggle': 'modal', 'data-bs-target': '#staticBackdrop' },
-                                        wp.element.createElement(
-                                            'svg',
-                                            { viewBox: '0 0 20 20', width: '16px', fill: '#fff', className: 'Polaris-Icon__Svg', focusable: 'false', 'aria-hidden': 'true' },
-                                            wp.element.createElement('path', { d: 'M8 3.994c0-1.101.895-1.994 2-1.994s2 .893 2 1.994h4c.552 0 1 .446 1 .997a1 1 0 0 1-1 .997h-12c-.552 0-1-.447-1-.997s.448-.997 1-.997h4zm-3 10.514v-6.508h2v6.508a.5.5 0 0 0 .5.498h1.5v-7.006h2v7.006h1.5a.5.5 0 0 0 .5-.498v-6.508h2v6.508a2.496 2.496 0 0 1-2.5 2.492h-5c-1.38 0-2.5-1.116-2.5-2.492z' })
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            ),
-            wp.element.createElement(
-                'div',
-                { className: 'modal fade', id: 'staticBackdrop', 'data-bs-backdrop': 'true', 'data-bs-keyboard': 'true', tabIndex: '-1', 'aria-labelledby': 'staticBackdropLabel', 'aria-hidden': 'true' },
-                wp.element.createElement(
-                    'div',
-                    { className: 'modal-dialog' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'modal-content' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'modal-header' },
-                            wp.element.createElement(
-                                'h5',
-                                { className: 'modal-title', id: 'staticBackdropLabel' },
-                                'Delete Confoguration'
-                            ),
-                            wp.element.createElement('button', { type: 'button', className: 'btn-close', 'data-bs-dismiss': 'modal', 'aria-label': 'Close' })
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'modal-body' },
-                            'Do you really want to delete configuration?'
-                        ),
-                        wp.element.createElement(
-                            'div',
-                            { className: 'modal-footer' },
-                            wp.element.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-secondary', 'data-bs-dismiss': 'modal' },
-                                'Cancle'
-                            ),
-                            wp.element.createElement(
-                                'button',
-                                { type: 'button', className: 'btn btn-primary', 'data-bs-dismiss': 'modal', onClick: handleDelete },
-                                'Yes'
-                            )
-                        )
-                    )
-                )
-            )
+          "h4",
+          { className: "text-center p-4", style: headingColor },
+          "eWards Configuration"
         )
-    );
+      ),
+      (!isInstalled || isEdit) && wp.element.createElement(
+        "div",
+        { className: "card border-secondary mb-3 ps-0 pe-0", style: cardWidth },
+        wp.element.createElement(
+          "div",
+          { className: "card-header bg-transparent border-secondary" },
+          isEdit ? wp.element.createElement(
+            "h5",
+            null,
+            "Update eWards Configuration Keys"
+          ) : wp.element.createElement(
+            "h5",
+            null,
+            "Create eWards Configuration Keys"
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "card-body text-secondary" },
+          wp.element.createElement(
+            "div",
+            { className: "row g-3 p-4" },
+            wp.element.createElement(
+              "div",
+              { className: "col-6" },
+              wp.element.createElement(
+                "label",
+                { className: "form-label" },
+                "Merchant Id"
+              ),
+              wp.element.createElement("input", { type: "text", className: "form-control", value: localStorage.merchantId || "", placeholder: "Please Enter Merchant Id", required: true, disabled: true })
+            ),
+            wp.element.createElement(
+              "div",
+              { className: "col-6" },
+              wp.element.createElement(
+                "label",
+                { className: "form-label" },
+                "X Api Key"
+              ),
+              wp.element.createElement("input", { type: "text", className: "form-control", value: formData.xApiKey, placeholder: "Please Enter X Api Key", onChange: handleXApiKey, required: true })
+            ),
+            wp.element.createElement(
+              "div",
+              { className: "col-6" },
+              wp.element.createElement(
+                "label",
+                { className: "form-label" },
+                "Customer Key"
+              ),
+              wp.element.createElement("input", { type: "text", className: "form-control", value: formData.customerKey, placeholder: "Please Enter Customer Key", onChange: handleCustomerKey, required: true })
+            ),
+            wp.element.createElement("div", { className: "col-12" })
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "card-footer bg-transparent border-secondary text-end" },
+          !isEdit && wp.element.createElement(
+            "button",
+            { type: "submit", className: "btn btn-primary", onClick: addFormData, style: buttonStyle, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
+            "Create"
+          ),
+          isEdit && wp.element.createElement(
+            "button",
+            { type: "submit", className: "btn btn-primary", onClick: updateFormData, style: buttonStyle, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave },
+            "Update"
+          )
+        )
+      ),
+      isInstalled && localStorage.isInstalled === "true" && !isEdit && wp.element.createElement(
+        "div",
+        { className: "container" },
+        wp.element.createElement(
+          "table",
+          { className: "table table-bordered" },
+          wp.element.createElement(
+            "thead",
+            null,
+            wp.element.createElement(
+              "tr",
+              null,
+              wp.element.createElement(
+                "th",
+                { scope: "col" },
+                "Merchant Id"
+              ),
+              wp.element.createElement(
+                "th",
+                { scope: "col" },
+                "Customer Key"
+              ),
+              wp.element.createElement(
+                "th",
+                { scope: "col" },
+                "X Api Key"
+              ),
+              wp.element.createElement(
+                "th",
+                { scope: "col" },
+                "Action"
+              )
+            )
+          ),
+          wp.element.createElement(
+            "tbody",
+            null,
+            wp.element.createElement(
+              "tr",
+              null,
+              wp.element.createElement(
+                "td",
+                null,
+                localStorage.merchantId || ""
+              ),
+              wp.element.createElement(
+                "td",
+                null,
+                formData.customerKey
+              ),
+              wp.element.createElement(
+                "td",
+                null,
+                formData.xApiKey
+              ),
+              wp.element.createElement(
+                "td",
+                null,
+                wp.element.createElement(
+                  "button",
+                  { type: "button", className: "btn" },
+                  wp.element.createElement(
+                    "span",
+                    { onClick: handleEdit },
+                    wp.element.createElement(
+                      "svg",
+                      { viewBox: "0 0 20 20", width: "16px", className: "Polaris-Icon__Svg", focusable: "false", "aria-hidden": "true" },
+                      wp.element.createElement("path", { d: "m14.846 1.403 3.752 3.753.625-.626a2.653 2.653 0 0 0-3.752-3.752l-.625.625zm2.029 5.472-3.752-3.753-11.905 11.906-1.218 4.97 4.97-1.217 11.905-11.906z" })
+                    )
+                  )
+                ),
+                wp.element.createElement(
+                  "button",
+                  { type: "button", className: "btn btn-danger ms-4" },
+                  wp.element.createElement(
+                    "span",
+                    { "data-bs-toggle": "modal", "data-bs-target": "#staticBackdrop" },
+                    wp.element.createElement(
+                      "svg",
+                      { viewBox: "0 0 20 20", width: "16px", fill: "#fff", className: "Polaris-Icon__Svg", focusable: "false", "aria-hidden": "true" },
+                      wp.element.createElement("path", { d: "M8 3.994c0-1.101.895-1.994 2-1.994s2 .893 2 1.994h4c.552 0 1 .446 1 .997a1 1 0 0 1-1 .997h-12c-.552 0-1-.447-1-.997s.448-.997 1-.997h4zm-3 10.514v-6.508h2v6.508a.5.5 0 0 0 .5.498h1.5v-7.006h2v7.006h1.5a.5.5 0 0 0 .5-.498v-6.508h2v6.508a2.496 2.496 0 0 1-2.5 2.492h-5c-1.38 0-2.5-1.116-2.5-2.492z" })
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "modal fade", id: "staticBackdrop", "data-bs-backdrop": "true", "data-bs-keyboard": "true", tabIndex: "-1", "aria-labelledby": "staticBackdropLabel", "aria-hidden": "true" },
+        wp.element.createElement(
+          "div",
+          { className: "modal-dialog" },
+          wp.element.createElement(
+            "div",
+            { className: "modal-content" },
+            wp.element.createElement(
+              "div",
+              { className: "modal-header" },
+              wp.element.createElement(
+                "h5",
+                { className: "modal-title", id: "staticBackdropLabel" },
+                "Delete Configuration"
+              ),
+              wp.element.createElement("button", { type: "button", className: "btn-close", "data-bs-dismiss": "modal", "aria-label": "Close" })
+            ),
+            wp.element.createElement(
+              "div",
+              { className: "modal-body" },
+              "Do you really want to delete configuration?"
+            ),
+            wp.element.createElement(
+              "div",
+              { className: "modal-footer" },
+              wp.element.createElement(
+                "button",
+                { type: "button", className: "btn btn-secondary", "data-bs-dismiss": "modal" },
+                "Cancel"
+              ),
+              wp.element.createElement(
+                "button",
+                { type: "button", className: "btn btn-primary", "data-bs-dismiss": "modal", onClick: handleDelete },
+                "Yes"
+              )
+            )
+          )
+        )
+      )
+    )
+  );
 };
 
 exports.default = EwardsConfigForm;
