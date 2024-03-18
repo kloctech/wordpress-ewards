@@ -4,15 +4,13 @@
  *
  * @wordpress-plugin
  * Plugin Name:      eWards
- * Plugin URI:        https://github.com/MuhammadFaizanHaidar/wp-react-app
- * Description:       Integrates react into WordPress admin pages.
- * Version:           1.0.0
- * Author:            Kloc
- * Author URI:        www.klocapps.com
+ * Plugin URI:        
+ * Description:       eWards is an Integrated platform for customer retention and marketing automation.
+ * Version:           0.0.3
+ * Author:            Kloc Technologies PVT LTD
+ * Author URI:        https://kloctechnologies.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       
- * Domain Path:       /languages
  */
 
  if (!defined('ABSPATH')) {
