@@ -27,14 +27,21 @@ export default function CouponsHandler(data) {
         }
       }
     };
-    const timerId = setTimeout(fetchCartValue, 1000);
-    return () => clearTimeout(timerId);
+    // Call fetchCartValue initially
+    fetchCartValue();
+
+
+    // Setup MutationObserver to recall fetchCartValue when page content changes
+    const observer = new MutationObserver(fetchCartValue);
+    observer.observe(document.body, { subtree: true, childList: true });
+
+    return () => observer.disconnect();
   }, []);
   const containerStyle = {
     width: "100%",
     height: "95vh",
     border: "none",
   };
-  const src = `https://kloc-ewards.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
+  const src = `https://ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
   return <iframe src={src} style={containerStyle} title="External Content" />;
 }
