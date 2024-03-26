@@ -44845,6 +44845,10 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //import EwardsConfiguration from './ewardsConfig';
 
 var EwardsConfigForm = function EwardsConfigForm(props) {
@@ -44854,7 +44858,8 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     merchant_id: "",
     customerKey: "",
     xApiKey: "",
-    notes: ""
+    notes: "",
+    newMerchantId: ""
   });
 
   var _useState = (0, _react.useState)(initialFormData),
@@ -44887,28 +44892,12 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
       configId = _useState12[0],
       setConfigId = _useState12[1];
 
-  var handleNote = (0, _react.useCallback)(function (e) {
-    setFormData(function (prevFormData) {
-      return _extends({}, prevFormData, { notes: e.target.value });
-    });
-  }, [formData]);
+  var changeHandler = (0, _react.useCallback)(function (e) {
+    var _e$target = e.target,
+        value = _e$target.value,
+        name = _e$target.name;
 
-  var handleMerchantId = (0, _react.useCallback)(function (e) {
-    setFormData(function (prevFormData) {
-      return _extends({}, prevFormData, { merchantId: e.target.value });
-    });
-  }, [formData]);
-
-  var handleCustomerKey = (0, _react.useCallback)(function (e) {
-    setFormData(function (prevFormData) {
-      return _extends({}, prevFormData, { customerKey: e.target.value });
-    });
-  }, [formData]);
-
-  var handleXApiKey = (0, _react.useCallback)(function (e) {
-    setFormData(function (prevFormData) {
-      return _extends({}, prevFormData, { xApiKey: e.target.value });
-    });
+    setFormData(_extends({}, formData, _defineProperty({}, name, value)));
   }, [formData]);
 
   var addFormData = function addFormData() {
@@ -44916,7 +44905,8 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
       merchant_id: localStorage.merchantId || "",
       store_url: localStorage.storeUrl || "",
       customer_key: formData.customerKey,
-      x_api_key: formData.xApiKey
+      x_api_key: formData.xApiKey,
+      newMerchantId: localStorage.merchantId
       //    notes: formData.notes
     };
     _axios2.default.post(baseUrl + "/api/ewards-key", data).then(function (response) {
@@ -44936,67 +44926,111 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     });
   };
 
-  var updateFormData = function updateFormData() {
-    var data = {
-      merchant_id: localStorage.merchantId || "",
-      store_url: window.location.origin || "",
-      customer_key: formData.customerKey,
-      x_api_key: formData.xApiKey
-      // notes: formData.notes
+  var updateFormData = function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var data;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              data = {
+                merchant_id: localStorage.merchantId || "",
+                store_url: window.location.origin || "",
+                customer_key: formData.customerKey,
+                x_api_key: formData.xApiKey,
+                newMerchantId: formData.newMerchantId
+                // notes: formData.notes
+              };
+              // console.log("Updating formData=>", data);
+
+              _context.next = 3;
+              return _axios2.default.put(baseUrl + "/api/ewards-key/" + configId, data).then(function (response) {
+                // console.log("response", response);
+                localStorage.setItem('merchantId', response.data.merchant.merchant_id);
+
+                setFormData(function (prevData) {
+                  return _extends({}, prevData, {
+                    merchant_id: localStorage.merchantId,
+                    customerKey: response.data.ewards_key.customer_key,
+                    xApiKey: response.data.ewards_key.x_api_key,
+                    // notes: response.data.ewards_key.notes,
+                    newMerchantId: localStorage.merchantId
+                  });
+                });
+                // debugger;
+                setConfigId(response.data.ewards_key._id);
+                setIsEdit(false);
+                setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+              }).catch(function (error) {
+                console.log("error", error);
+              });
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function updateFormData() {
+      return _ref.apply(this, arguments);
     };
-    console.log("Updating formData=>", data);
+  }();
 
-    _axios2.default.put(baseUrl + "/api/ewards-key/" + configId, data).then(function (response) {
-      console.log("response", response);
+  var handleDelete = function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _axios2.default.delete(baseUrl + "/api/ewards-key/" + configId).then(function (response) {
+                setFormData(function (prevData) {
+                  return _extends({}, prevData, {
+                    merchant_id: localStorage.merchantId,
+                    customerKey: "",
+                    xApiKey: ""
+                    // notes: response.data.ewards_key.notes,
+                  });
+                });
+                setIsEdit(false);
+                setIsInstalled(false);
+              }).catch(function (error) {
+                setIsEdit(false);
+                setIsInstalled(false);
 
+                console.log("error", error);
+              });
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function handleDelete() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  var initialFetch = function initialFetch() {
+    _axios2.default.get(baseUrl + "/api/ewards-key/?store_url=" + window.location.origin).then(function (response) {
       setFormData(function (prevData) {
-        return _extends({}, prevData, {
-          merchant_id: response.data.ewards_key.ewards_merchant_id,
-          customerKey: response.data.ewards_key.customer_key,
-          xApiKey: response.data.ewards_key.x_api_key
-          // notes: response.data.ewards_key.notes,
-        });
+        return _extends({}, prevData, { customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes });
       });
-      debugger;
-      setConfigId(response.data.ewards_key._id);
-      setIsEdit(false);
       setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-    }).catch(function (error) {
-      console.log("error", error);
-    });
-  };
 
-  var handleDelete = function handleDelete() {
-    _axios2.default.delete(baseUrl + "/api/ewards-key/" + configId).then(function (response) {
-      setFormData(function (prevData) {
-        return _extends({}, prevData, {
-          merchant_id: localStorage.merchantId,
-          customerKey: "",
-          xApiKey: ""
-          // notes: response.data.ewards_key.notes,
-        });
-      });
-      setIsEdit(false);
-      setIsInstalled(false);
+      setConfigId(response.data.ewards_key._id);
     }).catch(function (error) {
-      setIsEdit(false);
-      setIsInstalled(false);
-
       console.log("error", error);
     });
   };
 
   (0, _react.useEffect)(function () {
-    _axios2.default.get(baseUrl + "/api/ewards-key/?store_url=" + window.location.origin).then(function (response) {
-      setFormData(function (prevData) {
-        return _extends({}, prevData, { merchant_id: response.data.ewards_key.ewards_merchant_id, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes });
-      });
-      setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-
-      setConfigId(response.data.ewards_key._id);
-    }).catch(function (error) {
-      console.log("error", error);
-    });
+    setFormData(_extends({}, formData, { merchant_id: localStorage.merchantId, newMerchantId: localStorage.merchantId }));
+    initialFetch();
   }, []);
 
   var cardWidth = {
@@ -45090,7 +45124,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
                 { className: "form-label" },
                 "Merchant Id"
               ),
-              wp.element.createElement("input", { type: "text", className: "form-control", value: localStorage.merchantId || "", placeholder: "Please Enter Merchant Id", required: true, disabled: true })
+              wp.element.createElement("input", { name: "newMerchantId", type: "text", className: "form-control", value: formData.newMerchantId || "", onChange: changeHandler, placeholder: "Please Enter Merchant Id", required: true, disabled: !isEdit })
             ),
             wp.element.createElement(
               "div",
@@ -45100,7 +45134,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
                 { className: "form-label" },
                 "X Api Key"
               ),
-              wp.element.createElement("input", { type: "text", className: "form-control", value: formData.xApiKey, placeholder: "Please Enter X Api Key", onChange: handleXApiKey, required: true })
+              wp.element.createElement("input", { name: "xApiKey", type: "text", className: "form-control", value: formData.xApiKey, placeholder: "Please Enter X Api Key", onChange: changeHandler, required: true })
             ),
             wp.element.createElement(
               "div",
@@ -45110,7 +45144,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
                 { className: "form-label" },
                 "Customer Key"
               ),
-              wp.element.createElement("input", { type: "text", className: "form-control", value: formData.customerKey, placeholder: "Please Enter Customer Key", onChange: handleCustomerKey, required: true })
+              wp.element.createElement("input", { name: "customerKey", type: "text", className: "form-control", value: formData.customerKey, placeholder: "Please Enter Customer Key", onChange: changeHandler, required: true })
             ),
             wp.element.createElement("div", { className: "col-12" })
           )

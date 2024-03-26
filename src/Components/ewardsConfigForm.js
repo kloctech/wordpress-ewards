@@ -10,6 +10,7 @@ const EwardsConfigForm = (props) => {
     customerKey: "",
     xApiKey: "",
     notes: "",
+    newMerchantId: ""
   });
 
   const [formData, setFormData] = useState(initialFormData);
@@ -21,30 +22,11 @@ const EwardsConfigForm = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [configId, setConfigId] = useState();
 
-  const handleNote = useCallback(
+  const changeHandler = useCallback(
     (e) => {
-      setFormData((prevFormData) => ({ ...prevFormData, notes: e.target.value }));
-    },
-    [formData]
-  );
+      const { value, name } = e.target;
+      setFormData({ ...formData, [name]: value })
 
-  const handleMerchantId = useCallback(
-    (e) => {
-      setFormData((prevFormData) => ({ ...prevFormData, merchantId: e.target.value }));
-    },
-    [formData]
-  );
-
-  const handleCustomerKey = useCallback(
-    (e) => {
-      setFormData((prevFormData) => ({ ...prevFormData, customerKey: e.target.value }));
-    },
-    [formData]
-  );
-
-  const handleXApiKey = useCallback(
-    (e) => {
-      setFormData((prevFormData) => ({ ...prevFormData, xApiKey: e.target.value }));
     },
     [formData]
   );
@@ -55,6 +37,7 @@ const EwardsConfigForm = (props) => {
       store_url: localStorage.storeUrl || "",
       customer_key: formData.customerKey,
       x_api_key: formData.xApiKey,
+      newMerchantId: localStorage.merchantId
       //    notes: formData.notes
     };
     axios
@@ -76,29 +59,32 @@ const EwardsConfigForm = (props) => {
       });
   };
 
-  const updateFormData = () => {
+  const updateFormData = async () => {
     const data = {
       merchant_id: localStorage.merchantId || "",
       store_url: window.location.origin || "",
       customer_key: formData.customerKey,
       x_api_key: formData.xApiKey,
+      newMerchantId: formData.newMerchantId
       // notes: formData.notes
     };
-    console.log("Updating formData=>", data);
+    // console.log("Updating formData=>", data);
 
-    axios
+    await axios
       .put(`${baseUrl}/api/ewards-key/${configId}`, data)
       .then(function (response) {
-        console.log("response", response);
+        // console.log("response", response);
+        localStorage.setItem('merchantId', response.data.merchant.merchant_id)
 
         setFormData((prevData) => ({
           ...prevData,
-          merchant_id: response.data.ewards_key.ewards_merchant_id,
+          merchant_id: localStorage.merchantId,
           customerKey: response.data.ewards_key.customer_key,
           xApiKey: response.data.ewards_key.x_api_key,
           // notes: response.data.ewards_key.notes,
+          newMerchantId: localStorage.merchantId
         }));
-        debugger;
+        // debugger;
         setConfigId(response.data.ewards_key._id);
         setIsEdit(false);
         setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
@@ -108,8 +94,8 @@ const EwardsConfigForm = (props) => {
       });
   };
 
-  const handleDelete = () => {
-    axios
+  const handleDelete = async () => {
+    await axios
       .delete(`${baseUrl}/api/ewards-key/${configId}`)
       .then(function (response) {
         setFormData((prevData) => ({
@@ -129,12 +115,11 @@ const EwardsConfigForm = (props) => {
         console.log("error", error);
       });
   };
-
-  useEffect(() => {
+  const initialFetch = () => {
     axios
       .get(`${baseUrl}/api/ewards-key/?store_url=${window.location.origin}`)
       .then(function (response) {
-        setFormData((prevData) => ({ ...prevData, merchant_id: response.data.ewards_key.ewards_merchant_id, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes }));
+        setFormData((prevData) => ({ ...prevData, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes, }));
         setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
 
         setConfigId(response.data.ewards_key._id);
@@ -142,6 +127,11 @@ const EwardsConfigForm = (props) => {
       .catch(function (error) {
         console.log("error", error);
       });
+  }
+
+  useEffect(() => {
+    setFormData({ ...formData, merchant_id: localStorage.merchantId, newMerchantId: localStorage.merchantId })
+    initialFetch()
   }, []);
 
   const cardWidth = {
@@ -201,19 +191,19 @@ const EwardsConfigForm = (props) => {
               <div className="row g-3 p-4">
                 <div className="col-6">
                   <label className="form-label">Merchant Id</label>
-                  <input type="text" className="form-control" value={localStorage.merchantId || ""} placeholder="Please Enter Merchant Id" required disabled />
+                  <input name="newMerchantId" type="text" className="form-control" value={formData.newMerchantId || ""} onChange={changeHandler} placeholder="Please Enter Merchant Id" required disabled={!isEdit} />
                 </div>
                 <div className="col-6">
                   <label className="form-label">X Api Key</label>
-                  <input type="text" className="form-control" value={formData.xApiKey} placeholder="Please Enter X Api Key" onChange={handleXApiKey} required />
+                  <input name="xApiKey" type="text" className="form-control" value={formData.xApiKey} placeholder="Please Enter X Api Key" onChange={changeHandler} required />
                 </div>
                 <div className="col-6">
                   <label className="form-label">Customer Key</label>
-                  <input type="text" className="form-control" value={formData.customerKey} placeholder="Please Enter Customer Key" onChange={handleCustomerKey} required />
+                  <input name="customerKey" type="text" className="form-control" value={formData.customerKey} placeholder="Please Enter Customer Key" onChange={changeHandler} required />
                 </div>
                 {/* <div className='col-6'>
                                     <label className="form-label">Note</label>
-                                    <textarea className="form-control" value={formData.notes} onChange={handleNote} rows="3"></textarea>
+                                    <textarea name="notes" className="form-control" value={formData.notes} onChange={changeHandler} rows="3"></textarea>
                                 </div> */}
 
                 <div className="col-12"></div>
