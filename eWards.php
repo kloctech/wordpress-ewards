@@ -6,7 +6,7 @@
  * Plugin Name:      eWards
  * Plugin URI:        
  * Description:       eWards is an Integrated platform for customer retention and marketing automation.
- * Version:           0.0.3
+ * Version:           0.0.7
  * Author:            Kloc Technologies PVT LTD
  * Author URI:        https://kloctechnologies.com
  * License:           GPL-2.0+

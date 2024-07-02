@@ -44334,7 +44334,7 @@ exports.default = mainPage;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _react = __webpack_require__(1);
@@ -44348,215 +44348,342 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Homepage = function Homepage() {
-    var headingColor = {
-        color: "#41225d"
-    };
-    return wp.element.createElement(
-        _react2.default.Fragment,
+  var headingColor = {
+    color: "#41225d"
+  };
+  return wp.element.createElement(
+    _react2.default.Fragment,
+    null,
+    wp.element.createElement(
+      "h4",
+      { className: "text-center p-4", style: headingColor },
+      "Woo commerce"
+    ),
+    wp.element.createElement(
+      "div",
+      { className: "container px-5 fs-6" },
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "ABOUT eWards Page"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "text-start fs-6" },
+        "eWards is a cloud-based platform trusted by 2000+ enterprises for analyzing customer behavior and executing data-driven, omnichannel, hyper-personalized campaigns at scale. Known for its advanced system and exceptional support, eWards boasts a 98% client retention rate. By integrating all customer contact points, it organizes, streamlines, and synchronizes interactions, enhancing relationships with current customers while effectively targeting new ones."
+      ),
+      wp.element.createElement(
+        "h6",
         null,
         wp.element.createElement(
-            'h4',
-            { className: 'text-center p-4', style: headingColor },
-            'eWards'
+          "b",
+          null,
+          "eWards CRM Tools:"
+        )
+      ),
+      wp.element.createElement(
+        "h6",
+        { className: "mt-3" },
+        "nGage:"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "This platform offers tools to boost customer engagement and retention, including:"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "ms-4" },
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Audience Segmentation:"
+          ),
+          " Personalize experiences to increase engagement and loyalty."
         ),
         wp.element.createElement(
-            'div',
-            { className: 'container px-5' },
-            wp.element.createElement(
-                'p',
-                { className: 'text-start' },
-                'eWards is an Integrated platform for customer retention and marketing automation. We engage the audience through our immersive multi-channel strategies. From customer insights to marketing orchestration, we provide our customers with everything they need to personalise journeys at scale. With 150 tech alliances and 2000+ partner brands, eWards is the fastest-growing SaaS company with a powerful and well-integrated hyper-personalized Customer Experience Management Platform.'
-            ),
-            wp.element.createElement(
-                'h5',
-                null,
-                'ACE (OMNI CHANNEL DATA-DRIVEN MARKETING HUB )'
-            ),
-            wp.element.createElement(
-                'p',
-                { className: 'text-start' },
-                'Omni-channel customer engagement tool that lets businesses engage with their customers on a hyper-personalized level. Helps brands to manage customer interactions through physical & digital touchpoints that drive brand loyalty & increase revenue.'
-            ),
-            wp.element.createElement(
-                'p',
-                null,
-                'ACE empowers you to create loyalty programs that will ultimately increase the frequency of your customers\' visits. It enables businesses to better understand their customer\'s behavior and preferences, and create customized rewards and incentives that encourage them to visit more often and spend more money.'
-            ),
-            wp.element.createElement(
-                'h5',
-                null,
-                'Key benefits of ACE:'
-            ),
-            wp.element.createElement(
-                'p',
-                { className: 'text-start' },
-                'It allows businesses to track and analyze customer behaviour, giving them valuable insights into their customers\' purchasing patterns, frequency of visits, and overall satisfaction levels. Armed with this information, businesses can create personalized loyalty programs that cater to each customer\'s individual needs and preferences, making them feel valued and appreciated.'
-            ),
-            wp.element.createElement(
-                'p',
-                null,
-                'In addition to creating customized loyalty programs, ACE also provides businesses with a range of powerful tools and features to help them manage their programs more efficiently. These include automated email and SMS marketing campaigns, real-time customer feedback and analytics, and detailed reporting and analysis tools to help businesses track their program\'s effectiveness and make data-driven decisions.'
-            ),
-            wp.element.createElement(
-                'p',
-                null,
-                'Overall, ACE is a powerful tool for businesses looking to increase customer loyalty and engagement. By leveraging the latest technology and data analytics, ACE can help businesses create compelling loyalty programs that drive customer visits, boost revenue, and ultimately help them achieve long-term success.'
-            ),
-            wp.element.createElement(
-                'h6',
-                null,
-                'Types of Loyalty:'
-            ),
-            wp.element.createElement(
-                'ol',
-                { className: 'list-group list-group-numbered m-0' },
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Flat Loyalty:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'It is a fixed % given to customers on their every bill.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Tier Based/Lifetime Bill:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Loyalty % of customer tiers according to different slabs they are falling under in terms of lifetime bill with the brand.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Instant Billing:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Loyalty % depends on customers\' instant bill value. Different bill values are given loyalty % accordingly.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Day-wise: '
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Setting loyalty % according to different days of the week.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Time-wise:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Setting loyalty % according to different times of day.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Segment-wise:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Customers while filling out the feedback have to select a few options. The options can be treated as a parameter to bucket all the customers selecting the particular option.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Tier Based/Lifetime Bill:'
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Loyalty % of customer tiers according to different slabs they are falling under in terms of lifetime bill with the brand.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'li',
-                    { className: 'list-group-item d-flex justify-content-between align-items-start mb-0' },
-                    wp.element.createElement(
-                        'div',
-                        { className: 'ms-2 me-auto' },
-                        wp.element.createElement(
-                            'span',
-                            { className: 'fw-bold' },
-                            'Feedback Loyalty: '
-                        ),
-                        wp.element.createElement(
-                            'span',
-                            null,
-                            'Customers while filling out the feedback have to select a few options. The options can be treated as a parameter to bucket all the customers selecting the particular option.'
-                        )
-                    )
-                )
-            )
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "RFM Analysis:"
+          ),
+          " Gain insights into customer behaviour and optimize marketing strategies."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Real-Time Reporting:"
+          ),
+          " Make informed decisions with up-to-date data."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Automation:"
+          ),
+          " Deliver timely, targeted communication to improve satisfaction and feedback."
         )
-    );
+      ),
+      wp.element.createElement(
+        "h6",
+        { className: "mt-3" },
+        "enGine:"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Enhance customer loyalty and connections with nGine:"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "ms-4" },
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Integrated Feedback Analysis:"
+          ),
+          " Resolve complaints quickly with real-time insights."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Tailored Rewards and Coupons:"
+          ),
+          " Encourage loyalty with personalized incentives."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Referral Program Suite:"
+          ),
+          " Boost word-of-mouth marketing and organic growth."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Fraud Detection:"
+          ),
+          " Protect your brand\u2019s integrity."
+        )
+      ),
+      wp.element.createElement(
+        "h6",
+        { className: "mt-3" },
+        "nVoice:"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Streamline your transactional operations with nVoice:"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "ms-4" },
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Digital Transaction Management:"
+          ),
+          " Make transactions paperless and efficient."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Insightful Transaction Summaries:"
+          ),
+          " Gain key insights into sales and preferences."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Promotional Banners:"
+          ),
+          " Enhance engagement and conversions."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Seamless Integration:"
+          ),
+          " Integrate all your business tools for better productivity."
+        )
+      ),
+      wp.element.createElement(
+        "h6",
+        { className: "mt-3" },
+        "Analytics:"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Empower your business with Analytics:"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "ms-4" },
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Dynamic Dashboard:"
+          ),
+          " Discover data-driven insights."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Smart Insights:"
+          ),
+          " Highlight success and opportunities with KPI visualizations."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Real-Time Updates:"
+          ),
+          " Stay current with the latest data."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Predictive Intelligence:"
+          ),
+          " Anticipate market trends."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Customizable Dashboards:"
+          ),
+          " Tailor analytics to your business needs."
+        )
+      ),
+      wp.element.createElement(
+        "h6",
+        { className: "mt-3" },
+        "nHance:"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Maximize your marketing impact with consultancy:"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "ms-4" },
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Expert Guidance:"
+          ),
+          " Identify insights and address pain points."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Custom Campaigns:"
+          ),
+          " Design strategies aligned with your brand."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "A/B Testing and Analytics:"
+          ),
+          " Execute and optimize campaigns precisely."
+        ),
+        wp.element.createElement(
+          "li",
+          null,
+          wp.element.createElement(
+            "b",
+            null,
+            "Strategic Collaborations:"
+          ),
+          " Achieve consistent, effective marketing results."
+        )
+      ),
+      wp.element.createElement("br", null),
+      wp.element.createElement(
+        "h5",
+        null,
+        wp.element.createElement(
+          "b",
+          null,
+          "Brands We Work With:"
+        )
+      ),
+      wp.element.createElement("br", null),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Logos of Ginesys clients"
+      ),
+      wp.element.createElement(
+        "p",
+        { className: "fs-6" },
+        "Tommy Hilfiger, Bagline, Iconic, The Irish House, Citi Style, Levels, Social, Beer Caf\xE9, Chai Break. (logos) "
+      )
+    )
+  );
 };
 
 exports.default = Homepage;
@@ -44569,7 +44696,7 @@ exports.default = Homepage;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _react = __webpack_require__(1);
@@ -44579,243 +44706,243 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Help = function Help() {
-    return wp.element.createElement(
-        _react2.default.Fragment,
-        null,
+  return wp.element.createElement(
+    _react2.default.Fragment,
+    null,
+    wp.element.createElement(
+      "div",
+      { className: "container" },
+      wp.element.createElement(
+        "h4",
+        { className: "text-center p-4" },
+        "Help"
+      ),
+      wp.element.createElement(
+        "div",
+        { className: "accordion", id: "accordionFlushExample" },
         wp.element.createElement(
-            'div',
-            { className: 'container' },
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingOne" },
             wp.element.createElement(
-                'h4',
-                { className: 'text-center p-4' },
-                'Help'
-            ),
-            wp.element.createElement(
-                'div',
-                { className: 'accordion', id: 'accordionFlushExample' },
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingOne' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseOne', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseOne' },
-                            'What is the loyalty program and how does it work?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseOne', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingOne', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'Our loyalty program is designed to reward our valued customers for their continued patronage. As a member, you\'ll earn points for every qualifying purchase you make, and these points can be redeemed for rewards such as discounts, free products, or other exclusive offers.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingTwo' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseTwo', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseTwo' },
-                            'How can I join the loyalty program?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseTwo', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingTwo', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'You can easily join our loyalty program by signing up online or in-store. Simply provide your contact information and agree to the terms and conditions, and you\'ll be enrolled in the program.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingThree' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseThree', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseThree' },
-                            'Is there a cost to join the loyalty program?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseThree', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingThree', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'No, there is no cost to join our loyalty program. It\'s our way of saying thank you for choosing our brand.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingFour' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseFour', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseFour' },
-                            'What benefits do I receive as a member of the loyalty program?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseFour', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingFour', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'As a member of our loyalty program, you\'ll receive exclusive benefits such as points earning opportunities, access to exclusive sales and promotions, and special rewards and offers.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingFive' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseFive', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseFive' },
-                            'How do I earn points in the loyalty program?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseFive', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingFive', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'You\'ll earn points for every qualifying purchase you make. The number of points you earn will depend on the value of your purchase and any special promotions or bonus point offers that may be available.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingSix' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseSix', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseSix' },
-                            'How do I redeem my points for rewards?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseSix', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingSix', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'You can redeem your points for rewards by logging into your account and selecting the reward you\'d like to claim. Some rewards may have specific requirements or restrictions, so be sure to review the details before redeeming your points.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingSeven' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseSeven', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseSeven' },
-                            'Can I earn points for purchases made online and in-store?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseSeven', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingSeven', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'Yes, you can earn points for qualifying purchases made both online and in-store. Just be sure to log in to your account before making your purchase online or provide your loyalty program membership number in-store.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingEight' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseEight', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseEight' },
-                            'Do my points expire?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseEight', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingEight', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'Points may have an expiration date, which will be specified in your account. We encourage our customers to redeem their points regularly to avoid losing them.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingNine' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseNine', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseNine' },
-                            'How often are new rewards added to the loyalty program?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseNine', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingNine', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'We aim to add new rewards and offers to our loyalty program on a regular basis, so be sure to check your account and stay up to date on the latest promotions.'
-                        )
-                    )
-                ),
-                wp.element.createElement(
-                    'div',
-                    { className: 'accordion-item' },
-                    wp.element.createElement(
-                        'h2',
-                        { className: 'accordion-header', id: 'flush-headingTen' },
-                        wp.element.createElement(
-                            'button',
-                            { className: 'accordion-button collapsed', type: 'button', 'data-bs-toggle': 'collapse', 'data-bs-target': '#flush-collapseTen', 'aria-expanded': 'false', 'aria-controls': 'flush-collapseTen' },
-                            'Can I transfer my points to someone else?'
-                        )
-                    ),
-                    wp.element.createElement(
-                        'div',
-                        { id: 'flush-collapseTen', className: 'accordion-collapse collapse', 'aria-labelledby': 'flush-headingTen', 'data-bs-parent': '#accordionFlushExample' },
-                        wp.element.createElement(
-                            'div',
-                            { className: 'accordion-body' },
-                            'No, points cannot be transferred to another person\'s account.'
-                        )
-                    )
-                )
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseOne", "aria-expanded": "false", "aria-controls": "flush-collapseOne" },
+              "What is the loyalty program and how does it work?"
             )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseOne", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingOne", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Our loyalty program rewards customers for their continued support. By joining, you earn points for every purchase made online or in-store. These points can be redeemed for exclusive rewards and discounts."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingTwo" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseTwo", "aria-expanded": "false", "aria-controls": "flush-collapseTwo" },
+              "How can I join the loyalty program?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseTwo", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingTwo", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Joining our loyalty program is simple. Sign up on our website or at any store location to start earning points immediately."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingThree" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseThree", "aria-expanded": "false", "aria-controls": "flush-collapseThree" },
+              "Is there a cost to join the loyalty program?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseThree", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingThree", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "No, joining our loyalty program is free. It\u2019s our way of thanking you for choosing our brand."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingFour" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseFour", "aria-expanded": "false", "aria-controls": "flush-collapseFour" },
+              "What benefits do I receive as a member of the loyalty program?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseFour", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingFour", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "As a member, you earn points for every purchase, and receive exclusive discounts, early access to sales, special birthday rewards, and more. The more you shop, the more rewards you earn."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingFive" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseFive", "aria-expanded": "false", "aria-controls": "flush-collapseFive" },
+              "How do I earn points in the loyalty program?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseFive", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingFive", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Earn points for every purchase by providing your membership details at in-store checkouts or logging into your account online. Points will automatically be added to your account."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingSix" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseSix", "aria-expanded": "false", "aria-controls": "flush-collapseSix" },
+              "How do I redeem my points for rewards?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseSix", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingSix", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Redeem points by logging into your account on our website or visiting one of our stores. Choose from a variety of rewards and apply your points at checkout."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingSeven" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseSeven", "aria-expanded": "false", "aria-controls": "flush-collapseSeven" },
+              "Can I earn points for purchases made online and in-store?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseSeven", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingSeven", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Yes, you can earn points for both online and in-store purchases. Ensure you log into your account online or provide your membership details in-store."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingEight" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseEight", "aria-expanded": "false", "aria-controls": "flush-collapseEight" },
+              "Do my points expire?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseEight", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingEight", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Points expire one year from the date they were earned. We\u2019ll send you reminders to use your points before they expire."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingNine" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseNine", "aria-expanded": "false", "aria-controls": "flush-collapseNine" },
+              "How often are new rewards added to the loyalty program?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseNine", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingNine", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "We update our rewards regularly to keep things exciting. New rewards are typically added every month, so check back often."
+            )
+          )
+        ),
+        wp.element.createElement(
+          "div",
+          { className: "accordion-item" },
+          wp.element.createElement(
+            "h2",
+            { className: "accordion-header", id: "flush-headingTen" },
+            wp.element.createElement(
+              "button",
+              { className: "accordion-button collapsed", type: "button", "data-bs-toggle": "collapse", "data-bs-target": "#flush-collapseTen", "aria-expanded": "false", "aria-controls": "flush-collapseTen" },
+              "Can I transfer my points to someone else?"
+            )
+          ),
+          wp.element.createElement(
+            "div",
+            { id: "flush-collapseTen", className: "accordion-collapse collapse", "aria-labelledby": "flush-headingTen", "data-bs-parent": "#accordionFlushExample" },
+            wp.element.createElement(
+              "div",
+              { className: "accordion-body" },
+              "Currently, points are non-transferable and can only be used by the\xA0account\xA0holder."
+            )
+          )
         )
-    );
+      )
+    )
+  );
 };
 
 exports.default = Help;
