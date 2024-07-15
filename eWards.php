@@ -6,11 +6,14 @@
  * Plugin Name:      eWards
  * Plugin URI:        
  * Description:       eWards is an Integrated platform for customer retention and marketing automation.
- * Version:           0.0.7
+ * Version:           1.0.0
  * Author:            Kloc Technologies PVT LTD
  * Author URI:        https://kloctechnologies.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Tested up to:      7.4
+ * Requires PHP:      7.4
+ * Stable tag:        1.0.0
  */
 
  if (!defined('ABSPATH')) {
@@ -64,18 +67,15 @@ define('ewards_URL', plugins_url('/', __FILE__));
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title></title>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+           
         </head>
         <body>
             <div class="wrap"><div id="wprk-admin-app"></div></div>
         </body>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
         </html>
         ';
     }
-
 
     function activate(){
         $this->custom_post_type();
@@ -107,6 +107,11 @@ define('ewards_URL', plugins_url('/', __FILE__));
         'apiUrl' => home_url( '/wp-json' ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
         ] );
+        // Enqueue Bootstrap CSS from CDN
+    wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', [], '5.0.2' );
+    
+    // Enqueue Bootstrap JS from CDN
+    wp_enqueue_script( 'bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', [], '5.0.2', true );
         wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
             "PRDOUCTION_URL" => "https://d-ewards-woocommerce.klocapps.com"
         ));
@@ -160,19 +165,21 @@ define('ewards_URL', plugins_url('/', __FILE__));
     * register fields Validating.
     */
 
-    function wooc_extra_register_fields() {?>
+    function wooc_extra_register_fields() {
+        ?>
         <p class="form-row form-row-first">
-            <label for="reg_billing_first_name"><?php _e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="billing_first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
+            <label for="reg_billing_first_name"><?php esc_attr_e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
+            <input type="text" class="input-text" name="billing_first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr( $_POST['billing_first_name'] ); ?>" />
         </p>
         <p class="form-row form-row-last">
-            <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
-            <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
+            <label for="reg_billing_last_name"><?php esc_attr_e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
+            <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr( $_POST['billing_last_name'] ); ?>" />
         </p>
         <p class="form-row form-row-wide">
-        <label for="reg_billing_phone"><?php _e( 'Mobile', 'woocommerce' ); ?><span class="required">*</span></label>
-        <input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php if ( ! empty( $_POST['billing_phone'] ) ) esc_attr_e( $_POST['billing_phone'] ); ?>" />
+        <label for="reg_billing_phone"><?php esc_attr_e( 'Mobile', 'woocommerce' ); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php if ( ! empty( $_POST['billing_phone'] ) ) esc_attr( $_POST['billing_phone'] ); ?>" />
         </p>
+        
         <div class="clear"></div>
        <?php
     }
@@ -238,7 +245,7 @@ define('ewards_URL', plugins_url('/', __FILE__));
         $user = wp_get_current_user();
         ?>
         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-            <label for="reg_billing_phone"><?php _e( 'Mobile number', 'woocommerce' ); ?> <span class="required">*</span></label>
+            <label for="reg_billing_phone"><?php esc_attr_e( 'Mobile number', 'woocommerce' ); ?> <span class="required">*</span></label>
             <input type="text" class="input-text" name="billing_phone" id="reg_billing_phone" value="<?php echo esc_attr( get_user_meta($user->id,'billing_phone',true) ); ?>" />
         </p>
         <?php

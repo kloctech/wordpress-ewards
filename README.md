@@ -1,3 +1,16 @@
+Plugin Name: eWards
+Plugin URI:
+Description: eWards is an Integrated platform for customer retention and marketing automation.
+Version: 1.0.0
+Author: Kloc Technologies PVT LTD
+Author URI: https://kloctechnologies.com
+License: GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+
+Tested up to: 7.4
+Requires PHP: 7.4
+Stable tag: 1.0.0
+
 # WordPress eWards Integration
 
 ## Introduction
