@@ -113,7 +113,7 @@ define('ewards_URL', plugins_url('/', __FILE__));
     // Enqueue Bootstrap JS from CDN
     wp_enqueue_script( 'bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', [], '5.0.2', true );
         wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
-            "PRDOUCTION_URL" => "https://d-ewards-woocommerce.klocapps.com"
+            "PRDOUCTION_URL" => "https://master.p-woo-commerce-ewards.c66.me"
         ));
     }
 
