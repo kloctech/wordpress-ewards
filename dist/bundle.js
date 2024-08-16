@@ -44506,7 +44506,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 var EwardsConfigForm = function EwardsConfigForm(props) {
   var baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
-  //
   var initialFormData = Object({
     merchant_id: "",
     customerKey: "",
@@ -44518,26 +44517,54 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     _useState2 = _slicedToArray(_useState, 2),
     formData = _useState2[0],
     setFormData = _useState2[1];
-  var _useState3 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(true),
+  var _useState3 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(""),
     _useState4 = _slicedToArray(_useState3, 2),
-    isValidForm = _useState4[0],
-    setIsValidForm = _useState4[1];
-  var _useState5 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
+    errorMsg = _useState4[0],
+    setErrorMsg = _useState4[1];
+  var _useState5 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(true),
     _useState6 = _slicedToArray(_useState5, 2),
-    submitForm = _useState6[0],
-    setSubmitForm = _useState6[1];
+    isValidForm = _useState6[0],
+    setIsValidForm = _useState6[1];
   var _useState7 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
     _useState8 = _slicedToArray(_useState7, 2),
-    isInstalled = _useState8[0],
-    setIsInstalled = _useState8[1];
+    submitForm = _useState8[0],
+    setSubmitForm = _useState8[1];
   var _useState9 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    isEdit = _useState10[0],
-    setIsEdit = _useState10[1];
-  var _useState11 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(),
+    isInstalled = _useState10[0],
+    setIsInstalled = _useState10[1];
+  var _useState11 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    configId = _useState12[0],
-    setConfigId = _useState12[1];
+    isEdit = _useState12[0],
+    setIsEdit = _useState12[1];
+  var _useState13 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(),
+    _useState14 = _slicedToArray(_useState13, 2),
+    configId = _useState14[0],
+    setConfigId = _useState14[1];
+  var _useState15 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])({
+      newMerchantId: "",
+      xApiKey: "",
+      customerKey: ""
+    }),
+    _useState16 = _slicedToArray(_useState15, 2),
+    errors = _useState16[0],
+    setErrors = _useState16[1];
+  var validateFields = function validateFields() {
+    var newErrors = {};
+    if (!formData.newMerchantId) {
+      newErrors.newMerchantId = "Merchant Id is required";
+    }
+    if (!formData.xApiKey) {
+      newErrors.xApiKey = "X Api Key is required";
+    }
+    if (!formData.customerKey) {
+      newErrors.customerKey = "Customer Key is required";
+    }
+    setErrors(newErrors);
+
+    // Return true if there are no errors
+    return Object.keys(newErrors).length === 0;
+  };
   var changeHandler = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useCallback"])(function (e) {
     var _e$target = e.target,
       value = _e$target.value,
@@ -44545,29 +44572,35 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     setFormData(_objectSpread(_objectSpread({}, formData), {}, _defineProperty({}, name, value)));
   }, [formData]);
   var addFormData = function addFormData() {
-    var data = {
-      merchant_id: localStorage.merchantId || "",
-      store_url: localStorage.storeUrl || "",
-      customer_key: formData.customerKey,
-      x_api_key: formData.xApiKey,
-      newMerchantId: localStorage.merchantId
-      //    notes: formData.notes
-    };
-    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("".concat(baseUrl, "/api/ewards-key"), data).then(function (response) {
-      setFormData(function (prevData) {
-        return _objectSpread(_objectSpread({}, prevData), {}, {
-          merchant_id: localStorage.merchantId,
-          customerKey: response.data.ewards_key.customer_key,
-          xApiKey: response.data.ewards_key.x_api_key
-          // notes :response.data.ewards_key.notes,
+    if (validateFields()) {
+      var data = {
+        merchant_id: localStorage.merchantId || "",
+        store_url: localStorage.storeUrl || "",
+        customer_key: formData.customerKey,
+        x_api_key: formData.xApiKey,
+        newMerchantId: localStorage.merchantId
+        //    notes: formData.notes
+      };
+      setErrorMsg("");
+      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("".concat(baseUrl, "/api/ewards-key"), data).then(function (response) {
+        setFormData(function (prevData) {
+          return _objectSpread(_objectSpread({}, prevData), {}, {
+            merchant_id: localStorage.merchantId,
+            customerKey: response.data.ewards_key.customer_key,
+            xApiKey: response.data.ewards_key.x_api_key
+            // notes :response.data.ewards_key.notes,
+          });
         });
+        setConfigId(response.data.ewards_key._id);
+        setIsEdit(false);
+        setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+      })["catch"](function (error) {
+        if (error.response.data) {
+          console.log("Error", error.response.data);
+          setErrorMsg(error.response.data.resultMessage.en);
+        }
       });
-      setConfigId(response.data.ewards_key._id);
-      setIsEdit(false);
-      setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-    })["catch"](function (error) {
-      console.log("error", error);
-    });
+    }
   };
   var updateFormData = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -44575,6 +44608,10 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
+            if (!validateFields()) {
+              _context.next = 5;
+              break;
+            }
             data = {
               merchant_id: localStorage.merchantId || "",
               store_url: window.location.origin || "",
@@ -44583,10 +44620,12 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
               newMerchantId: formData.newMerchantId
               // notes: formData.notes
             }; // console.log("Updating formData=>", data);
-            _context.next = 3;
+
+            setErrorMsg("");
+            _context.next = 5;
             return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.put("".concat(baseUrl, "/api/ewards-key/").concat(configId), data).then(function (response) {
               // console.log("response", response);
-              localStorage.setItem('merchantId', response.data.merchant.merchant_id);
+              localStorage.setItem("merchantId", response.data.merchant.merchant_id);
               setFormData(function (prevData) {
                 return _objectSpread(_objectSpread({}, prevData), {}, {
                   merchant_id: localStorage.merchantId,
@@ -44601,9 +44640,12 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
               setIsEdit(false);
               setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
             })["catch"](function (error) {
-              console.log("error", error);
+              if (error.response.data) {
+                console.log("Error", error.response.data);
+                setErrorMsg(error.response.data.resultMessage.en);
+              }
             });
-          case 3:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -44646,7 +44688,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     };
   }();
   var initialFetch = function initialFetch() {
-    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("".concat(baseUrl, "/api/ewards-key/?store_url=").concat(window.location.origin)).then(function (response) {
+    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("".concat(baseUrl, "/api/ewards-key/?store_url=").concat(window.location.origin), {}).then(function (response) {
       setFormData(function (prevData) {
         return _objectSpread(_objectSpread({}, prevData), {}, {
           customerKey: response.data.ewards_key.customer_key,
@@ -44674,10 +44716,10 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
   var handleEdit = function handleEdit() {
     setIsEdit(true);
   };
-  var _useState13 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
-    _useState14 = _slicedToArray(_useState13, 2),
-    isHover = _useState14[0],
-    setIsHover = _useState14[1];
+  var _useState17 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
+    _useState18 = _slicedToArray(_useState17, 2),
+    isHover = _useState18[0],
+    setIsHover = _useState18[1];
   var handleMouseEnter = function handleMouseEnter() {
     setIsHover(true);
   };
@@ -44742,7 +44784,9 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     placeholder: "Please Enter Merchant Id",
     required: true,
     disabled: !isEdit
-  })), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }), errors.newMerchantId && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "text-danger"
+  }, errors.newMerchantId)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     className: "col-6"
   }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
     className: "form-label"
@@ -44754,7 +44798,9 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     placeholder: "Please Enter X Api Key",
     onChange: changeHandler,
     required: true
-  })), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }), errors.xApiKey && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "text-danger"
+  }, errors.xApiKey)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     className: "col-6"
   }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
     className: "form-label"
@@ -44766,9 +44812,13 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     placeholder: "Please Enter Customer Key",
     onChange: changeHandler,
     required: true
-  })), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }), errors.customerKey && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "text-danger"
+  }, errors.customerKey)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     className: "col-12"
-  }))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "text-danger"
+  }, errorMsg ? errorMsg : null)))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     className: "card-footer bg-transparent border-secondary text-end"
   }, !isEdit && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
     type: "submit",

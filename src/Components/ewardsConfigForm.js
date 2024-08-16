@@ -4,94 +4,130 @@ import axios from "axios";
 
 const EwardsConfigForm = (props) => {
   const baseUrl = PRDOUCTION_VAR.PRDOUCTION_URL;
-  //
+
   const initialFormData = Object({
     merchant_id: "",
     customerKey: "",
     xApiKey: "",
     notes: "",
-    newMerchantId: ""
+    newMerchantId: "",
   });
 
   const [formData, setFormData] = useState(initialFormData);
-
+  const [errorMsg, setErrorMsg] = useState("");
   const [isValidForm, setIsValidForm] = useState(true);
 
   const [submitForm, setSubmitForm] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [configId, setConfigId] = useState();
+  const [errors, setErrors] = useState({
+    newMerchantId: "",
+    xApiKey: "",
+    customerKey: "",
+  });
+
+  const validateFields = () => {
+    let newErrors = {};
+
+    if (!formData.newMerchantId) {
+      newErrors.newMerchantId = "Merchant Id is required";
+    }
+
+    if (!formData.xApiKey) {
+      newErrors.xApiKey = "X Api Key is required";
+    }
+
+    if (!formData.customerKey) {
+      newErrors.customerKey = "Customer Key is required";
+    }
+
+    setErrors(newErrors);
+
+    // Return true if there are no errors
+    return Object.keys(newErrors).length === 0;
+  };
 
   const changeHandler = useCallback(
     (e) => {
       const { value, name } = e.target;
-      setFormData({ ...formData, [name]: value })
-
+      setFormData({ ...formData, [name]: value });
     },
     [formData]
   );
 
   const addFormData = () => {
-    const data = {
-      merchant_id: localStorage.merchantId || "",
-      store_url: localStorage.storeUrl || "",
-      customer_key: formData.customerKey,
-      x_api_key: formData.xApiKey,
-      newMerchantId: localStorage.merchantId
-      //    notes: formData.notes
-    };
-    axios
-      .post(`${baseUrl}/api/ewards-key`, data)
-      .then(function (response) {
-        setFormData((prevData) => ({
-          ...prevData,
-          merchant_id: localStorage.merchantId,
-          customerKey: response.data.ewards_key.customer_key,
-          xApiKey: response.data.ewards_key.x_api_key,
-          // notes :response.data.ewards_key.notes,
-        }));
-        setConfigId(response.data.ewards_key._id);
-        setIsEdit(false);
-        setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-      })
-      .catch(function (error) {
-        console.log("error", error);
-      });
+    if (validateFields()) {
+      const data = {
+        merchant_id: localStorage.merchantId || "",
+        store_url: localStorage.storeUrl || "",
+        customer_key: formData.customerKey,
+        x_api_key: formData.xApiKey,
+        newMerchantId: localStorage.merchantId,
+        //    notes: formData.notes
+      };
+      setErrorMsg("");
+      axios
+        .post(`${baseUrl}/api/ewards-key`, data)
+        .then(function (response) {
+          setFormData((prevData) => ({
+            ...prevData,
+            merchant_id: localStorage.merchantId,
+            customerKey: response.data.ewards_key.customer_key,
+            xApiKey: response.data.ewards_key.x_api_key,
+            // notes :response.data.ewards_key.notes,
+          }));
+          setConfigId(response.data.ewards_key._id);
+          setIsEdit(false);
+          setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+        })
+        .catch(function (error) {
+          if (error.response.data) {
+            console.log("Error", error.response.data);
+            setErrorMsg(error.response.data.resultMessage.en);
+          }
+        });
+    }
   };
 
   const updateFormData = async () => {
-    const data = {
-      merchant_id: localStorage.merchantId || "",
-      store_url: window.location.origin || "",
-      customer_key: formData.customerKey,
-      x_api_key: formData.xApiKey,
-      newMerchantId: formData.newMerchantId
-      // notes: formData.notes
-    };
-    // console.log("Updating formData=>", data);
+    if (validateFields()) {
+      const data = {
+        merchant_id: localStorage.merchantId || "",
+        store_url: window.location.origin || "",
+        customer_key: formData.customerKey,
+        x_api_key: formData.xApiKey,
+        newMerchantId: formData.newMerchantId,
+        // notes: formData.notes
+      };
+      // console.log("Updating formData=>", data);
+      setErrorMsg("");
+      await axios
+        .put(`${baseUrl}/api/ewards-key/${configId}`, data)
+        .then(function (response) {
+          // console.log("response", response);
+          localStorage.setItem("merchantId", response.data.merchant.merchant_id);
 
-    await axios
-      .put(`${baseUrl}/api/ewards-key/${configId}`, data)
-      .then(function (response) {
-        // console.log("response", response);
-        localStorage.setItem('merchantId', response.data.merchant.merchant_id)
-
-        setFormData((prevData) => ({
-          ...prevData,
-          merchant_id: localStorage.merchantId,
-          customerKey: response.data.ewards_key.customer_key,
-          xApiKey: response.data.ewards_key.x_api_key,
-          // notes: response.data.ewards_key.notes,
-          newMerchantId: localStorage.merchantId
-        }));
-        // debugger;
-        setConfigId(response.data.ewards_key._id);
-        setIsEdit(false);
-        setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
-      })
-      .catch(function (error) {
-        console.log("error", error);
-      });
+          setFormData((prevData) => ({
+            ...prevData,
+            merchant_id: localStorage.merchantId,
+            customerKey: response.data.ewards_key.customer_key,
+            xApiKey: response.data.ewards_key.x_api_key,
+            // notes: response.data.ewards_key.notes,
+            newMerchantId: localStorage.merchantId,
+          }));
+          // debugger;
+          setConfigId(response.data.ewards_key._id);
+          setIsEdit(false);
+          setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
+        })
+        .catch(function (error) {
+          if (error.response.data) {
+            console.log("Error", error.response.data);
+            setErrorMsg(error.response.data.resultMessage.en);
+          }
+        });
+    }
   };
 
   const handleDelete = async () => {
@@ -117,9 +153,9 @@ const EwardsConfigForm = (props) => {
   };
   const initialFetch = () => {
     axios
-      .get(`${baseUrl}/api/ewards-key/?store_url=${window.location.origin}`)
+      .get(`${baseUrl}/api/ewards-key/?store_url=${window.location.origin}`, {})
       .then(function (response) {
-        setFormData((prevData) => ({ ...prevData, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes, }));
+        setFormData((prevData) => ({ ...prevData, customerKey: response.data.ewards_key.customer_key, xApiKey: response.data.ewards_key.x_api_key, notes: response.data.ewards_key.notes }));
         setIsInstalled(response.data.ewards_key.x_api_key ? true : false);
 
         setConfigId(response.data.ewards_key._id);
@@ -127,11 +163,11 @@ const EwardsConfigForm = (props) => {
       .catch(function (error) {
         console.log("error", error);
       });
-  }
+  };
 
   useEffect(() => {
-    setFormData({ ...formData, merchant_id: localStorage.merchantId, newMerchantId: localStorage.merchantId })
-    initialFetch()
+    setFormData({ ...formData, merchant_id: localStorage.merchantId, newMerchantId: localStorage.merchantId });
+    initialFetch();
   }, []);
 
   const cardWidth = {
@@ -192,21 +228,26 @@ const EwardsConfigForm = (props) => {
                 <div className="col-6">
                   <label className="form-label">Merchant Id</label>
                   <input name="newMerchantId" type="text" className="form-control" value={formData.newMerchantId || ""} onChange={changeHandler} placeholder="Please Enter Merchant Id" required disabled={!isEdit} />
+                  {errors.newMerchantId && <span className="text-danger">{errors.newMerchantId}</span>}
                 </div>
                 <div className="col-6">
                   <label className="form-label">X Api Key</label>
                   <input name="xApiKey" type="text" className="form-control" value={formData.xApiKey} placeholder="Please Enter X Api Key" onChange={changeHandler} required />
+                  {errors.xApiKey && <span className="text-danger">{errors.xApiKey}</span>}
                 </div>
                 <div className="col-6">
                   <label className="form-label">Customer Key</label>
                   <input name="customerKey" type="text" className="form-control" value={formData.customerKey} placeholder="Please Enter Customer Key" onChange={changeHandler} required />
+                  {errors.customerKey && <span className="text-danger">{errors.customerKey}</span>}
                 </div>
                 {/* <div className='col-6'>
                                     <label className="form-label">Note</label>
                                     <textarea name="notes" className="form-control" value={formData.notes} onChange={changeHandler} rows="3"></textarea>
                                 </div> */}
 
-                <div className="col-12"></div>
+                <div className="col-12">
+                  <span className="text-danger">{errorMsg ? errorMsg : null}</span>
+                </div>
               </div>
             </div>
             <div className="card-footer bg-transparent border-secondary text-end">
