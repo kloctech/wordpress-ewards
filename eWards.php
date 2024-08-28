@@ -6,14 +6,14 @@
  * Plugin Name:      eWards
  * Plugin URI:        
  * Description:       eWards is an Integrated platform for customer retention and marketing automation.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Kloc Technologies PVT LTD
  * Author URI:        https://kloctechnologies.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Tested up to:      7.4
  * Requires PHP:      7.4
- * Stable tag:        1.0.2
+ * Stable tag:        1.0.3
  */
 
  if (!defined('ABSPATH')) {
@@ -107,11 +107,7 @@ define('ewards_URL', plugins_url('/', __FILE__));
         'apiUrl' => home_url( '/wp-json' ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
         ] );
-        // Enqueue Bootstrap CSS from CDN
-    wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', [], '5.0.2' );
-    
-    // Enqueue Bootstrap JS from CDN
-    wp_enqueue_script( 'bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', [], '5.0.2', true );
+        
         wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
             "PRDOUCTION_URL" => "https://master.p-woo-commerce-ewards.c66.me"
         ));
