@@ -231,6 +231,7 @@ const EwardsConfigForm = (props) => {
     },
     tableHeader: {
       backgroundColor: "#f8f9fa",
+      fontSize: "16px",
     },
     tableCell: {
       padding: "0.75rem",
@@ -238,6 +239,7 @@ const EwardsConfigForm = (props) => {
       maxWidth: "270px",
       wordWrap: "break-word",
       overflowWrap: "break-word",
+      fontSize: "16px",
     },
     modalContent: {
       padding: "1rem",

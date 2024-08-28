@@ -37458,14 +37458,16 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
       borderCollapse: "collapse"
     },
     tableHeader: {
-      backgroundColor: "#f8f9fa"
+      backgroundColor: "#f8f9fa",
+      fontSize: "16px"
     },
     tableCell: {
       padding: "0.75rem",
       border: "1px solid #dee2e6",
       maxWidth: "270px",
       wordWrap: "break-word",
-      overflowWrap: "break-word"
+      overflowWrap: "break-word",
+      fontSize: "16px"
     },
     modalContent: {
       padding: "1rem",
