@@ -37237,6 +37237,14 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     _useState20 = _slicedToArray(_useState19, 2),
     isHover = _useState20[0],
     setIsHover = _useState20[1];
+  var _useState21 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    isCustomerSynced = _useState22[0],
+    setIsCustomersSynced = _useState22[1];
+  var _useState23 = Object(__WEBPACK_IMPORTED_MODULE_0_react__["useState"])(null),
+    _useState24 = _slicedToArray(_useState23, 2),
+    syncCustomerMessage = _useState24[0],
+    setSyncCustomerMessage = _useState24[1];
   var validateFields = function validateFields() {
     var newErrors = {};
     if (!formData.newMerchantId) {
@@ -37519,14 +37527,12 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     setIsEdit(true);
     localStorage.setItem("isEdit", 1);
   };
-  //console.log(typeof localStorage.getItem("isEdit"));
-
-  if (isEditMode) {
+  var configForm = function configForm(mode) {
     return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
       style: styles.card
     }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
       style: styles.cardHeader
-    }, isEditMode ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Update eWards Configuration Keys") : /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Create eWards Configuration Keys")), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    }, mode ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Update eWards Configuration Keys") : /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Create eWards Configuration Keys")), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
       style: styles.cardBody
     }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
       style: styles.row
@@ -37581,10 +37587,67 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
       style: styles.actionButtons
     }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
       style: styles.button,
-      onClick: isEditMode ? updateFormData : addFormData,
+      onClick: mode ? updateFormData : addFormData,
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave
-    }, isEditMode ? "Update" : "Create"))));
+    }, mode ? "Update" : "Create"))));
+  };
+  Object(__WEBPACK_IMPORTED_MODULE_0_react__["useEffect"])(function () {
+    var fetchData = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _response$data, _response$data$woo_co, _response$data2, _response$data2$woo_c, _response$data3, _response$data3$woo_c, response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
+              return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post("".concat(baseUrl, "/api/woo-commerce/verify"), {
+                merchant_id: localStorage.merchantId,
+                woo_commerce: {
+                  store_url: localStorage.storeUrl
+                }
+              }, {
+                headers: {
+                  "ngrok-skip-browser-warning": "6024"
+                }
+              });
+            case 3:
+              response = _context3.sent;
+              setIsCustomersSynced((_response$data = response.data) === null || _response$data === void 0 ? void 0 : (_response$data$woo_co = _response$data.woo_commerce) === null || _response$data$woo_co === void 0 ? void 0 : _response$data$woo_co.is_customers_synced);
+              if (!((_response$data2 = response.data) !== null && _response$data2 !== void 0 && (_response$data2$woo_c = _response$data2.woo_commerce) !== null && _response$data2$woo_c !== void 0 && _response$data2$woo_c.is_customers_synced)) {
+                setSyncCustomerMessage("Customers data is being synced, Please wait for a while...");
+              }
+              console.log((_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : (_response$data3$woo_c = _response$data3.woo_commerce) === null || _response$data3$woo_c === void 0 ? void 0 : _response$data3$woo_c.is_customers_synced);
+              _context3.next = 13;
+              break;
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](0);
+              console.error("Error fetching data:", _context3.t0);
+              setSyncCustomerMessage("Something went wrong");
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, null, [[0, 9]]);
+      }));
+      return function fetchData() {
+        return _ref3.apply(this, arguments);
+      };
+    }();
+    if (!isCustomerSynced) {
+      fetchData();
+      var intervalId = setInterval(fetchData, 10000);
+      return function () {
+        return clearInterval(intervalId);
+      };
+    }
+  }, [isCustomerSynced]);
+  if (!isCustomerSynced) {
+    return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h2", null, syncCustomerMessage);
+  }
+  if (isEditMode) {
+    configForm(isEditMode);
   }
   return /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Fragment, null, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: styles.container
@@ -37594,69 +37657,7 @@ var EwardsConfigForm = function EwardsConfigForm(props) {
     })
   }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", {
     style: styles.heading
-  }, "eWards Configuration")), (!isInstalled || isEdit) && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.card
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.cardHeader
-  }, isEdit ? /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Update eWards Configuration Keys") : /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", null, "Create eWards Configuration Keys")), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.cardBody
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.row
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: _objectSpread(_objectSpread({}, styles.col), styles.colHalf)
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-    style: styles.formLabel
-  }, "Merchant Id"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-    name: "newMerchantId",
-    type: "text",
-    style: styles.formControl,
-    value: formData.newMerchantId,
-    onChange: changeHandler,
-    placeholder: "Enter Merchant Id",
-    disabled: !isEdit
-  }), errors.newMerchantId && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.invalidFeedback
-  }, errors.newMerchantId)), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: _objectSpread(_objectSpread({}, styles.col), styles.colHalf)
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-    style: styles.formLabel
-  }, "X API Key"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-    name: "xApiKey",
-    type: "text",
-    style: styles.formControl,
-    value: formData.xApiKey,
-    onChange: changeHandler,
-    placeholder: "Enter X API Key"
-  }), errors.xApiKey && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.invalidFeedback
-  }, errors.xApiKey))), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: _objectSpread(_objectSpread(_objectSpread({}, styles.row), styles.colHalf), {}, {
-      padding: "8px",
-      flexDirection: "column"
-    })
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-    style: styles.formLabel
-  }, "Customer Key"), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-    name: "customerKey",
-    type: "text",
-    style: styles.formControl,
-    value: formData.customerKey,
-    onChange: changeHandler,
-    placeholder: "Enter Customer Key"
-  }), errors.customerKey && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.invalidFeedback
-  }, errors.customerKey)), errorMsg && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.invalidFeedback
-  }, errorMsg), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.divider
-  }), /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-    style: styles.actionButtons
-  }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
-    style: styles.button,
-    onClick: isEdit ? updateFormData : addFormData,
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave
-  }, isEdit ? "Update" : "Create")))), isInstalled && localStorage.isInstalled === "true" && !isEdit && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }, "eWards Configuration")), (!isInstalled || isEdit) && configForm(isEdit), isInstalled && localStorage.isInstalled === "true" && !isEdit && /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: styles.tableContainer
   }, /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("table", {
     style: styles.table

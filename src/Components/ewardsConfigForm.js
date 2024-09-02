@@ -25,7 +25,8 @@ const EwardsConfigForm = (props) => {
     customerKey: "",
   });
   const [isHover, setIsHover] = useState(false);
-
+  const [isCustomerSynced, setIsCustomersSynced] = useState(false);
+  const [syncCustomerMessage, setSyncCustomerMessage] = useState(null);
   const validateFields = () => {
     let newErrors = {};
 
@@ -294,41 +295,78 @@ const EwardsConfigForm = (props) => {
     setIsEdit(true);
     localStorage.setItem("isEdit", 1);
   };
-  //console.log(typeof localStorage.getItem("isEdit"));
 
-  if (isEditMode) {
-    return (
-      <div style={styles.card}>
-        <div style={styles.cardHeader}>{isEditMode ? <h1>Update eWards Configuration Keys</h1> : <h1>Create eWards Configuration Keys</h1>}</div>
-        <div style={styles.cardBody}>
-          <div style={styles.row}>
-            <div style={{ ...styles.col, ...styles.colHalf }}>
-              <label style={styles.formLabel}>Merchant Id</label>
-              <input name="newMerchantId" type="text" style={styles.formControl} value={formData.newMerchantId} onChange={changeHandler} placeholder="Enter Merchant Id" disabled={!isEdit} />
-              {errors.newMerchantId && <div style={styles.invalidFeedback}>{errors.newMerchantId}</div>}
-            </div>
-            <div style={{ ...styles.col, ...styles.colHalf }}>
-              <label style={styles.formLabel}>X API Key</label>
-              <input name="xApiKey" type="text" style={styles.formControl} value={formData.xApiKey} onChange={changeHandler} placeholder="Enter X API Key" />
-              {errors.xApiKey && <div style={styles.invalidFeedback}>{errors.xApiKey}</div>}
-            </div>
+  const configForm = (mode) => (
+    <div style={styles.card}>
+      <div style={styles.cardHeader}>{mode ? <h1>Update eWards Configuration Keys</h1> : <h1>Create eWards Configuration Keys</h1>}</div>
+      <div style={styles.cardBody}>
+        <div style={styles.row}>
+          <div style={{ ...styles.col, ...styles.colHalf }}>
+            <label style={styles.formLabel}>Merchant Id</label>
+            <input name="newMerchantId" type="text" style={styles.formControl} value={formData.newMerchantId} onChange={changeHandler} placeholder="Enter Merchant Id" disabled={!isEdit} />
+            {errors.newMerchantId && <div style={styles.invalidFeedback}>{errors.newMerchantId}</div>}
           </div>
-
-          <div style={{ ...styles.row, ...styles.colHalf, padding: "8px", flexDirection: "column" }}>
-            <label style={styles.formLabel}>Customer Key</label>
-            <input name="customerKey" type="text" style={styles.formControl} value={formData.customerKey} onChange={changeHandler} placeholder="Enter Customer Key" />
-            {errors.customerKey && <div style={styles.invalidFeedback}>{errors.customerKey}</div>}
-          </div>
-          {errorMsg && <div style={styles.invalidFeedback}>{errorMsg}</div>}
-          <div style={styles.divider}></div>
-          <div style={styles.actionButtons}>
-            <button style={styles.button} onClick={isEditMode ? updateFormData : addFormData} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-              {isEditMode ? "Update" : "Create"}
-            </button>
+          <div style={{ ...styles.col, ...styles.colHalf }}>
+            <label style={styles.formLabel}>X API Key</label>
+            <input name="xApiKey" type="text" style={styles.formControl} value={formData.xApiKey} onChange={changeHandler} placeholder="Enter X API Key" />
+            {errors.xApiKey && <div style={styles.invalidFeedback}>{errors.xApiKey}</div>}
           </div>
         </div>
+
+        <div style={{ ...styles.row, ...styles.colHalf, padding: "8px", flexDirection: "column" }}>
+          <label style={styles.formLabel}>Customer Key</label>
+          <input name="customerKey" type="text" style={styles.formControl} value={formData.customerKey} onChange={changeHandler} placeholder="Enter Customer Key" />
+          {errors.customerKey && <div style={styles.invalidFeedback}>{errors.customerKey}</div>}
+        </div>
+        {errorMsg && <div style={styles.invalidFeedback}>{errorMsg}</div>}
+        <div style={styles.divider}></div>
+        <div style={styles.actionButtons}>
+          <button style={styles.button} onClick={mode ? updateFormData : addFormData} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            {mode ? "Update" : "Create"}
+          </button>
+        </div>
       </div>
-    );
+    </div>
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          `${baseUrl}/api/woo-commerce/verify`,
+          {
+            merchant_id: localStorage.merchantId,
+            woo_commerce: { store_url: localStorage.storeUrl },
+          },
+          {
+            headers: { "ngrok-skip-browser-warning": "6024" },
+          }
+        );
+
+        setIsCustomersSynced(response.data?.woo_commerce?.is_customers_synced);
+        if (!response.data?.woo_commerce?.is_customers_synced) {
+          setSyncCustomerMessage("Customers data is being synced, Please wait for a while...");
+        }
+        console.log(response.data?.woo_commerce?.is_customers_synced);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setSyncCustomerMessage("Something went wrong");
+      }
+    };
+
+    if (!isCustomerSynced) {
+      fetchData();
+      const intervalId = setInterval(fetchData, 10000);
+      return () => clearInterval(intervalId);
+    }
+  }, [isCustomerSynced]);
+
+  if (!isCustomerSynced) {
+    return <h2>{syncCustomerMessage}</h2>;
+  }
+
+  if (isEditMode) {
+    configForm(isEditMode);
   }
 
   return (
@@ -337,38 +375,7 @@ const EwardsConfigForm = (props) => {
         <div style={{ ...styles.row, justifyContent: "center" }}>
           <h1 style={styles.heading}>eWards Configuration</h1>
         </div>
-        {(!isInstalled || isEdit) && (
-          <div style={styles.card}>
-            <div style={styles.cardHeader}>{isEdit ? <h1>Update eWards Configuration Keys</h1> : <h1>Create eWards Configuration Keys</h1>}</div>
-            <div style={styles.cardBody}>
-              <div style={styles.row}>
-                <div style={{ ...styles.col, ...styles.colHalf }}>
-                  <label style={styles.formLabel}>Merchant Id</label>
-                  <input name="newMerchantId" type="text" style={styles.formControl} value={formData.newMerchantId} onChange={changeHandler} placeholder="Enter Merchant Id" disabled={!isEdit} />
-                  {errors.newMerchantId && <div style={styles.invalidFeedback}>{errors.newMerchantId}</div>}
-                </div>
-                <div style={{ ...styles.col, ...styles.colHalf }}>
-                  <label style={styles.formLabel}>X API Key</label>
-                  <input name="xApiKey" type="text" style={styles.formControl} value={formData.xApiKey} onChange={changeHandler} placeholder="Enter X API Key" />
-                  {errors.xApiKey && <div style={styles.invalidFeedback}>{errors.xApiKey}</div>}
-                </div>
-              </div>
-              <div style={{ ...styles.row, ...styles.colHalf, padding: "8px", flexDirection: "column" }}>
-                <label style={styles.formLabel}>Customer Key</label>
-                <input name="customerKey" type="text" style={styles.formControl} value={formData.customerKey} onChange={changeHandler} placeholder="Enter Customer Key" />
-                {errors.customerKey && <div style={styles.invalidFeedback}>{errors.customerKey}</div>}
-              </div>
-              {errorMsg && <div style={styles.invalidFeedback}>{errorMsg}</div>}
-
-              <div style={styles.divider}></div>
-              <div style={styles.actionButtons}>
-                <button style={styles.button} onClick={isEdit ? updateFormData : addFormData} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                  {isEdit ? "Update" : "Create"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {(!isInstalled || isEdit) && configForm(isEdit)}
         {isInstalled && localStorage.isInstalled === "true" && !isEdit && (
           <div style={styles.tableContainer}>
             <table style={styles.table}>
