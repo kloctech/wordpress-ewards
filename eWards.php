@@ -109,7 +109,7 @@ define('ewards_URL', plugins_url('/', __FILE__));
         ] );
         
         wp_localize_script('ewards_scripts','PRDOUCTION_VAR',array(
-            "PRDOUCTION_URL" => "https://master.p-woo-commerce-ewards.c66.me"
+            "PRDOUCTION_URL" => "https://d-ewards-woocommerce.klocapps.com"
         ));
     }
 

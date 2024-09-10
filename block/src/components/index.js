@@ -34,13 +34,31 @@ export default function CouponsHandler(data) {
     const observer = new MutationObserver(fetchCartValue);
     observer.observe(document.body, { subtree: true, childList: true });
 
-    return () => observer.disconnect();
-  }, []);
+    // Event listener for height messages
+    const handleResizeMessage = (event) => {
+      if (event.data.type === "SET_IFRAME_HEIGHT") {
+        const iframe = document.querySelector("iframe");
+        if (iframe) {
+          iframe.style.height = `${event.data.height}px`;
+        }
+      }
+    };
+
+    window.addEventListener("message", handleResizeMessage);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("message", handleResizeMessage);
+    };
+
+
+  }, [data.attributes.primaryColor, data.attributes.secondaryColor, data.attributes.font]);
+
+
   const containerStyle = {
-    width: "100%",
-    height: "120vh",
-    border: "none",
+    width: '100%',
+    border: 'none',
   };
-  const src = `https://production-ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
+  const src = `https://ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
   return <iframe src={src} style={containerStyle} title="External Content" />;
 }
