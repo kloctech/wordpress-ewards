@@ -68,7 +68,7 @@ function CouponsHandler(data) {
     width: '100%',
     border: 'none'
   };
-  const src = `https://ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
+  const src = `https://production-ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("iframe", {
     src: src,
     style: containerStyle,
