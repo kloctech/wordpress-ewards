@@ -52,7 +52,7 @@ function CouponsHandler(data) {
     // Event listener for height messages
     const handleResizeMessage = event => {
       if (event.data.type === "SET_IFRAME_HEIGHT") {
-        const iframe = document.querySelector("iframe");
+        const iframe = document.getElementById("ewards-block");
         if (iframe) {
           iframe.style.height = `${event.data.height}px`;
         }
@@ -70,6 +70,7 @@ function CouponsHandler(data) {
   };
   const src = `https://production-ewards-woocommerce.netlify.app/?cart=${encodeURIComponent(cartValue)}&font=${encodeURIComponent(font)}&primaryColor=${encodeURIComponent(primaryColor)}&secondaryColor=${encodeURIComponent(secondayColor)}&storeUrl=${encodeURIComponent(storeUrl)}`;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("iframe", {
+    id: "ewards-block",
     src: src,
     style: containerStyle,
     title: "External Content"
